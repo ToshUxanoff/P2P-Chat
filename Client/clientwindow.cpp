@@ -3,11 +3,11 @@
 
 ClientWindow::ClientWindow(int Port, QString address, QWidget *parent)
     :QMainWindow(parent)
+    ,ServerSocket (new QTcpSocket(this))
+    ,MyListenSocket(new QTcpServer(this))
     ,ServerIP(address)
     ,ServerPort(Port)
     ,ui(new Ui::ClientWindow)
-    ,ServerSocket (new QTcpSocket(this))
-    ,MyListenSocket(new QTcpServer(this))
 {
     ui->setupUi(this);
     if(!MyListenSocket->listen())
