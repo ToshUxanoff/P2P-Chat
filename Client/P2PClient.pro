@@ -32,4 +32,4 @@ HEADERS += \
 
 FORMS += \
         clientwindow.ui \
-    registration.ui
+

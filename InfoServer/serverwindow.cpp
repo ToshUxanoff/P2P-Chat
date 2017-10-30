@@ -28,7 +28,7 @@ int ServerWindow::Resolver(QString& Data)
     else if (Data.startsWith("!1!"))
     {
 
-        return 1; //log in
+        return 1; //login
     }
     else if(Data.startsWith("!2!"))
     {
@@ -49,7 +49,7 @@ void ServerWindow::on_Starting_clicked()
     else if(Status == 0)
     {
          Status=1;
-         ui->Logs->append("TCPSocket listen on " + ServerAddress);
+         ui->Logs->append("TCPServer listen on " + ServerAddress);
          ui->Logs->append(QString::fromUtf8("Server is running!"));
     }
 }
@@ -71,25 +71,33 @@ void ServerWindow::ListeningClient()
     ClientStream >> Data;
     if(Resolver(Data) == 0) //registration
     {
-        //add user to db
+        // here add user to db
         Data = Data.mid(3);
         Users[Data.split(',')[0]] = Data.split(',')[1];
         ui->Logs->append("New registration request from " + Data);
         Response = "!SMESS! Succesfully registered";
         ClientStream << Response;
-        ui->OnlineUsers->append(Data);
+        ui->OnlineUsers->append(Data.split(',')[0]);
     }
     else if(Resolver(Data) == 1)    //login
     {
-        //request to db
+        //here request to db
         Data = Data.mid(3);
     }
     else if (Resolver(Data) == 2)
     {
-        //search request to db (search)
+        //here search request to db (search)
         Data = Data.mid(3);
         ui->Logs->append("Search request :" + Data);
-        Response = "!S!" + Users[Data];
+        auto it = Users.find(Data);
+        if (it != Users.end())
+        {
+            Response = "!S!" + it.value();
+        }
+        else
+        {
+            Response = "!SMESS!Can't find this user!";
+        }
         ClientStream << Response;
     }
     else

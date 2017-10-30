@@ -6,9 +6,10 @@ ClientWindow::ClientWindow(int Port, QString address, QWidget *parent)
     ,ServerIP(address)
     ,ServerPort(Port)
     ,ui(new Ui::ClientWindow)
+    ,ServerSocket (new QTcpSocket(this))
+    ,MyListenSocket(new QTcpServer(this))
 {
     ui->setupUi(this);
-    MyListenSocket = new QTcpServer(this);
     if(!MyListenSocket->listen())
     {
         ui->DebugWindow->append("ListenSocket unavailable");
@@ -47,21 +48,20 @@ void ClientWindow::SendMessageToPeer(QString PeerName)
     QString Message = "!M!" + NickName + ':'+ ui->MsgInput->text() ;
     PeerStream << Message;
 }
-//WORKS
 void ClientWindow::ConnDetector()
 {
     ui->DebugWindow->append("Someone connected!... ");
     QTcpSocket* LSocket = MyListenSocket->nextPendingConnection();
     connect(LSocket,SIGNAL(readyRead()),this, SLOT(onRead()));
 }
-//WORKS
 void ClientWindow::ConnectToPeer(QString IP, int Port, QString UserName)
 {
     QHostAddress addr(IP);
     QTcpSocket* NewSocket = new QTcpSocket();
     NewSocket->connectToHost(addr,Port);
     QDataStream Stream (NewSocket);
-    QString ConnectStr("!C!New connection from " +  NickName + " .If you want to chat with this user - search him! ");
+    //sending this peer's nickname
+    QString ConnectStr("!C!New connection from " +  NickName + " .For chat with this user search him! ");
     Stream << ConnectStr;
     connect(NewSocket,  SIGNAL(readyRead()), this, SLOT(onRead()));
     ui->DebugWindow->append("ConnectRequest sended");
@@ -70,10 +70,17 @@ void ClientWindow::ConnectToPeer(QString IP, int Port, QString UserName)
 //SEARCH
 void ClientWindow::on_SearchLine_returnPressed()
 {
-    QString Request = ui->SearchLine->text();
-    Request = "!2!" + Request; //search request
-    QDataStream ServStream(ServerSocket);
-    ServStream << Request;
+    if(ConnectedToServer)
+    {
+        QString Request = ui->SearchLine->text();
+        Request = "!2!" + Request; //search request
+        QDataStream ServStream(ServerSocket);
+        ServStream << Request;
+    }
+    else
+    {
+        ui->DebugWindow->append("Can't connect to server!");
+    }
 }
 //REGISTRATION
 void ClientWindow::on_NameInput_returnPressed()
@@ -81,14 +88,15 @@ void ClientWindow::on_NameInput_returnPressed()
 
     QString Name = ui->NameInput->text();
     NickName = Name;
-    ServerSocket = new QTcpSocket(this);
+
     ServerSocket->connectToHost(ServerIP, ServerPort);
     QString RegStr = "!0!" + NickName + ',' + MyListenSocket->serverAddress().toString() +':' + QString::number(MyListenSocket->serverPort()); // +address
     QDataStream ServStream(ServerSocket);
     ServStream << RegStr;
     connect(ServerSocket, SIGNAL(readyRead()), this, SLOT(onRead()));
     ui->NameLabel->setText("You logged as " + NickName);
-
+    ui->NameInput->setReadOnly(1);
+    ConnectedToServer = true;
 }
 
 void ClientWindow::onRead()
@@ -129,7 +137,6 @@ void ClientWindow::onRead()
 
 void ClientWindow::on_SendMsg_clicked()
 {
-
    QString Message = ui->MsgInput->text();
    ui->MsgBrowser->append ("Me: " + Message);
    SendMessageToPeer(Destination);
@@ -143,4 +150,5 @@ void ClientWindow::on_FriendList_itemDoubleClicked(QListWidgetItem *item)
 void ClientWindow::on_MsgInput_returnPressed()
 {
     on_SendMsg_clicked();
+    ui->MsgInput->clear();
 }

@@ -43,6 +43,7 @@ private:
     QString NickName;
     QString ServerIP;
     int ServerPort;
+    bool ConnectedToServer = false;
     Ui::ClientWindow *ui;
 };
 
