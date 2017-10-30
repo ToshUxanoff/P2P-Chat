@@ -20,6 +20,8 @@ ClientWindow::ClientWindow(int Port, QString address, QWidget *parent)
 ClientWindow::~ClientWindow()
 {
     delete ui;
+    delete ServerSocket;
+    delete MyListenSocket;
 }
 int ClientWindow::Resolver(QString Data)
 {

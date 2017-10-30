@@ -24,7 +24,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QTextBrowser" name="OnlineUsers">
+   <widget class="QTextBrowser" name="RegisteredUsers">
     <property name="geometry">
      <rect>
       <x>330</x>
@@ -83,7 +83,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Users online</string>
+     <string>Registered users</string>
     </property>
    </widget>
   </widget>

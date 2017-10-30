@@ -62,6 +62,7 @@ void ServerWindow::ConnectClient()
         connect(ClientSocket,SIGNAL(readyRead()),this, SLOT(ListeningClient()));
     }
 }
+
 void ServerWindow::ListeningClient()
 {
     QTcpSocket* ClientSocket = (QTcpSocket*)sender();
@@ -77,7 +78,7 @@ void ServerWindow::ListeningClient()
         ui->Logs->append("New registration request from " + Data);
         Response = "!SMESS! Succesfully registered";
         ClientStream << Response;
-        ui->OnlineUsers->append(Data.split(',')[0]);
+        ui->RegisteredUsers->append(Data.split(',')[0]);
     }
     else if(Resolver(Data) == 1)    //login
     {

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QtNetwork>
 #include <QTcpSocket>
+
 namespace Ui {
 class ServerWindow;
 }
