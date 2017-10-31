@@ -60,7 +60,7 @@ void ClientWindow::ConnectToPeer(QString IP, int Port, QString UserName)
     std::shared_ptr<QTcpSocket>NewSocket(new QTcpSocket());
     NewSocket.get()->connectToHost(addr,Port);
     QDataStream Stream (NewSocket.get());
-    QString ConnectStr("!C!New connection from " +  NickName + " .For chat with this user search him! ");
+    QString ConnectStr("!C!" + NickName + ',' + MyListenSocket.get()->serverAddress().toString() +':' + QString::number(MyListenSocket.get()->serverPort()));
     Stream << ConnectStr;
     connect(NewSocket.get(),  SIGNAL(readyRead()), this, SLOT(onRead()));
     Peers[UserName] = (NewSocket);
@@ -72,9 +72,12 @@ void ClientWindow::on_SearchLine_returnPressed()
     if(ConnectedToServer)
     {
         QString Request = ui->SearchLine->text();
-        Request = "!2!" + Request; //search request
-        QDataStream ServStream(ServerSocket.get());
-        ServStream << Request;
+        if(Request != NickName)
+        {
+            Request = "!2!" + Request; //search request
+            QDataStream ServStream(ServerSocket.get());
+            ServStream << Request;
+        }
     }
     else
     {
@@ -114,8 +117,9 @@ void ClientWindow::onRead()
     else if(Resolver(Response) == 1)
     {
         Response = Response.mid(3);
-        ui->DebugWindow->append("New connect! " + Response);
-
+        ui->DebugWindow->append("New connect! ");
+        ConnectToPeer(Response.split(':')[0], Response.split(':')[1].toInt(), ui->SearchLine->text());
+        ui->FriendList->addItem(Response.split(',')[0]);
     }
     else if(Resolver(Response) == 2)
     {
