@@ -10,18 +10,16 @@ ClientWindow::ClientWindow(int Port, QString address, QWidget *parent)
     ,ui(new Ui::ClientWindow)
 {
     ui->setupUi(this);
-    if(!MyListenSocket->listen())
+    if(!MyListenSocket.get()->listen())
     {
         ui->DebugWindow->append("ListenSocket unavailable");
     }
-    connect(MyListenSocket, SIGNAL(newConnection()), this, SLOT(ConnDetector()));
+    connect(MyListenSocket.get(), SIGNAL(newConnection()), this, SLOT(ConnDetector()));
 }
 
 ClientWindow::~ClientWindow()
 {
     delete ui;
-    delete ServerSocket;
-    delete MyListenSocket;
 }
 int ClientWindow::Resolver(QString Data)
 {
@@ -46,28 +44,27 @@ int ClientWindow::Resolver(QString Data)
 }
 void ClientWindow::SendMessageToPeer(QString PeerName)
 {
-    QDataStream PeerStream(Peers[PeerName]);
-    QString Message = "!M!" + NickName + ':'+ ui->MsgInput->text() ;
+    QDataStream PeerStream(Peers[PeerName].get());
+    QString Message = "!M!" + NickName + ':'+ ui->MsgInput->text();
     PeerStream << Message;
 }
 void ClientWindow::ConnDetector()
 {
     ui->DebugWindow->append("Someone connected!... ");
-    QTcpSocket* LSocket = MyListenSocket->nextPendingConnection();
-    connect(LSocket,SIGNAL(readyRead()),this, SLOT(onRead()));
+    QTcpSocket* LSocket(MyListenSocket.get()->nextPendingConnection());
+    connect(LSocket, SIGNAL(readyRead()), this, SLOT(onRead()));
 }
 void ClientWindow::ConnectToPeer(QString IP, int Port, QString UserName)
 {
     QHostAddress addr(IP);
-    QTcpSocket* NewSocket = new QTcpSocket();
-    NewSocket->connectToHost(addr,Port);
-    QDataStream Stream (NewSocket);
-    //sending this peer's nickname
+    std::shared_ptr<QTcpSocket>NewSocket(new QTcpSocket());
+    NewSocket.get()->connectToHost(addr,Port);
+    QDataStream Stream (NewSocket.get());
     QString ConnectStr("!C!New connection from " +  NickName + " .For chat with this user search him! ");
     Stream << ConnectStr;
-    connect(NewSocket,  SIGNAL(readyRead()), this, SLOT(onRead()));
+    connect(NewSocket.get(),  SIGNAL(readyRead()), this, SLOT(onRead()));
+    Peers[UserName] = (NewSocket);
     ui->DebugWindow->append("ConnectRequest sended");
-    Peers[UserName] = NewSocket;
 }
 //SEARCH
 void ClientWindow::on_SearchLine_returnPressed()
@@ -76,7 +73,7 @@ void ClientWindow::on_SearchLine_returnPressed()
     {
         QString Request = ui->SearchLine->text();
         Request = "!2!" + Request; //search request
-        QDataStream ServStream(ServerSocket);
+        QDataStream ServStream(ServerSocket.get());
         ServStream << Request;
     }
     else
@@ -90,12 +87,11 @@ void ClientWindow::on_NameInput_returnPressed()
 
     QString Name = ui->NameInput->text();
     NickName = Name;
-
-    ServerSocket->connectToHost(ServerIP, ServerPort);
-    QString RegStr = "!0!" + NickName + ',' + MyListenSocket->serverAddress().toString() +':' + QString::number(MyListenSocket->serverPort()); // +address
-    QDataStream ServStream(ServerSocket);
+    ServerSocket.get()->connectToHost(ServerIP, ServerPort);
+    QString RegStr = "!0!" + NickName + ',' + MyListenSocket.get()->serverAddress().toString() +':' + QString::number(MyListenSocket.get()->serverPort()); // +address
+    QDataStream ServStream(ServerSocket.get());
     ServStream << RegStr;
-    connect(ServerSocket, SIGNAL(readyRead()), this, SLOT(onRead()));
+    connect(ServerSocket.get(), SIGNAL(readyRead()), this, SLOT(onRead()));
     ui->NameLabel->setText("You logged as " + NickName);
     ui->NameInput->setReadOnly(1);
     ConnectedToServer = true;
@@ -103,7 +99,7 @@ void ClientWindow::on_NameInput_returnPressed()
 
 void ClientWindow::onRead()
 {
-    QTcpSocket* ListenSocket = (QTcpSocket*)sender();
+    QTcpSocket* ListenSocket((QTcpSocket*)sender());
     QDataStream LStream(ListenSocket);
     QString Response;
     LStream >> Response;
@@ -142,6 +138,7 @@ void ClientWindow::on_SendMsg_clicked()
    QString Message = ui->MsgInput->text();
    ui->MsgBrowser->append ("Me: " + Message);
    SendMessageToPeer(Destination);
+   ui->MsgInput->clear();
 }
 
 void ClientWindow::on_FriendList_itemDoubleClicked(QListWidgetItem *item)
@@ -152,5 +149,4 @@ void ClientWindow::on_FriendList_itemDoubleClicked(QListWidgetItem *item)
 void ClientWindow::on_MsgInput_returnPressed()
 {
     on_SendMsg_clicked();
-    ui->MsgInput->clear();
 }

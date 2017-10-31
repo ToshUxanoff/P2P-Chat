@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QtNetwork>
 #include <QTcpSocket>
-
+#include <memory>
 namespace Ui {
 class ServerWindow;
 }
@@ -28,7 +28,7 @@ private:
     QString ServerAddress = "127.0.0.1";
     int Port = 9090;
     Ui::ServerWindow *ui;
-    QTcpServer *tcpServer;
+    std::unique_ptr<QTcpServer> tcpServer;
     int Status;
     QMap<QString, QString> Users;
 };

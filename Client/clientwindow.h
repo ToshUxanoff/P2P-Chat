@@ -7,6 +7,7 @@
 #include <QHostAddress>
 #include <QTcpServer>
 #include <QListWidgetItem>
+#include <memory>
 
 namespace Ui {
 class ClientWindow;
@@ -36,9 +37,9 @@ private slots:
     void on_MsgInput_returnPressed();
 
 private:
-    QMap <QString, QTcpSocket*> Peers;
-    QTcpSocket* ServerSocket;
-    QTcpServer* MyListenSocket;
+    QMap <QString, std::shared_ptr<QTcpSocket>> Peers;
+    std::unique_ptr<QTcpSocket> ServerSocket;
+    std::unique_ptr<QTcpServer> MyListenSocket;
     QString Destination;
     QString NickName;
     QString ServerIP;

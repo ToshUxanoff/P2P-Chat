@@ -1,9 +1,10 @@
 #include "serverwindow.h"
 #include "ui_serverwindow.h"
 
-ServerWindow::ServerWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::ServerWindow)
+ServerWindow::ServerWindow(QWidget *parent)
+    :QMainWindow(parent)
+    ,ui(new Ui::ServerWindow)
+    ,tcpServer(new QTcpServer(this))
 {
     ui->setupUi(this);
 }
@@ -14,7 +15,6 @@ ServerWindow::~ServerWindow()
     {
         tcpServer->close();
     }
-    delete tcpServer;
     delete ui;
     Status = 0;
 }
@@ -39,8 +39,8 @@ int ServerWindow::Resolver(QString& Data)
 }
 void ServerWindow::on_Starting_clicked()
 {
-    tcpServer = new QTcpServer(this);
-    connect(tcpServer, SIGNAL(newConnection()), this, SLOT(ConnectClient()));
+
+    connect(tcpServer.get(), SIGNAL(newConnection()), this, SLOT(ConnectClient()));
     if (!tcpServer->listen(QHostAddress(ServerAddress), Port) && Status==0)
     {
          qDebug() <<  QObject::tr("Unable to start the server: %1 ").arg(tcpServer->errorString());
