@@ -31,5 +31,5 @@ HEADERS += \
         clientwindow.h
 
 FORMS += \
-        clientwindow.ui \
+        clientwindow.ui
 

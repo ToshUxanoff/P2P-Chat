@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -35,7 +36,6 @@ public:
     QTextBrowser *DebugWindow;
     QLineEdit *NameInput;
     QLabel *NameLabel;
-    QLabel *label;
     QLabel *label_2;
     QTextBrowser *MsgBrowser;
     QPushButton *SendMsg;
@@ -43,6 +43,8 @@ public:
     QLabel *label_3;
     QListWidget *FriendList;
     QLabel *label_4;
+    QCheckBox *checkBox;
+    QPushButton *UpdateListButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -56,7 +58,7 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         SearchLine = new QLineEdit(centralWidget);
         SearchLine->setObjectName(QStringLiteral("SearchLine"));
-        SearchLine->setGeometry(QRect(150, 30, 113, 21));
+        SearchLine->setGeometry(QRect(170, 30, 113, 21));
         DebugWindow = new QTextBrowser(centralWidget);
         DebugWindow->setObjectName(QStringLiteral("DebugWindow"));
         DebugWindow->setGeometry(QRect(10, 350, 261, 61));
@@ -65,13 +67,10 @@ public:
         NameInput->setGeometry(QRect(10, 30, 113, 21));
         NameLabel = new QLabel(centralWidget);
         NameLabel->setObjectName(QStringLiteral("NameLabel"));
-        NameLabel->setGeometry(QRect(340, 10, 191, 20));
-        label = new QLabel(centralWidget);
-        label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(20, 10, 60, 16));
+        NameLabel->setGeometry(QRect(10, 10, 161, 21));
         label_2 = new QLabel(centralWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(160, 10, 60, 16));
+        label_2->setGeometry(QRect(170, 10, 60, 16));
         MsgBrowser = new QTextBrowser(centralWidget);
         MsgBrowser->setObjectName(QStringLiteral("MsgBrowser"));
         MsgBrowser->setGeometry(QRect(290, 0, 331, 351));
@@ -83,13 +82,19 @@ public:
         MsgInput->setGeometry(QRect(290, 350, 331, 61));
         label_3 = new QLabel(centralWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(20, 60, 60, 16));
+        label_3->setGeometry(QRect(100, 80, 91, 16));
         FriendList = new QListWidget(centralWidget);
         FriendList->setObjectName(QStringLiteral("FriendList"));
-        FriendList->setGeometry(QRect(10, 80, 256, 241));
+        FriendList->setGeometry(QRect(10, 100, 256, 221));
         label_4 = new QLabel(centralWidget);
         label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(20, 330, 141, 16));
+        label_4->setGeometry(QRect(100, 325, 141, 21));
+        checkBox = new QCheckBox(centralWidget);
+        checkBox->setObjectName(QStringLiteral("checkBox"));
+        checkBox->setGeometry(QRect(10, 50, 121, 20));
+        UpdateListButton = new QPushButton(centralWidget);
+        UpdateListButton->setObjectName(QStringLiteral("UpdateListButton"));
+        UpdateListButton->setGeometry(QRect(200, 320, 71, 31));
         ClientWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(ClientWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -112,12 +117,13 @@ public:
         ClientWindow->setWindowTitle(QApplication::translate("ClientWindow", "ClientWindow", Q_NULLPTR));
         SearchLine->setText(QString());
         NameInput->setText(QString());
-        NameLabel->setText(QString());
-        label->setText(QApplication::translate("ClientWindow", "Name", Q_NULLPTR));
+        NameLabel->setText(QApplication::translate("ClientWindow", "Name", Q_NULLPTR));
         label_2->setText(QApplication::translate("ClientWindow", "Search", Q_NULLPTR));
         SendMsg->setText(QApplication::translate("ClientWindow", "Send", Q_NULLPTR));
-        label_3->setText(QApplication::translate("ClientWindow", "Friends", Q_NULLPTR));
+        label_3->setText(QApplication::translate("ClientWindow", "Peers list", Q_NULLPTR));
         label_4->setText(QApplication::translate("ClientWindow", "Information", Q_NULLPTR));
+        checkBox->setText(QApplication::translate("ClientWindow", "Private account", Q_NULLPTR));
+        UpdateListButton->setText(QApplication::translate("ClientWindow", "Update", Q_NULLPTR));
     } // retranslateUi
 
 };

@@ -23,28 +23,32 @@ public:
 
 private slots:
     void on_SearchLine_returnPressed();
-    void ConnDetector();
 
-    int Resolver(QString Data);
-    void ConnectToPeer(QString IP, int Port, QString UserName);
     void onRead();
-    void on_NameInput_returnPressed();
-    void SendMessageToPeer(QString PeerName);
+    void on_NameInput_returnPressed();   
     void on_SendMsg_clicked();
-
     void on_FriendList_itemDoubleClicked(QListWidgetItem *item);
-
     void on_MsgInput_returnPressed();
+    void ConnDetector();
+    void on_checkBox_clicked();
+
+    void on_UpdateListButton_clicked();
 
 private:
+    int Resolver(QString Data);
+    void SendMessageToPeer(QString PeerName);
+    void ConnectToPeer(QString IP, int Port, QString UserName);
+    void ParseAllUsersData(QString Response);
+    //
     QMap <QString, std::shared_ptr<QTcpSocket>> Peers;
     std::unique_ptr<QTcpSocket> ServerSocket;
-    std::unique_ptr<QTcpServer> MyListenSocket;
+    std::unique_ptr<QTcpServer> ThisListenSocket;
     QString Destination;
     QString NickName;
     QString ServerIP;
     int ServerPort;
     bool ConnectedToServer = false;
+    bool Private = false;
     Ui::ClientWindow *ui;
 };
 

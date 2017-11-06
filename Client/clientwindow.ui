@@ -17,7 +17,7 @@
    <widget class="QLineEdit" name="SearchLine">
     <property name="geometry">
      <rect>
-      <x>150</x>
+      <x>170</x>
       <y>30</y>
       <width>113</width>
       <height>21</height>
@@ -53,23 +53,10 @@
    <widget class="QLabel" name="NameLabel">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>10</x>
       <y>10</y>
-      <width>191</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>10</y>
-      <width>60</width>
-      <height>16</height>
+      <width>161</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
@@ -79,7 +66,7 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>160</x>
+      <x>170</x>
       <y>10</y>
       <width>60</width>
       <height>16</height>
@@ -125,37 +112,63 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>60</y>
-      <width>60</width>
+      <x>100</x>
+      <y>80</y>
+      <width>91</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>Friends</string>
+     <string>Peers list</string>
     </property>
    </widget>
    <widget class="QListWidget" name="FriendList">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>80</y>
+      <y>100</y>
       <width>256</width>
-      <height>241</height>
+      <height>221</height>
      </rect>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>330</y>
+      <x>100</x>
+      <y>325</y>
       <width>141</width>
-      <height>16</height>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
      <string>Information</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>121</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Private account</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="UpdateListButton">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>320</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Update</string>
     </property>
    </widget>
   </widget>
