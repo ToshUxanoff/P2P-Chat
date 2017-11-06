@@ -25,10 +25,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        clientwindow.cpp
+        clientwindow.cpp \
+    grashopper.cpp
 
 HEADERS += \
-        clientwindow.h
+        clientwindow.h \
+    grashopper.h
 
 FORMS += \
         clientwindow.ui

@@ -1,0 +1,12 @@
+#ifndef GRASHOPPER_H
+#define GRASHOPPER_H
+#include <QCryptographicHash>
+#include <QByteArray>
+
+class Grashopper
+{
+public:
+    Grashopper();
+};
+
+#endif // GRASHOPPER_H
