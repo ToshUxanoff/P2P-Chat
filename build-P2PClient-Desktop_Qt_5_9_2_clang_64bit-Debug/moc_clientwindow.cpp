@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_ClientWindow_t {
-    QByteArrayData data[13];
-    char stringdata0[236];
+    QByteArrayData data[14];
+    char stringdata0[244];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -42,16 +42,17 @@ QT_MOC_LITERAL(7, 127, 16), // "QListWidgetItem*"
 QT_MOC_LITERAL(8, 144, 4), // "item"
 QT_MOC_LITERAL(9, 149, 25), // "on_MsgInput_returnPressed"
 QT_MOC_LITERAL(10, 175, 12), // "ConnDetector"
-QT_MOC_LITERAL(11, 188, 19), // "on_checkBox_clicked"
-QT_MOC_LITERAL(12, 208, 27) // "on_UpdateListButton_clicked"
+QT_MOC_LITERAL(11, 188, 27), // "on_UpdateListButton_clicked"
+QT_MOC_LITERAL(12, 216, 19), // "on_checkBox_toggled"
+QT_MOC_LITERAL(13, 236, 7) // "checked"
 
     },
     "ClientWindow\0on_SearchLine_returnPressed\0"
     "\0onRead\0on_NameInput_returnPressed\0"
     "on_SendMsg_clicked\0on_FriendList_itemDoubleClicked\0"
     "QListWidgetItem*\0item\0on_MsgInput_returnPressed\0"
-    "ConnDetector\0on_checkBox_clicked\0"
-    "on_UpdateListButton_clicked"
+    "ConnDetector\0on_UpdateListButton_clicked\0"
+    "on_checkBox_toggled\0checked"
 };
 #undef QT_MOC_LITERAL
 
@@ -77,7 +78,7 @@ static const uint qt_meta_data_ClientWindow[] = {
        9,    0,   66,    2, 0x08 /* Private */,
       10,    0,   67,    2, 0x08 /* Private */,
       11,    0,   68,    2, 0x08 /* Private */,
-      12,    0,   69,    2, 0x08 /* Private */,
+      12,    1,   69,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -88,7 +89,7 @@ static const uint qt_meta_data_ClientWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::Bool,   13,
 
        0        // eod
 };
@@ -106,8 +107,8 @@ void ClientWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 4: _t->on_FriendList_itemDoubleClicked((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
         case 5: _t->on_MsgInput_returnPressed(); break;
         case 6: _t->ConnDetector(); break;
-        case 7: _t->on_checkBox_clicked(); break;
-        case 8: _t->on_UpdateListButton_clicked(); break;
+        case 7: _t->on_UpdateListButton_clicked(); break;
+        case 8: _t->on_checkBox_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
         default: ;
         }
     }

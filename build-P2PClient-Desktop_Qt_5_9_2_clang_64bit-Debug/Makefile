@@ -51,9 +51,11 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../Client/main.cpp \
-		../Client/clientwindow.cpp moc_clientwindow.cpp
+		../Client/clientwindow.cpp \
+		../Client/grasshopper.cpp moc_clientwindow.cpp
 OBJECTS       = main.o \
 		clientwindow.o \
+		grasshopper.o \
 		moc_clientwindow.o
 DIST          = ../../Qt/5.9.2/clang_64/mkspecs/features/spec_pre.prf \
 		../../Qt/5.9.2/clang_64/mkspecs/qdevice.pri \
@@ -240,8 +242,10 @@ DIST          = ../../Qt/5.9.2/clang_64/mkspecs/features/spec_pre.prf \
 		../../Qt/5.9.2/clang_64/mkspecs/features/exceptions.prf \
 		../../Qt/5.9.2/clang_64/mkspecs/features/yacc.prf \
 		../../Qt/5.9.2/clang_64/mkspecs/features/lex.prf \
-		../Client/P2PClient.pro ../Client/clientwindow.h ../Client/main.cpp \
-		../Client/clientwindow.cpp
+		../Client/P2PClient.pro ../Client/clientwindow.h \
+		../Client/grasshopper.h ../Client/main.cpp \
+		../Client/clientwindow.cpp \
+		../Client/grasshopper.cpp
 QMAKE_TARGET  = P2PClient
 DESTDIR       = 
 TARGET        = P2PClient.app/Contents/MacOS/P2PClient
@@ -670,8 +674,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../Qt/5.9.2/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Client/clientwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Client/main.cpp ../Client/clientwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Client/clientwindow.h ../Client/grasshopper.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Client/main.cpp ../Client/clientwindow.cpp ../Client/grasshopper.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Client/clientwindow.ui $(DISTDIR)/
 
 
@@ -758,6 +762,13 @@ main.o: ../Client/main.cpp ../Client/clientwindow.h \
 		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qtcpserver.h \
 		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QListWidgetItem \
 		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlistwidget.h \
+		../Client/grasshopper.h \
+		../../Qt/5.9.2/clang_64/lib/QtCore.framework/Headers/QCryptographicHash \
+		../../Qt/5.9.2/clang_64/lib/QtCore.framework/Headers/qcryptographichash.h \
+		../../Qt/5.9.2/clang_64/lib/QtCore.framework/Headers/QByteArray \
+		../../Qt/5.9.2/clang_64/lib/QtCore.framework/Headers/qbytearray.h \
+		../../Qt/5.9.2/clang_64/lib/QtCore.framework/Headers/QString \
+		../../Qt/5.9.2/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QApplication \
 		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Client/main.cpp
@@ -777,6 +788,15 @@ clientwindow.o: ../Client/clientwindow.cpp ../Client/clientwindow.h \
 		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlistwidget.h \
 		ui_clientwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clientwindow.o ../Client/clientwindow.cpp
+
+grasshopper.o: ../Client/grasshopper.cpp ../Client/grasshopper.h \
+		../../Qt/5.9.2/clang_64/lib/QtCore.framework/Headers/QCryptographicHash \
+		../../Qt/5.9.2/clang_64/lib/QtCore.framework/Headers/qcryptographichash.h \
+		../../Qt/5.9.2/clang_64/lib/QtCore.framework/Headers/QByteArray \
+		../../Qt/5.9.2/clang_64/lib/QtCore.framework/Headers/qbytearray.h \
+		../../Qt/5.9.2/clang_64/lib/QtCore.framework/Headers/QString \
+		../../Qt/5.9.2/clang_64/lib/QtCore.framework/Headers/qstring.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o grasshopper.o ../Client/grasshopper.cpp
 
 moc_clientwindow.o: moc_clientwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_clientwindow.o moc_clientwindow.cpp

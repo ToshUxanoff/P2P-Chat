@@ -1,6 +1,7 @@
 #include "clientwindow.h"
 #include "ui_clientwindow.h"
 
+
 ClientWindow::ClientWindow(int Port, QString address, QWidget *parent)
     :QMainWindow(parent)
     ,ServerSocket (new QTcpSocket(this))
@@ -10,6 +11,7 @@ ClientWindow::ClientWindow(int Port, QString address, QWidget *parent)
     ,ui(new Ui::ClientWindow)
 {
     ui->setupUi(this);
+    kuz_init();
     if(!ThisListenSocket.get()->listen())
     {
         ui->DebugWindow->append("ListenSocket unavailable");
@@ -45,14 +47,15 @@ int ClientWindow::Resolver(QString Data)
 void ClientWindow::SendMessageToPeer(QString PeerName)
 {
     QDataStream PeerStream(Peers[PeerName].get());
-    QString Message;
+    QString Message = NickName + ':' + ui->MsgInput->text();
+    Message = Encrypt(Message);
     if(Private == true)
     {
-        Message = "!M!"  + NickName + "(private user)" + ':'+ ui->MsgInput->text();
+        Message = "!M! (private user)" + Message;
     }
     else
     {
-        Message = "!M!" + NickName + ':' + ui->MsgInput->text();
+        Message = "!M!" + Message;
     }
     PeerStream << Message;
 }
@@ -120,8 +123,10 @@ void ClientWindow::on_SearchLine_returnPressed()
 void ClientWindow::on_NameInput_returnPressed()
 {
     NickName = ui->NameInput->text();
+    //hiding controls
     ui->NameInput->hide();
     ui->checkBox->hide();
+    //connecting to server
     ServerSocket.get()->connectToHost(ServerIP, ServerPort);
     QString Status("!PUB!");
     if(Private == true)
@@ -134,6 +139,8 @@ void ClientWindow::on_NameInput_returnPressed()
     connect(ServerSocket.get(), SIGNAL(readyRead()), this, SLOT(onRead()));
     ui->NameLabel->setText("Logged as " + NickName);
     ConnectedToServer = true;
+    //generating key
+    MyKeyGen();
 }
 void ClientWindow::onRead()
 {
@@ -141,7 +148,7 @@ void ClientWindow::onRead()
     QDataStream LStream(ListenSocket);
     QString Response;
     LStream >> Response;
-    if(Resolver(Response) == 0) //get data from server
+    if(Resolver(Response) == 0) //data from server
     {
         Response = Response.mid(3);
         ParseAllUsersData(Response);
@@ -163,14 +170,15 @@ void ClientWindow::onRead()
     else if(Resolver(Response) == 2) //message
     {
         Response = Response.mid(3);
+        Response = Decrypt(Response);
         ui->MsgBrowser->append(Response);
     }
-    else if(Resolver(Response) == 9)
+    else if(Resolver(Response) == 9) //server messages
     {
         Response = Response.mid(7);
         ui->DebugWindow->append("Server : " + Response);
     }
-    else if(Resolver(Response) == -1)
+    else if(Resolver(Response) == -1) //errors
     {
         ui->DebugWindow->append("Error! " + Response);
     }
@@ -190,10 +198,7 @@ void ClientWindow::on_MsgInput_returnPressed()
 {
     on_SendMsg_clicked();
 }
-void ClientWindow::on_checkBox_clicked()
-{
-    Private = true;
-}
+
 void ClientWindow::on_UpdateListButton_clicked()
 {
     QString UpdReq = "!UPD!";
@@ -202,4 +207,57 @@ void ClientWindow::on_UpdateListButton_clicked()
     QDataStream ServStream(ServerSocket.get());
     ServStream << UpdReq;
 
+}
+void ClientWindow::MyKeyGen()
+{
+
+    QByteArray ByteHash(QCryptographicHash::hash(NickName.toUtf8(), QCryptographicHash::Sha256).toHex());
+    for(int i = 0; i < 32; ++i)
+    {
+        InthashArray[i] = ByteHash[i];
+    }
+    kuz_set_encrypt_key(&Key, InthashArray);
+
+}
+QString ClientWindow::Encrypt(QString Message)
+{
+    QByteArray BuffByteMess = Message.toUtf8();
+    uint8_t IntHashText[512];
+    for(int i = 0; i < BuffByteMess.size(); ++i)
+    {
+       IntHashText[i] = BuffByteMess[i];
+       Bytes.b[i] = IntHashText[i];
+    }
+    kuz_encrypt_block(&Key, &Bytes);
+    QString ReturnMessage;
+    for(int i = 0; i < BuffByteMess.size(); ++i)
+    {
+        ReturnMessage[i] = Bytes.b[i];
+    }
+    return ReturnMessage;
+}
+QString ClientWindow::Decrypt(QString Message)
+{
+    //test  version, need to add keys.
+    //key = sha256(TEST) u vsex
+    QByteArray BuffByteMess = Message.toUtf8();
+    uint8_t IntHashText[512];
+    for(int i = 0; i < BuffByteMess.size(); ++i)
+    {
+       IntHashText[i] = BuffByteMess[i];
+       Bytes.b[i] = IntHashText[i];
+    }
+    kuz_set_decrypt_key(&Key, InthashArray);
+    kuz_decrypt_block(&Key, &Bytes);
+    QString ReturnMessage;
+    for(int i = 0; i < BuffByteMess.size(); ++i)
+    {
+        ReturnMessage[i] = Bytes.b[i];
+    }
+    return ReturnMessage;
+}
+
+void ClientWindow::on_checkBox_toggled(bool checked)
+{
+    Private = checked;
 }

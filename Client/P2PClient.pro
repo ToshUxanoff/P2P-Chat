@@ -6,8 +6,8 @@
 
 QT       += core gui
 QT += network
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
+greaterThan(QT_MAJOR_VERSION, 4):
+QT += widgets
 TARGET = P2PClient
 TEMPLATE = app
 
@@ -26,11 +26,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         clientwindow.cpp \
-    grashopper.cpp
+    grasshopper.cpp
 
 HEADERS += \
         clientwindow.h \
-    grashopper.h
+    grasshopper.h
 
 FORMS += \
         clientwindow.ui
