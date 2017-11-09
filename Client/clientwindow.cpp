@@ -1,6 +1,6 @@
 #include "clientwindow.h"
 #include "ui_clientwindow.h"
-
+#include <math.h>
 
 ClientWindow::ClientWindow(int Port, QString address, QWidget *parent)
     :QMainWindow(parent)
@@ -11,7 +11,7 @@ ClientWindow::ClientWindow(int Port, QString address, QWidget *parent)
     ,ui(new Ui::ClientWindow)
 {
     ui->setupUi(this);
-    kuz_init();
+
     if(!ThisListenSocket.get()->listen())
     {
         ui->DebugWindow->append("ListenSocket unavailable");
@@ -48,7 +48,7 @@ void ClientWindow::SendMessageToPeer(QString PeerName)
 {
     QDataStream PeerStream(Peers[PeerName].get());
     QString Message = NickName + ':' + ui->MsgInput->text();
-    Message = Encrypt(Message);
+    Message = Encrypt(Message, "addkeyhere");
     if(Private == true)
     {
         Message = "!M! (private user)" + Message;
@@ -140,7 +140,7 @@ void ClientWindow::on_NameInput_returnPressed()
     ui->NameLabel->setText("Logged as " + NickName);
     ConnectedToServer = true;
     //generating key
-    MyKeyGen();
+
 }
 void ClientWindow::onRead()
 {
@@ -169,8 +169,9 @@ void ClientWindow::onRead()
     }
     else if(Resolver(Response) == 2) //message
     {
+
         Response = Response.mid(3);
-        Response = Decrypt(Response);
+        Response = Decrypt(Response, "addkeyhere");
         ui->MsgBrowser->append(Response);
     }
     else if(Resolver(Response) == 9) //server messages
@@ -198,7 +199,6 @@ void ClientWindow::on_MsgInput_returnPressed()
 {
     on_SendMsg_clicked();
 }
-
 void ClientWindow::on_UpdateListButton_clicked()
 {
     QString UpdReq = "!UPD!";
@@ -208,55 +208,78 @@ void ClientWindow::on_UpdateListButton_clicked()
     ServStream << UpdReq;
 
 }
-void ClientWindow::MyKeyGen()
-{
 
-    QByteArray ByteHash(QCryptographicHash::hash(NickName.toUtf8(), QCryptographicHash::Sha256).toHex());
-    for(int i = 0; i < 32; ++i)
-    {
-        InthashArray[i] = ByteHash[i];
-    }
-    kuz_set_encrypt_key(&Key, InthashArray);
-
-}
-QString ClientWindow::Encrypt(QString Message)
+std::string hex_to_string(const std::string& in)
 {
-    QByteArray BuffByteMess = Message.toUtf8();
-    uint8_t IntHashText[512];
-    for(int i = 0; i < BuffByteMess.size(); ++i)
-    {
-       IntHashText[i] = BuffByteMess[i];
-       Bytes.b[i] = IntHashText[i];
+    std::string output;
+    if ((in.length() % 2) != 0) {
+        throw std::runtime_error("String is not valid length ...");
     }
-    kuz_encrypt_block(&Key, &Bytes);
-    QString ReturnMessage;
-    for(int i = 0; i < BuffByteMess.size(); ++i)
-    {
-        ReturnMessage[i] = Bytes.b[i];
+    size_t cnt = in.length() / 2;
+    for (size_t i = 0; cnt > i; ++i) {
+        uint32_t s = 0;
+        std::stringstream ss;
+        ss << std::hex << in.substr(i * 2, 2);
+        ss >> s;
+        output.push_back(static_cast<unsigned char>(s));
     }
-    return ReturnMessage;
+    return output;
 }
-QString ClientWindow::Decrypt(QString Message)
+std::string string_to_hex(const std::string& in)
 {
-    //test  version, need to add keys.
-    //key = sha256(TEST) u vsex
-    QByteArray BuffByteMess = Message.toUtf8();
-    uint8_t IntHashText[512];
-    for(int i = 0; i < BuffByteMess.size(); ++i)
+    std::stringstream ss;
+    ss << std::hex << std::setfill('0');
+    for (size_t i = 0; in.length() > i; ++i)
     {
-       IntHashText[i] = BuffByteMess[i];
-       Bytes.b[i] = IntHashText[i];
+        ss << std::setw(2) << static_cast<unsigned int>(static_cast<unsigned char>(in[i]));
     }
-    kuz_set_decrypt_key(&Key, InthashArray);
-    kuz_decrypt_block(&Key, &Bytes);
-    QString ReturnMessage;
-    for(int i = 0; i < BuffByteMess.size(); ++i)
-    {
-        ReturnMessage[i] = Bytes.b[i];
-    }
-    return ReturnMessage;
+    return ss.str();
+}
+void BlockAddition(std::string &Message)
+{
+   while(Message.length()%32 != 0)
+   {
+       Message += '00';
+   }
 }
 
+QString ClientWindow::Encrypt(QString &Message, QString Key)
+{
+    const ByteBlock key = hex_to_bytes("8899aabbccddeeff0011223344556677fedcba98765432100123456789abcdef");
+        std::string HexString (string_to_hex(Message.toStdString()));
+        if(HexString.length()%32 != 0) //==16 bytes
+        {
+            BlockAddition(HexString);
+        }
+        ByteBlock ByteMessage = hex_to_bytes(HexString);
+        Kuznyechik Encryptor(key);
+        std::vector<ByteBlock> Vect16BytesBlocks = split_blocks(ByteMessage, 16);
+        HexString.clear();
+        for(size_t i = 0; i < Vect16BytesBlocks.size(); ++i)
+        {
+            Encryptor.encrypt(Vect16BytesBlocks[i], Vect16BytesBlocks[i]);
+            HexString += hex_representation(Vect16BytesBlocks[i]);
+        }
+
+    Message = QString::fromStdString(HexString);
+    return Message;
+}
+QString ClientWindow::Decrypt(QString &Message, QString Key)
+{
+    const ByteBlock TESTKEY = hex_to_bytes("8899aabbccddeeff0011223344556677fedcba98765432100123456789abcdef");
+    std::string BufString = (Message.toStdString());
+    ByteBlock ByteMessage = hex_to_bytes(BufString);
+    Kuznyechik decryptor(TESTKEY);
+    std::vector<ByteBlock> Vect16BytesMessages = split_blocks(ByteMessage, 16); //16-bytes blocks
+    BufString.clear(); //using for write encrypted data in hex
+    for(size_t i = 0; i < Vect16BytesMessages.size(); ++i)
+    {
+        decryptor.decrypt(Vect16BytesMessages[i], Vect16BytesMessages[i]);
+        BufString += hex_representation(Vect16BytesMessages[i]);
+    }
+    Message = QString::fromStdString(hex_to_string(BufString));
+    return Message;
+}
 void ClientWindow::on_checkBox_toggled(bool checked)
 {
     Private = checked;

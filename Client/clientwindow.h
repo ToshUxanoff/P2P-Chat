@@ -7,8 +7,11 @@
 #include <QHostAddress>
 #include <QTcpServer>
 #include <QListWidgetItem>
+#include "Kuznyechik.hpp"
 #include <memory>
-#include "grasshopper.h"
+#include <iomanip>
+#include <sstream>
+
 namespace Ui {
 class ClientWindow;
 }
@@ -39,13 +42,9 @@ private:
     void SendMessageToPeer(QString PeerName);
     void ConnectToPeer(QString IP, int Port, QString UserName);
     void ParseAllUsersData(QString Response);
-    void MyKeyGen();
-    QString Encrypt(QString Message);
-    QString Decrypt(QString Message);
+    QString Encrypt(QString &Message, QString Key);
+    QString Decrypt(QString &Message, QString Key);
     //<=fields=>
-    uint8_t InthashArray[32];//for test
-    kuz_key_t Key;
-    w128_t Bytes;
     QMap <QString, std::shared_ptr<QTcpSocket>> Peers;
     std::unique_ptr<QTcpSocket> ServerSocket;
     std::unique_ptr<QTcpServer> ThisListenSocket;

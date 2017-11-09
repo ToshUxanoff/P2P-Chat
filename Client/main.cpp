@@ -1,50 +1,40 @@
 #include "clientwindow.h"
-#include "grasshopper.h"
+#include "Kuznyechik.hpp"
+#include "mycrypto.hpp"
 #include <QApplication>
-#include <stdio.h>
-#include <time.h>
-
-
+#include <string>
+#include <vector>
+#include <iostream>
 int ServerPort = 9090;
 QString ServerIP ("127.0.0.1");
 
+
 int main(int argc, char* argv[])
 {
-    uint8_t testvec_key[32];
-            QByteArray test(QCryptographicHash::hash("Username", QCryptographicHash::Sha256).toHex());
-            for(int i = 0; i < 32; ++i)
-            {
-                testvec_key[i] = test[i];
-            }
-
-            QByteArray testText("Do sdfds i have a QString with a hex code of one Char in it. I want to get the Char. ");
-            uint8_t testvec_pt[512];
-            for(int i = 0; i < testText.size(); ++i)
-            {
-                testvec_pt[i] = testText[i];
-            }
-            kuz_key_t key;
-            w128_t x;
-            kuz_init();
-
-            kuz_set_encrypt_key(&key, testvec_key);
-            for (int i = 0; i < 512; i++)
-            {
-                x.b[i] = testvec_pt[i];
-            }
-            kuz_encrypt_block(&key, &x);
-
-            kuz_set_decrypt_key(&key, testvec_key);
-            kuz_decrypt_block(&key, &x);
-
-            printf("Decrypted Text\t=");
-
-            for(int i = 0; i < 512; ++i)
-            {
-                printf("%c" , x.b[i]);
-            }
-
-    QApplication a(argc, argv);
+    /*const ByteBlock key = hex_to_bytes("8899aabbccddeeff0011223344556677fedcba98765432100123456789abcdef");
+        std::string testmessstr("546573746f766f6520536f6f62736368656e6965");
+        ByteBlock messageraw = hex_to_bytes(testmessstr);
+        Kuznyechik test(key);
+        std::vector<ByteBlock> message = split_blocks(messageraw, 16);
+        //encrypt
+        std::string debug;
+        for(size_t i = 0; i < message.size(); ++i)
+        {
+            test.encrypt(message[i], message[i]);
+            debug+= hex_representation(message[i]);
+            //encoded:"56a9e7c7e86f73234bf893801c14934fc1328d13"
+        }
+        std::cout << debug <<std::endl;
+        debug.clear();
+        //decrypt
+        for(size_t i = 0; i < message.size(); ++i)
+       {
+            test.decrypt(message[i], message[i]);
+            debug += hex_representation(message[i]);
+        }
+        std::cout << debug;
+        return 0;*/
+   QApplication a(argc, argv);
     ClientWindow w(ServerPort, ServerIP);
     w.show();
     return a.exec();
