@@ -1,6 +1,41 @@
 #include "clientwindow.h"
 #include "ui_clientwindow.h"
-#include <math.h>
+
+
+std::string hex_to_string(const std::string& in)
+{
+    std::string output;
+    if ((in.length() % 2) != 0) {
+        throw std::runtime_error("String is not valid length ...");
+    }
+    size_t cnt = in.length() / 2;
+    for (size_t i = 0; cnt > i; ++i) {
+        uint32_t s = 0;
+        std::stringstream ss;
+        ss << std::hex << in.substr(i * 2, 2);
+        ss >> s;
+        output.push_back(static_cast<unsigned char>(s));
+    }
+    return output;
+}
+std::string string_to_hex(const std::string& in)
+{
+    std::stringstream ss;
+    ss << std::hex << std::setfill('0');
+    for (size_t i = 0; in.length() > i; ++i)
+    {
+        ss << std::setw(2) << static_cast<unsigned int>(static_cast<unsigned char>(in[i]));
+    }
+    return ss.str();
+}
+void BlockAddition(std::string &Message)
+{
+   while(Message.length()%32 != 0)
+   {
+       Message += '00';
+   }
+}
+
 
 ClientWindow::ClientWindow(int Port, QString address, QWidget *parent)
     :QMainWindow(parent)
@@ -16,12 +51,24 @@ ClientWindow::ClientWindow(int Port, QString address, QWidget *parent)
     {
         ui->DebugWindow->append("ListenSocket unavailable");
     }
+    GenKeyPair();
     connect(ThisListenSocket.get(), SIGNAL(newConnection()), this, SLOT(ConnDetector()));
 }
 
 ClientWindow::~ClientWindow()
 {
     delete ui;
+}
+Peer* ClientWindow::SearchPeerByName(QString Name)
+{
+    for(int i = 0; i < Peers.size(); ++i )
+    {
+        if(Peers[i].PeerName == Name)
+        {
+            return &Peers[i];
+        }
+    }
+    return nullptr;
 }
 int ClientWindow::Resolver(QString Data)
 {
@@ -46,17 +93,10 @@ int ClientWindow::Resolver(QString Data)
 }
 void ClientWindow::SendMessageToPeer(QString PeerName)
 {
-    QDataStream PeerStream(Peers[PeerName].get());
+    QDataStream PeerStream(SearchPeerByName(PeerName)->PeerSocket.get());
     QString Message = NickName + ':' + ui->MsgInput->text();
     Message = Encrypt(Message, "addkeyhere");
-    if(Private == true)
-    {
-        Message = "!M! (private user)" + Message;
-    }
-    else
-    {
-        Message = "!M!" + Message;
-    }
+    Message = "!M!" + Message;
     PeerStream << Message;
 }
 void ClientWindow::ConnDetector()
@@ -66,7 +106,7 @@ void ClientWindow::ConnDetector()
 }
 void ClientWindow::ConnectToPeer(QString IP, int Port, QString UserName)
 {
-    if(!Peers.contains(UserName))
+    if(SearchPeerByName(UserName) == nullptr)
     {
         QHostAddress addr(IP);
         std::shared_ptr<QTcpSocket>NewSocket(new QTcpSocket());
@@ -75,7 +115,8 @@ void ClientWindow::ConnectToPeer(QString IP, int Port, QString UserName)
         QString ConnectReq("!C!"  + ThisListenSocket.get()->serverAddress().toString() +':' + QString::number(ThisListenSocket.get()->serverPort()) + ':' + NickName);
         Stream << ConnectReq;
         connect(NewSocket.get(),  SIGNAL(readyRead()), this, SLOT(onRead()));
-        Peers[UserName] = NewSocket;
+        Peer NewPeer(UserName,NewSocket);
+        Peers.push_back(NewPeer);
     }
 }
 void ClientWindow::ParseAllUsersData(QString Response)
@@ -97,7 +138,8 @@ void ClientWindow::ParseAllUsersData(QString Response)
             else{
                 std::shared_ptr<QTcpSocket>NewSocket(new QTcpSocket());
                 NewSocket.get()->connectToHost(IP,Port);
-                Peers[Name] = NewSocket;
+                Peer NewPeer(Name, NewSocket);
+                Peers.push_back(NewPeer);
             }
        }
     }
@@ -107,8 +149,8 @@ void ClientWindow::on_SearchLine_returnPressed()
     if(ConnectedToServer)
     {
         QString Request = ui->SearchLine->text();
-        auto it = Peers.find(Request);
-        if(Request != NickName && it == Peers.end())
+
+        if(Request != NickName && SearchPeerByName(Request) == nullptr)
         {
             Request = "!2!" + Request; //search request
             QDataStream ServStream(ServerSocket.get());
@@ -155,7 +197,7 @@ void ClientWindow::onRead()
     }
     else if(Resolver(Response) == 1) //new connect
     {      
-        if((Response.split(':')[2] != NickName) && (!Peers.contains(Response.split(':')[2])))
+        if(Response.split(':')[2] != NickName)
         {
             Response = Response.mid(3);
             ui->DebugWindow->append("New peer connected! " + Response.split(':')[2]);
@@ -164,7 +206,8 @@ void ClientWindow::onRead()
             int Port =  Response.split(':')[1].toInt();
             std::shared_ptr<QTcpSocket>NewSocket(new QTcpSocket());
             NewSocket.get()->connectToHost(addr,Port);
-            Peers[Response.split(':')[2]] = NewSocket;
+            Peer NewPeer(Response.split(':')[2], NewSocket);
+            Peers.push_back(NewPeer);
         }
     }
     else if(Resolver(Response) == 2) //message
@@ -208,39 +251,13 @@ void ClientWindow::on_UpdateListButton_clicked()
     ServStream << UpdReq;
 
 }
-
-std::string hex_to_string(const std::string& in)
+void ClientWindow::GenKeyPair()
 {
-    std::string output;
-    if ((in.length() % 2) != 0) {
-        throw std::runtime_error("String is not valid length ...");
-    }
-    size_t cnt = in.length() / 2;
-    for (size_t i = 0; cnt > i; ++i) {
-        uint32_t s = 0;
-        std::stringstream ss;
-        ss << std::hex << in.substr(i * 2, 2);
-        ss >> s;
-        output.push_back(static_cast<unsigned char>(s));
-    }
-    return output;
-}
-std::string string_to_hex(const std::string& in)
-{
-    std::stringstream ss;
-    ss << std::hex << std::setfill('0');
-    for (size_t i = 0; in.length() > i; ++i)
-    {
-        ss << std::setw(2) << static_cast<unsigned int>(static_cast<unsigned char>(in[i]));
-    }
-    return ss.str();
-}
-void BlockAddition(std::string &Message)
-{
-   while(Message.length()%32 != 0)
-   {
-       Message += '00';
-   }
+    CryptoPP::AutoSeededRandomPool rng;
+    CryptoPP::InvertibleRSAFunction params;
+    params.GenerateRandomWithKeySize(rng, 1024);
+    MyPrivKey = CryptoPP::RSA::PrivateKey(params);
+    MyPubKey = CryptoPP::RSA::PublicKey(params);
 }
 
 QString ClientWindow::Encrypt(QString &Message, QString Key)
@@ -284,3 +301,4 @@ void ClientWindow::on_checkBox_toggled(bool checked)
 {
     Private = checked;
 }
+

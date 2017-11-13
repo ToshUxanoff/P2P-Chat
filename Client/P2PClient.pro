@@ -8,6 +8,7 @@ QT       += core gui
 QT += network
 greaterThan(QT_MAJOR_VERSION, 4):
 QT += widgets
+
 TARGET = P2PClient
 TEMPLATE = app
 
@@ -22,21 +23,35 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-
-
 SOURCES += \
         main.cpp \
         clientwindow.cpp \
     Kuznyechik.cpp \
-    mycrypto.cpp
+    mycrypto.cpp    \
+    peer.cpp
 
 
 HEADERS += \
         clientwindow.h \
     Kuznyechik.hpp \
-    mycrypto.hpp
+    mycrypto.hpp    \
+    peer.h
+
 
 
 FORMS += \
         clientwindow.ui
 
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/cryptopp/release/ -lcryptopp
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/cryptopp/debug/ -lcryptopp
+else:unix: LIBS += -L$$PWD/cryptopp/ -lcryptopp
+
+INCLUDEPATH += $$PWD/cryptopp
+DEPENDPATH += $$PWD/cryptopp
+
+win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/cryptopp/release/libcryptopp.a
+else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/cryptopp/debug/libcryptopp.a
+else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/cryptopp/release/cryptopp.lib
+else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/cryptopp/debug/cryptopp.lib
+else:unix: PRE_TARGETDEPS += $$PWD/cryptopp/libcryptopp.a

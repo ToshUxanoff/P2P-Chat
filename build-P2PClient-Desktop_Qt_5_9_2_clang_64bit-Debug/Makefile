@@ -15,7 +15,7 @@ CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefau
 DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -g -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -fPIC $(DEFINES)
-INCPATH       = -I../Client -I. -I../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I../../Qt/5.9.2/clang_64/lib/QtGui.framework/Headers -I../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I../../Qt/5.9.2/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I../../Qt/5.9.2/clang_64/mkspecs/macx-clang -F/Users/antonukhanov/Qt/5.9.2/clang_64/lib
+INCPATH       = -I../Client -I. -I../Client/cryptopp -I../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I../../Qt/5.9.2/clang_64/lib/QtGui.framework/Headers -I../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I../../Qt/5.9.2/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I../../Qt/5.9.2/clang_64/mkspecs/macx-clang -F/Users/antonukhanov/Qt/5.9.2/clang_64/lib
 QMAKE         = /Users/antonukhanov/Qt/5.9.2/clang_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -38,7 +38,7 @@ DISTNAME      = P2PClient1.0.0
 DISTDIR = /Users/antonukhanov/P2P-Chat/build-P2PClient-Desktop_Qt_5_9_2_clang_64bit-Debug/.tmp/P2PClient1.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -Wl,-syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wl,-rpath,@executable_path/Frameworks -Wl,-rpath,/Users/antonukhanov/Qt/5.9.2/clang_64/lib
-LIBS          = $(SUBLIBS) -F/Users/antonukhanov/Qt/5.9.2/clang_64/lib -framework QtWidgets -framework QtGui -framework QtCore -framework DiskArbitration -framework IOKit -framework QtNetwork -framework OpenGL -framework AGL 
+LIBS          = $(SUBLIBS) -F/Users/antonukhanov/Qt/5.9.2/clang_64/lib -L/Users/antonukhanov/P2P-Chat/Client/cryptopp/ -lcryptopp -framework QtWidgets -framework QtGui -framework QtCore -framework DiskArbitration -framework IOKit -framework QtNetwork -framework OpenGL -framework AGL 
 AR            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq
 RANLIB        = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib -s
 SED           = sed
@@ -53,11 +53,13 @@ OBJECTS_DIR   = ./
 SOURCES       = ../Client/main.cpp \
 		../Client/clientwindow.cpp \
 		../Client/Kuznyechik.cpp \
-		../Client/mycrypto.cpp moc_clientwindow.cpp
+		../Client/mycrypto.cpp \
+		../Client/peer.cpp moc_clientwindow.cpp
 OBJECTS       = main.o \
 		clientwindow.o \
 		Kuznyechik.o \
 		mycrypto.o \
+		peer.o \
 		moc_clientwindow.o
 DIST          = ../../Qt/5.9.2/clang_64/mkspecs/features/spec_pre.prf \
 		../../Qt/5.9.2/clang_64/mkspecs/qdevice.pri \
@@ -246,10 +248,12 @@ DIST          = ../../Qt/5.9.2/clang_64/mkspecs/features/spec_pre.prf \
 		../../Qt/5.9.2/clang_64/mkspecs/features/lex.prf \
 		../Client/P2PClient.pro ../Client/clientwindow.h \
 		../Client/Kuznyechik.hpp \
-		../Client/mycrypto.hpp ../Client/main.cpp \
+		../Client/mycrypto.hpp \
+		../Client/peer.h ../Client/main.cpp \
 		../Client/clientwindow.cpp \
 		../Client/Kuznyechik.cpp \
-		../Client/mycrypto.cpp
+		../Client/mycrypto.cpp \
+		../Client/peer.cpp
 QMAKE_TARGET  = P2PClient
 DESTDIR       = 
 TARGET        = P2PClient.app/Contents/MacOS/P2PClient
@@ -263,7 +267,7 @@ EXPORT_ARCH_ARGS = $(foreach arch, $(if $(EXPORT_ACTIVE_ARCHS), $(EXPORT_ACTIVE_
 first: all
 ####### Build rules
 
-$(TARGET): ui_clientwindow.h $(OBJECTS)  
+$(TARGET): /Users/antonukhanov/P2P-Chat/Client/cryptopp/libcryptopp.a ui_clientwindow.h $(OBJECTS)  
 	@test -d P2PClient.app/Contents/MacOS/ || mkdir -p P2PClient.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -678,8 +682,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../Qt/5.9.2/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Client/clientwindow.h ../Client/Kuznyechik.hpp ../Client/mycrypto.hpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Client/main.cpp ../Client/clientwindow.cpp ../Client/Kuznyechik.cpp ../Client/mycrypto.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Client/clientwindow.h ../Client/Kuznyechik.hpp ../Client/mycrypto.hpp ../Client/peer.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Client/main.cpp ../Client/clientwindow.cpp ../Client/Kuznyechik.cpp ../Client/mycrypto.cpp ../Client/peer.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Client/clientwindow.ui $(DISTDIR)/
 
 
@@ -729,10 +733,46 @@ moc_clientwindow.cpp: ../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QM
 		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlistwidget.h \
 		../Client/Kuznyechik.hpp \
 		../Client/mycrypto.hpp \
+		../Client/cryptopp/rsa.h \
+		../Client/cryptopp/cryptlib.h \
+		../Client/cryptopp/config.h \
+		../Client/cryptopp/stdcpp.h \
+		../Client/cryptopp/trap.h \
+		../Client/cryptopp/ossig.h \
+		../Client/cryptopp/pubkey.h \
+		../Client/cryptopp/integer.h \
+		../Client/cryptopp/secblock.h \
+		../Client/cryptopp/misc.h \
+		../Client/cryptopp/smartptr.h \
+		../Client/cryptopp/algebra.h \
+		../Client/cryptopp/algebra.cpp \
+		../Client/cryptopp/pch.h \
+		../Client/cryptopp/cpu.h \
+		../Client/cryptopp/simple.h \
+		../Client/cryptopp/modarith.h \
+		../Client/cryptopp/filters.h \
+		../Client/cryptopp/queue.h \
+		../Client/cryptopp/algparam.h \
+		../Client/cryptopp/eprecomp.h \
+		../Client/cryptopp/eprecomp.cpp \
+		../Client/cryptopp/asn.h \
+		../Client/cryptopp/fips140.h \
+		../Client/cryptopp/argnames.h \
+		../Client/cryptopp/pkcspad.h \
+		../Client/cryptopp/sha.h \
+		../Client/cryptopp/iterhash.h \
+		../Client/cryptopp/oaep.h \
+		../Client/cryptopp/emsa2.h \
+		../Client/cryptopp/osrng.h \
+		../Client/cryptopp/randpool.h \
+		../Client/cryptopp/aes.h \
+		../Client/cryptopp/rijndael.h \
+		../Client/cryptopp/seckey.h \
+		../Client/cryptopp/rng.h \
 		../Client/clientwindow.h \
 		moc_predefs.h \
 		../../Qt/5.9.2/clang_64/bin/moc
-	/Users/antonukhanov/Qt/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/antonukhanov/Qt/5.9.2/clang_64/mkspecs/macx-clang -I/Users/antonukhanov/P2P-Chat/Client -I/Users/antonukhanov/Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/antonukhanov/Qt/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/antonukhanov/Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/antonukhanov/Qt/5.9.2/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include -F/Users/antonukhanov/Qt/5.9.2/clang_64/lib ../Client/clientwindow.h -o moc_clientwindow.cpp
+	/Users/antonukhanov/Qt/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/antonukhanov/Qt/5.9.2/clang_64/mkspecs/macx-clang -I/Users/antonukhanov/P2P-Chat/Client -I/Users/antonukhanov/P2P-Chat/Client/cryptopp -I/Users/antonukhanov/Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/antonukhanov/Qt/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/antonukhanov/Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/antonukhanov/Qt/5.9.2/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include -F/Users/antonukhanov/Qt/5.9.2/clang_64/lib ../Client/clientwindow.h -o moc_clientwindow.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -770,12 +810,44 @@ main.o: ../Client/main.cpp ../Client/clientwindow.h \
 		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlistwidget.h \
 		../Client/Kuznyechik.hpp \
 		../Client/mycrypto.hpp \
+		../Client/cryptopp/rsa.h \
+		../Client/cryptopp/cryptlib.h \
+		../Client/cryptopp/config.h \
+		../Client/cryptopp/stdcpp.h \
+		../Client/cryptopp/trap.h \
+		../Client/cryptopp/ossig.h \
+		../Client/cryptopp/pubkey.h \
+		../Client/cryptopp/integer.h \
+		../Client/cryptopp/secblock.h \
+		../Client/cryptopp/misc.h \
+		../Client/cryptopp/smartptr.h \
+		../Client/cryptopp/algebra.h \
+		../Client/cryptopp/algebra.cpp \
+		../Client/cryptopp/pch.h \
+		../Client/cryptopp/cpu.h \
+		../Client/cryptopp/simple.h \
+		../Client/cryptopp/modarith.h \
+		../Client/cryptopp/filters.h \
+		../Client/cryptopp/queue.h \
+		../Client/cryptopp/algparam.h \
+		../Client/cryptopp/eprecomp.h \
+		../Client/cryptopp/eprecomp.cpp \
+		../Client/cryptopp/asn.h \
+		../Client/cryptopp/fips140.h \
+		../Client/cryptopp/argnames.h \
+		../Client/cryptopp/pkcspad.h \
+		../Client/cryptopp/sha.h \
+		../Client/cryptopp/iterhash.h \
+		../Client/cryptopp/oaep.h \
+		../Client/cryptopp/emsa2.h \
+		../Client/cryptopp/osrng.h \
+		../Client/cryptopp/randpool.h \
+		../Client/cryptopp/aes.h \
+		../Client/cryptopp/rijndael.h \
+		../Client/cryptopp/seckey.h \
+		../Client/cryptopp/rng.h \
 		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QApplication \
-		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
-		../../Qt/5.9.2/clang_64/lib/QtCore.framework/Headers/QCryptographicHash \
-		../../Qt/5.9.2/clang_64/lib/QtCore.framework/Headers/qcryptographichash.h \
-		../../Qt/5.9.2/clang_64/lib/QtCore.framework/Headers/QByteArray \
-		../../Qt/5.9.2/clang_64/lib/QtCore.framework/Headers/qbytearray.h
+		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Client/main.cpp
 
 clientwindow.o: ../Client/clientwindow.cpp ../Client/clientwindow.h \
@@ -793,6 +865,42 @@ clientwindow.o: ../Client/clientwindow.cpp ../Client/clientwindow.h \
 		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlistwidget.h \
 		../Client/Kuznyechik.hpp \
 		../Client/mycrypto.hpp \
+		../Client/cryptopp/rsa.h \
+		../Client/cryptopp/cryptlib.h \
+		../Client/cryptopp/config.h \
+		../Client/cryptopp/stdcpp.h \
+		../Client/cryptopp/trap.h \
+		../Client/cryptopp/ossig.h \
+		../Client/cryptopp/pubkey.h \
+		../Client/cryptopp/integer.h \
+		../Client/cryptopp/secblock.h \
+		../Client/cryptopp/misc.h \
+		../Client/cryptopp/smartptr.h \
+		../Client/cryptopp/algebra.h \
+		../Client/cryptopp/algebra.cpp \
+		../Client/cryptopp/pch.h \
+		../Client/cryptopp/cpu.h \
+		../Client/cryptopp/simple.h \
+		../Client/cryptopp/modarith.h \
+		../Client/cryptopp/filters.h \
+		../Client/cryptopp/queue.h \
+		../Client/cryptopp/algparam.h \
+		../Client/cryptopp/eprecomp.h \
+		../Client/cryptopp/eprecomp.cpp \
+		../Client/cryptopp/asn.h \
+		../Client/cryptopp/fips140.h \
+		../Client/cryptopp/argnames.h \
+		../Client/cryptopp/pkcspad.h \
+		../Client/cryptopp/sha.h \
+		../Client/cryptopp/iterhash.h \
+		../Client/cryptopp/oaep.h \
+		../Client/cryptopp/emsa2.h \
+		../Client/cryptopp/osrng.h \
+		../Client/cryptopp/randpool.h \
+		../Client/cryptopp/aes.h \
+		../Client/cryptopp/rijndael.h \
+		../Client/cryptopp/seckey.h \
+		../Client/cryptopp/rng.h \
 		ui_clientwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clientwindow.o ../Client/clientwindow.cpp
 
@@ -802,6 +910,11 @@ Kuznyechik.o: ../Client/Kuznyechik.cpp ../Client/Kuznyechik.hpp \
 
 mycrypto.o: ../Client/mycrypto.cpp ../Client/mycrypto.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mycrypto.o ../Client/mycrypto.cpp
+
+peer.o: ../Client/peer.cpp ../Client/peer.h \
+		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QTcpSocket \
+		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qtcpsocket.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o peer.o ../Client/peer.cpp
 
 moc_clientwindow.o: moc_clientwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_clientwindow.o moc_clientwindow.cpp

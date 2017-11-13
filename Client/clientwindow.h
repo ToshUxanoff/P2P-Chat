@@ -11,7 +11,9 @@
 #include <memory>
 #include <iomanip>
 #include <sstream>
-
+#include <rsa.h>
+#include <osrng.h>
+#include <peer.h>
 namespace Ui {
 class ClientWindow;
 }
@@ -23,7 +25,6 @@ class ClientWindow : public QMainWindow
 public:
     ClientWindow(int Port, QString address, QWidget *parent = 0);
     ~ClientWindow();
-
 private slots:
     void on_SearchLine_returnPressed();
 
@@ -44,10 +45,17 @@ private:
     void ParseAllUsersData(QString Response);
     QString Encrypt(QString &Message, QString Key);
     QString Decrypt(QString &Message, QString Key);
+    void GenKeyPair();
+    Peer* SearchPeerByName(QString Name);
     //<=fields=>
-    QMap <QString, std::shared_ptr<QTcpSocket>> Peers;
+        //crypto
+    CryptoPP::RSA::PublicKey MyPubKey;
+    CryptoPP::RSA::PrivateKey MyPrivKey;
+        //sockets
+    QVector<Peer> Peers;
     std::unique_ptr<QTcpSocket> ServerSocket;
     std::unique_ptr<QTcpServer> ThisListenSocket;
+       //vars
     QString Destination;
     QString NickName;
     QString ServerIP;
