@@ -317,23 +317,21 @@ void ClientWindow::onRead()
 }
 void ClientWindow::on_SendMsg_clicked()
 {
-    if(Private == true && SearchPeerByName(Destination)->SessionKey.isEmpty())
-    {
-         ui->MsgBrowser->append("\n --- Your Message can not be sended now. It just used for key exchange with destination peer because u are a private user. Resend it --- \n");
-         SendConnectRequest(Destination);
-    }
-    else
-    {
-        QString Message = ui->MsgInput->text();
-        ui->MsgBrowser->append ("Me: " + Message);
-        SendMessageToPeer(Destination);
-        ui->MsgInput->clear();
-    }
+
+     QString Message = ui->MsgInput->text();
+     ui->MsgBrowser->append ("Me: " + Message);
+     SendMessageToPeer(Destination);
+     ui->MsgInput->clear();
 }
 void ClientWindow::on_FriendList_itemDoubleClicked(QListWidgetItem *item)
 {
     Destination = item->text();
     ui->DestName->setText(Destination);
+    if(Private == true && SearchPeerByName(Destination)->SessionKey.isEmpty())
+    {
+         ui->MsgBrowser->append("\n --- Connect req sended to " + Destination + "--- \n");
+         SendConnectRequest(Destination);
+    }
 }
 void ClientWindow::on_MsgInput_returnPressed()
 {
