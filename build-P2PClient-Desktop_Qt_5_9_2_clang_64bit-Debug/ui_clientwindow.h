@@ -102,7 +102,7 @@ public:
         label->setGeometry(QRect(310, 10, 101, 16));
         DestName = new QLabel(centralWidget);
         DestName->setObjectName(QStringLiteral("DestName"));
-        DestName->setGeometry(QRect(400, 10, 60, 16));
+        DestName->setGeometry(QRect(400, 10, 211, 16));
         ClientWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(ClientWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));

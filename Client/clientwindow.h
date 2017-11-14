@@ -42,6 +42,7 @@ private:
     int Resolver(QString Data);
     void SendMessageToPeer(QString PeerName);
     void ConnectToPeer(QString IP, int Port, QString UserName);
+    void SendConnectRequest(QString PeerName);
     void ParseAllUsersData(QString Response);
     QString Encrypt(QString &Message, QString Key);
     QString Decrypt(QString &Message, QString Key);
