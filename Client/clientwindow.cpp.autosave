@@ -344,19 +344,14 @@ CryptoPP::SecByteBlock ClientWindow::IncomingSessionKeyGen(QString Username, Cry
 
     if (dhB.Agree(secretKeyB, privB, publicNumb))
     {
-        ui->DebugWindow->append("Key was succesfully generated!");
         SearchPeerByName(Username)->SetSessionKey(SecBBToString(secretKeyB));
-        ui->MsgBrowser->append("Key generated: " + SecBBToString(secretKeyB));
     }
     return pubB;
 }
 void ClientWindow::GettingAgreement(QString Username, CryptoPP::SecByteBlock NewKey)
 {
-
     if (dh.Agree(MySecretKey, PrivNumb, NewKey))
     {
-        ui->MsgBrowser->append("Key generated(new key): " + SecBBToString(MySecretKey));
-        ui->DebugWindow->append("Key was succesfully generated!");
         SearchPeerByName(Username)->SetSessionKey(SecBBToString(MySecretKey));
     }
 
