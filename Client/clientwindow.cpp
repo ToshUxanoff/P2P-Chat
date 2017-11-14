@@ -1,7 +1,7 @@
 #include "clientwindow.h"
 #include "ui_clientwindow.h"
 
-
+//<=converters=>
 std::string hex_to_string(const std::string& in)
 {
     std::string output;
@@ -28,6 +28,20 @@ std::string string_to_hex(const std::string& in)
     }
     return ss.str();
 }
+QString IntegerToString(CryptoPP::Integer Numb)
+{
+    std::stringstream ss;
+    ss << Numb;
+    QString RetStr = QString::fromStdString(string_to_hex(ss.str()));
+    return RetStr;
+}
+QString SecBBToString(CryptoPP::SecByteBlock Block)
+{   
+    std::string buff(Block.begin(), Block.end());
+    QString RetStr = QString::fromStdString(string_to_hex(buff));
+    return RetStr;
+}
+//<=useful func=>
 void BlockAddition(std::string &Message)
 {
    while(Message.length()%32 != 0)
@@ -36,7 +50,7 @@ void BlockAddition(std::string &Message)
    }
 }
 
-
+//<=methods=>
 ClientWindow::ClientWindow(int Port, QString address, QWidget *parent)
     :QMainWindow(parent)
     ,ServerSocket (new QTcpSocket(this))
@@ -51,7 +65,7 @@ ClientWindow::ClientWindow(int Port, QString address, QWidget *parent)
     {
         ui->DebugWindow->append("ListenSocket unavailable");
     }
-    GenKeyPair();
+    GenKeyParams();
     connect(ThisListenSocket.get(), SIGNAL(newConnection()), this, SLOT(ConnDetector()));
 }
 
@@ -84,7 +98,15 @@ int ClientWindow::Resolver(QString Data)
     {
         return 2;
     }
-    else if(Data.startsWith("!SMESS!")) //server message
+    else if(Data.startsWith("!A!")) //for key exchange(answer)
+    {
+        return 3;
+    }
+    else if(Data.startsWith("!KE!")) //for key exchange (request)
+    {
+         return 4;
+    }
+    else if(Data.startsWith("!SMESS!")) //server message (errors etc.)
     {
         return 9;
     }
@@ -93,11 +115,20 @@ int ClientWindow::Resolver(QString Data)
 }
 void ClientWindow::SendMessageToPeer(QString PeerName)
 {
-    QDataStream PeerStream(SearchPeerByName(PeerName)->PeerSocket.get());
-    QString Message = NickName + ':' + ui->MsgInput->text();
-    Message = Encrypt(Message, "addkeyhere");
-    Message = "!M!" + Message;
-    PeerStream << Message;
+    if(!Destination.isEmpty())
+    {
+        QDataStream PeerStream(SearchPeerByName(PeerName)->PeerSocket.get());
+        QString Message = ui->MsgInput->text();
+        Message = Encrypt(Message, SearchPeerByName(PeerName)->SessionKey);
+        Message = "!M!" + QString::fromStdString(string_to_hex(NickName.toStdString())) + ':' + Message;
+        PeerStream << Message;
+    }
+}
+void ClientWindow::SendGeneratedPublicKey(QString PeerName, CryptoPP::SecByteBlock publicKey)
+{
+        QDataStream PeerStream(SearchPeerByName(PeerName)->PeerSocket.get());
+        QString Message = "!A!" + NickName + ':' + SecBBToString(publicKey);
+        PeerStream << Message;
 }
 void ClientWindow::ConnDetector()
 {
@@ -112,7 +143,11 @@ void ClientWindow::ConnectToPeer(QString IP, int Port, QString UserName)
         std::shared_ptr<QTcpSocket>NewSocket(new QTcpSocket());
         NewSocket.get()->connectToHost(addr,Port);
         QDataStream Stream (NewSocket.get());
-        QString ConnectReq("!C!"  + ThisListenSocket.get()->serverAddress().toString() +':' + QString::number(ThisListenSocket.get()->serverPort()) + ':' + NickName);
+        QString KeyExcReq(':' + IntegerToString(Prime) + ':' + IntegerToString(Generator) + ':' + SecBBToString(PublicNumb));
+        QString ConnectReq("!C!" + ThisListenSocket.get()->serverAddress().toString() + ':'
+                                 + QString::number(ThisListenSocket.get()->serverPort()) + ':'
+                                 + NickName + KeyExcReq);
+
         Stream << ConnectReq;
         connect(NewSocket.get(),  SIGNAL(readyRead()), this, SLOT(onRead()));
         Peer NewPeer(UserName,NewSocket);
@@ -132,10 +167,12 @@ void ClientWindow::ParseAllUsersData(QString Response)
             int Port = Users[i].split(':')[1].toInt();
             QString Name(Users[i].split(':')[2]);
             ui->FriendList->addItem(Name);
-            if(Private == false) {
+            if(Private == false)
+            {
                 ConnectToPeer(IP, Port, Name);
             }
-            else{
+            else
+            {
                 std::shared_ptr<QTcpSocket>NewSocket(new QTcpSocket());
                 NewSocket.get()->connectToHost(IP,Port);
                 Peer NewPeer(Name, NewSocket);
@@ -197,25 +234,57 @@ void ClientWindow::onRead()
     }
     else if(Resolver(Response) == 1) //new connect
     {      
-        if(Response.split(':')[2] != NickName)
+        if(Response.split(':')[2] != NickName && SearchPeerByName(Response.split(':')[2]) == nullptr)
         {
             Response = Response.mid(3);
             ui->DebugWindow->append("New peer connected! " + Response.split(':')[2]);
             ui->FriendList->addItem(Response.split(':')[2]);
-            QHostAddress addr(Response.split(':')[0]);
-            int Port =  Response.split(':')[1].toInt();
+            //parsing
+            QHostAddress IP(Response.split(':')[0]);
+            int Port = Response.split(':')[1].toInt();
+
+            QString PeerName = Response.split(':')[2];
+            std::string buffstr = hex_to_string(Response.split(':')[3].toStdString());
+
+            CryptoPP::Integer prime(buffstr.c_str());
+            buffstr = hex_to_string(Response.split(':')[4].toStdString());
+
+            CryptoPP::Integer generator(buffstr.c_str());
+            buffstr = Response.split(':')[5].toStdString();
+            CryptoPP::SecByteBlock pubNumb(buffstr.length());
+
+            for(size_t i = 0; i < buffstr.length(); ++i)
+            {
+                pubNumb[i] = buffstr[i];
+            }
             std::shared_ptr<QTcpSocket>NewSocket(new QTcpSocket());
-            NewSocket.get()->connectToHost(addr,Port);
-            Peer NewPeer(Response.split(':')[2], NewSocket);
+            NewSocket.get()->connectToHost(IP,Port);
+            Peer NewPeer(PeerName, NewSocket);
             Peers.push_back(NewPeer);
+            CryptoPP::SecByteBlock PublicKey = IncomingSessionKeyGen(PeerName, prime, generator, pubNumb);
+            SendGeneratedPublicKey(PeerName, PublicKey);
         }
     }
     else if(Resolver(Response) == 2) //message
     {
-
         Response = Response.mid(3);
-        Response = Decrypt(Response, "addkeyhere");
-        ui->MsgBrowser->append(Response);
+        QString Name = QString::fromStdString(hex_to_string(Response.split(':')[0].toStdString()));
+        Response = Response.mid(2*Name.length() + 1); //Name in hex + ':'
+
+        Response = Decrypt(Response, SearchPeerByName(Name)->SessionKey);
+        ui->MsgBrowser->append(Name + ':' + Response);
+    }
+    else if (Resolver(Response) == 3)
+    {
+        Response = Response.mid(3);
+        QString Name = Response.split(':')[0];
+        std::string buffStr = hex_to_string(Response.split(':')[1].toStdString());
+        CryptoPP::SecByteBlock SecBB(buffStr.length());
+        for(int i = 0; i < buffStr.length(); ++i)
+        {
+            SecBB[i] = buffStr[i];
+        }
+        GettingAgreement(Name, SecBB);
     }
     else if(Resolver(Response) == 9) //server messages
     {
@@ -237,6 +306,7 @@ void ClientWindow::on_SendMsg_clicked()
 void ClientWindow::on_FriendList_itemDoubleClicked(QListWidgetItem *item)
 {
     Destination = item->text();
+    ui->DestName->setText(Destination);
 }
 void ClientWindow::on_MsgInput_returnPressed()
 {
@@ -249,30 +319,53 @@ void ClientWindow::on_UpdateListButton_clicked()
     Peers.clear();
     QDataStream ServStream(ServerSocket.get());
     ServStream << UpdReq;
-
 }
-void ClientWindow::GenKeyPair()
+//for Diffie-Hellman key exchange
+void ClientWindow::GenKeyParams()
 {
-    CryptoPP::AutoSeededRandomPool rng;
-    CryptoPP::InvertibleRSAFunction params;
-    params.GenerateRandomWithKeySize(rng, 1024);
-    MyPrivKey = CryptoPP::RSA::PrivateKey(params);
-    MyPubKey = CryptoPP::RSA::PublicKey(params);
+    CryptoPP::AutoSeededRandomPool rnd;
+    dh.AccessGroupParameters().GenerateRandomWithKeySize(rnd, 256);
+    Prime = dh.GetGroupParameters().GetModulus();
+    Generator = dh.GetGroupParameters().GetSubgroupGenerator();
+    PrivNumb = CryptoPP::SecByteBlock(dh.PrivateKeyLength());
+    PublicNumb = CryptoPP::SecByteBlock(dh.PublicKeyLength());
+    MySecretKey = CryptoPP::SecByteBlock(dh.AgreedValueLength());
+    dh.GenerateKeyPair(rnd, PrivNumb, PublicNumb);
+}
+CryptoPP::SecByteBlock ClientWindow::IncomingSessionKeyGen(QString Username, CryptoPP::Integer prime, CryptoPP::Integer generator, CryptoPP::SecByteBlock publicNumb)
+{
+    CryptoPP::AutoSeededRandomPool rngB;
+    CryptoPP::DH dhB(prime, generator);
+    CryptoPP::SecByteBlock privB(dhB.PrivateKeyLength());
+    CryptoPP::SecByteBlock pubB(dhB.PublicKeyLength());
+    CryptoPP::SecByteBlock secretKeyB(dhB.AgreedValueLength());
+    dhB.GenerateKeyPair(rngB, privB, pubB);
+
+    if (dhB.Agree(secretKeyB, privB, publicNumb))
+    {
+        ui->DebugWindow->append("Key was succesfully generated!");
+        SearchPeerByName(Username)->SetSessionKey(SecBBToString(secretKeyB));
+    }
+    return secretKeyB;
+}
+void ClientWindow::GettingAgreement(QString Username, CryptoPP::SecByteBlock NewKey)
+{
+   SearchPeerByName(Username)->SetSessionKey(SecBBToString(NewKey));
 }
 
 QString ClientWindow::Encrypt(QString &Message, QString Key)
 {
-    const ByteBlock key = hex_to_bytes("8899aabbccddeeff0011223344556677fedcba98765432100123456789abcdef");
-        std::string HexString (string_to_hex(Message.toStdString()));
-        if(HexString.length()%32 != 0) //==16 bytes
+    const ByteBlock key = hex_to_bytes(Key.toStdString());
+    std::string HexString (string_to_hex(Message.toStdString()));
+    if(HexString.length()%32 != 0) //==16 bytes
         {
             BlockAddition(HexString);
         }
-        ByteBlock ByteMessage = hex_to_bytes(HexString);
-        Kuznyechik Encryptor(key);
-        std::vector<ByteBlock> Vect16BytesBlocks = split_blocks(ByteMessage, 16);
-        HexString.clear();
-        for(size_t i = 0; i < Vect16BytesBlocks.size(); ++i)
+    ByteBlock ByteMessage = hex_to_bytes(HexString);
+    Kuznyechik Encryptor(key);
+    std::vector<ByteBlock> Vect16BytesBlocks = split_blocks(ByteMessage, 16);
+    HexString.clear();
+    for(size_t i = 0; i < Vect16BytesBlocks.size(); ++i)
         {
             Encryptor.encrypt(Vect16BytesBlocks[i], Vect16BytesBlocks[i]);
             HexString += hex_representation(Vect16BytesBlocks[i]);
@@ -283,7 +376,7 @@ QString ClientWindow::Encrypt(QString &Message, QString Key)
 }
 QString ClientWindow::Decrypt(QString &Message, QString Key)
 {
-    const ByteBlock TESTKEY = hex_to_bytes("8899aabbccddeeff0011223344556677fedcba98765432100123456789abcdef");
+    const ByteBlock TESTKEY = hex_to_bytes(Key.toStdString());
     std::string BufString = (Message.toStdString());
     ByteBlock ByteMessage = hex_to_bytes(BufString);
     Kuznyechik decryptor(TESTKEY);
@@ -301,4 +394,3 @@ void ClientWindow::on_checkBox_toggled(bool checked)
 {
     Private = checked;
 }
-

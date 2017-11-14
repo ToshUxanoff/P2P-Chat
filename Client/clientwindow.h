@@ -3,15 +3,16 @@
 
 #include <QMainWindow>
 #include <QAbstractSocket>
-#include <QTcpSocket>
 #include <QHostAddress>
 #include <QTcpServer>
 #include <QListWidgetItem>
 #include "Kuznyechik.hpp"
-#include <memory>
 #include <iomanip>
 #include <sstream>
-#include <rsa.h>
+#include <dh.h>
+#include <dh2.h>
+#include <nbtheory.h>
+#include <iostream>
 #include <osrng.h>
 #include <peer.h>
 namespace Ui {
@@ -27,7 +28,6 @@ public:
     ~ClientWindow();
 private slots:
     void on_SearchLine_returnPressed();
-
     void onRead();
     void on_NameInput_returnPressed();   
     void on_SendMsg_clicked();
@@ -45,12 +45,19 @@ private:
     void ParseAllUsersData(QString Response);
     QString Encrypt(QString &Message, QString Key);
     QString Decrypt(QString &Message, QString Key);
-    void GenKeyPair();
+    void GenKeyParams();
+    CryptoPP::SecByteBlock IncomingSessionKeyGen(QString Username, CryptoPP::Integer prime, CryptoPP::Integer generator, CryptoPP::SecByteBlock publicNumb);
+    void GettingAgreement(QString Username, CryptoPP::SecByteBlock NewKey);
+    void SendGeneratedPublicKey(QString UserName, CryptoPP::SecByteBlock publicKey);
     Peer* SearchPeerByName(QString Name);
     //<=fields=>
         //crypto
-    CryptoPP::RSA::PublicKey MyPubKey;
-    CryptoPP::RSA::PrivateKey MyPrivKey;
+    CryptoPP::DH dh;
+    CryptoPP::Integer Prime;
+    CryptoPP::Integer Generator;
+    CryptoPP::SecByteBlock PrivNumb;
+    CryptoPP::SecByteBlock PublicNumb;
+    CryptoPP::SecByteBlock MySecretKey;
         //sockets
     QVector<Peer> Peers;
     std::unique_ptr<QTcpSocket> ServerSocket;

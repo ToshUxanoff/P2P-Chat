@@ -10,7 +10,6 @@ public:
     Peer(QString Name, std::shared_ptr<QTcpSocket> Socket);
     Peer(QString Name, std::shared_ptr<QTcpSocket> Socket, QString Key);
     void SetSessionKey(QString Key);
-
     QString PeerName;
     std::shared_ptr<QTcpSocket> PeerSocket;
     QString  SessionKey;

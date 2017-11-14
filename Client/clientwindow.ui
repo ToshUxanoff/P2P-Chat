@@ -17,9 +17,9 @@
    <widget class="QLineEdit" name="SearchLine">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>152</x>
       <y>30</y>
-      <width>113</width>
+      <width>131</width>
       <height>21</height>
      </rect>
     </property>
@@ -66,23 +66,23 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>150</x>
       <y>10</y>
-      <width>60</width>
+      <width>131</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>Search</string>
+     <string>Private users search</string>
     </property>
    </widget>
    <widget class="QTextBrowser" name="MsgBrowser">
     <property name="geometry">
      <rect>
       <x>290</x>
-      <y>0</y>
+      <y>30</y>
       <width>331</width>
-      <height>351</height>
+      <height>321</height>
      </rect>
     </property>
    </widget>
@@ -169,6 +169,32 @@
     </property>
     <property name="text">
      <string>Update</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>10</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Message for:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="DestName">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>10</y>
+      <width>60</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>

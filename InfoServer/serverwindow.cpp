@@ -65,7 +65,7 @@ void ServerWindow::SendAllUsers(QTcpSocket *ClientSocket)
           AllUsersData += query.value(1).toString() + ':' + query.value(0).toString() + '|';
     }
     ClientStream << "!S!" + AllUsersData;
-    ui->Logs->append("sended" + AllUsersData);
+    ui->Logs->append("sended: \n" + AllUsersData);
 }
 int ServerWindow::Resolver(QString& Data)
 {
