@@ -60,7 +60,7 @@ ClientWindow::ClientWindow(int Port, QString address, QWidget *parent)
     ,ui(new Ui::ClientWindow)
 {
     ui->setupUi(this);
-
+    ClientWindow::setWindowTitle("CoChat");
     if(!ThisListenSocket.get()->listen())
     {
         ui->DebugWindow->append("ListenSocket unavailable");
@@ -423,4 +423,10 @@ QString ClientWindow::Decrypt(QString &Message, QString Key)
 void ClientWindow::on_checkBox_toggled(bool checked)
 {
     Private = checked;
+}
+
+void ClientWindow::on_pushButton_clicked()
+{
+    issuecreator* ic = new issuecreator();
+    ic->show();
 }

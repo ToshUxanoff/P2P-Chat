@@ -89,9 +89,9 @@
    <widget class="QPushButton" name="SendMsg">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>350</y>
-      <width>71</width>
+      <x>610</x>
+      <y>360</y>
+      <width>91</width>
       <height>41</height>
      </rect>
     </property>
@@ -195,6 +195,19 @@
     </property>
     <property name="text">
      <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>10</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Create Issue</string>
     </property>
    </widget>
   </widget>

@@ -47,6 +47,7 @@ public:
     QPushButton *UpdateListButton;
     QLabel *label;
     QLabel *DestName;
+    QPushButton *pushButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -78,7 +79,7 @@ public:
         MsgBrowser->setGeometry(QRect(290, 30, 331, 321));
         SendMsg = new QPushButton(centralWidget);
         SendMsg->setObjectName(QStringLiteral("SendMsg"));
-        SendMsg->setGeometry(QRect(620, 350, 71, 41));
+        SendMsg->setGeometry(QRect(610, 360, 91, 41));
         MsgInput = new QLineEdit(centralWidget);
         MsgInput->setObjectName(QStringLiteral("MsgInput"));
         MsgInput->setGeometry(QRect(290, 350, 331, 61));
@@ -103,6 +104,9 @@ public:
         DestName = new QLabel(centralWidget);
         DestName->setObjectName(QStringLiteral("DestName"));
         DestName->setGeometry(QRect(400, 10, 211, 16));
+        pushButton = new QPushButton(centralWidget);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setGeometry(QRect(520, 10, 101, 21));
         ClientWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(ClientWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -134,6 +138,7 @@ public:
         UpdateListButton->setText(QApplication::translate("ClientWindow", "Update", Q_NULLPTR));
         label->setText(QApplication::translate("ClientWindow", "Message for:", Q_NULLPTR));
         DestName->setText(QString());
+        pushButton->setText(QApplication::translate("ClientWindow", "Create Issue", Q_NULLPTR));
     } // retranslateUi
 
 };

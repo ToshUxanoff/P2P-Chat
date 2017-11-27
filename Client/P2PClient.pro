@@ -28,19 +28,22 @@ SOURCES += \
         clientwindow.cpp \
     Kuznyechik.cpp \
     mycrypto.cpp    \
-    peer.cpp
+    peer.cpp \
+    issuecreator.cpp
 
 
 HEADERS += \
         clientwindow.h \
     Kuznyechik.hpp \
     mycrypto.hpp    \
-    peer.h
+    peer.h \
+    issuecreator.h
 
 
 
 FORMS += \
-        clientwindow.ui
+        clientwindow.ui \
+    issuecreator.ui
 
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/cryptopp/release/ -lcryptopp

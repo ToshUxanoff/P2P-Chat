@@ -15,6 +15,7 @@
 #include <iostream>
 #include <osrng.h>
 #include <peer.h>
+#include <issuecreator.h>
 namespace Ui {
 class ClientWindow;
 }
@@ -36,6 +37,8 @@ private slots:
     void ConnDetector();
     void on_UpdateListButton_clicked();
     void on_checkBox_toggled(bool checked);
+
+    void on_pushButton_clicked();
 
 private:
     //<=methods=>

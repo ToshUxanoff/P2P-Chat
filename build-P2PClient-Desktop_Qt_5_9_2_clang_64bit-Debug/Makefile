@@ -54,13 +54,17 @@ SOURCES       = ../Client/main.cpp \
 		../Client/clientwindow.cpp \
 		../Client/Kuznyechik.cpp \
 		../Client/mycrypto.cpp \
-		../Client/peer.cpp moc_clientwindow.cpp
+		../Client/peer.cpp \
+		../Client/issuecreator.cpp moc_clientwindow.cpp \
+		moc_issuecreator.cpp
 OBJECTS       = main.o \
 		clientwindow.o \
 		Kuznyechik.o \
 		mycrypto.o \
 		peer.o \
-		moc_clientwindow.o
+		issuecreator.o \
+		moc_clientwindow.o \
+		moc_issuecreator.o
 DIST          = ../../Qt/5.9.2/clang_64/mkspecs/features/spec_pre.prf \
 		../../Qt/5.9.2/clang_64/mkspecs/qdevice.pri \
 		../../Qt/5.9.2/clang_64/mkspecs/features/device_config.prf \
@@ -249,11 +253,13 @@ DIST          = ../../Qt/5.9.2/clang_64/mkspecs/features/spec_pre.prf \
 		../Client/P2PClient.pro ../Client/clientwindow.h \
 		../Client/Kuznyechik.hpp \
 		../Client/mycrypto.hpp \
-		../Client/peer.h ../Client/main.cpp \
+		../Client/peer.h \
+		../Client/issuecreator.h ../Client/main.cpp \
 		../Client/clientwindow.cpp \
 		../Client/Kuznyechik.cpp \
 		../Client/mycrypto.cpp \
-		../Client/peer.cpp
+		../Client/peer.cpp \
+		../Client/issuecreator.cpp
 QMAKE_TARGET  = P2PClient
 DESTDIR       = 
 TARGET        = P2PClient.app/Contents/MacOS/P2PClient
@@ -267,7 +273,7 @@ EXPORT_ARCH_ARGS = $(foreach arch, $(if $(EXPORT_ACTIVE_ARCHS), $(EXPORT_ACTIVE_
 first: all
 ####### Build rules
 
-$(TARGET): /Users/antonukhanov/P2P-Chat/Client/cryptopp/libcryptopp.a ui_clientwindow.h $(OBJECTS)  
+$(TARGET): /Users/antonukhanov/P2P-Chat/Client/cryptopp/libcryptopp.a ui_clientwindow.h ui_issuecreator.h $(OBJECTS)  
 	@test -d P2PClient.app/Contents/MacOS/ || mkdir -p P2PClient.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -682,9 +688,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../Qt/5.9.2/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Client/clientwindow.h ../Client/Kuznyechik.hpp ../Client/mycrypto.hpp ../Client/peer.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Client/main.cpp ../Client/clientwindow.cpp ../Client/Kuznyechik.cpp ../Client/mycrypto.cpp ../Client/peer.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Client/clientwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../Client/clientwindow.h ../Client/Kuznyechik.hpp ../Client/mycrypto.hpp ../Client/peer.h ../Client/issuecreator.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Client/main.cpp ../Client/clientwindow.cpp ../Client/Kuznyechik.cpp ../Client/mycrypto.cpp ../Client/peer.cpp ../Client/issuecreator.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Client/clientwindow.ui ../Client/issuecreator.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -716,15 +722,13 @@ compiler_moc_predefs_clean:
 moc_predefs.h: ../../Qt/5.9.2/clang_64/mkspecs/features/data/dummy.cpp
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -pipe -stdlib=libc++ -g -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk -mmacosx-version-min=10.10 -Wall -W -dM -E -o moc_predefs.h ../../Qt/5.9.2/clang_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_clientwindow.cpp
+compiler_moc_header_make_all: moc_clientwindow.cpp moc_issuecreator.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_clientwindow.cpp
+	-$(DEL_FILE) moc_clientwindow.cpp moc_issuecreator.cpp
 moc_clientwindow.cpp: ../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QAbstractSocket \
 		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qabstractsocket.h \
-		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QTcpSocket \
-		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qtcpsocket.h \
 		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QHostAddress \
 		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qhostaddress.h \
 		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QTcpServer \
@@ -733,12 +737,13 @@ moc_clientwindow.cpp: ../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QM
 		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlistwidget.h \
 		../Client/Kuznyechik.hpp \
 		../Client/mycrypto.hpp \
-		../Client/cryptopp/rsa.h \
+		../Client/cryptopp/dh.h \
 		../Client/cryptopp/cryptlib.h \
 		../Client/cryptopp/config.h \
 		../Client/cryptopp/stdcpp.h \
 		../Client/cryptopp/trap.h \
 		../Client/cryptopp/ossig.h \
+		../Client/cryptopp/gfpcrypt.h \
 		../Client/cryptopp/pubkey.h \
 		../Client/cryptopp/integer.h \
 		../Client/cryptopp/secblock.h \
@@ -758,30 +763,48 @@ moc_clientwindow.cpp: ../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QM
 		../Client/cryptopp/asn.h \
 		../Client/cryptopp/fips140.h \
 		../Client/cryptopp/argnames.h \
-		../Client/cryptopp/pkcspad.h \
+		../Client/cryptopp/modexppc.h \
 		../Client/cryptopp/sha.h \
 		../Client/cryptopp/iterhash.h \
-		../Client/cryptopp/oaep.h \
-		../Client/cryptopp/emsa2.h \
+		../Client/cryptopp/hmac.h \
+		../Client/cryptopp/seckey.h \
+		../Client/cryptopp/dh2.h \
+		../Client/cryptopp/nbtheory.h \
 		../Client/cryptopp/osrng.h \
 		../Client/cryptopp/randpool.h \
 		../Client/cryptopp/aes.h \
 		../Client/cryptopp/rijndael.h \
-		../Client/cryptopp/seckey.h \
 		../Client/cryptopp/rng.h \
+		../Client/peer.h \
+		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QTcpSocket \
+		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qtcpsocket.h \
+		../Client/issuecreator.h \
+		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QDialog \
+		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
 		../Client/clientwindow.h \
 		moc_predefs.h \
 		../../Qt/5.9.2/clang_64/bin/moc
 	/Users/antonukhanov/Qt/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/antonukhanov/Qt/5.9.2/clang_64/mkspecs/macx-clang -I/Users/antonukhanov/P2P-Chat/Client -I/Users/antonukhanov/P2P-Chat/Client/cryptopp -I/Users/antonukhanov/Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/antonukhanov/Qt/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/antonukhanov/Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/antonukhanov/Qt/5.9.2/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include -F/Users/antonukhanov/Qt/5.9.2/clang_64/lib ../Client/clientwindow.h -o moc_clientwindow.cpp
 
+moc_issuecreator.cpp: ../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QDialog \
+		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
+		../Client/issuecreator.h \
+		moc_predefs.h \
+		../../Qt/5.9.2/clang_64/bin/moc
+	/Users/antonukhanov/Qt/5.9.2/clang_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/Users/antonukhanov/Qt/5.9.2/clang_64/mkspecs/macx-clang -I/Users/antonukhanov/P2P-Chat/Client -I/Users/antonukhanov/P2P-Chat/Client/cryptopp -I/Users/antonukhanov/Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers -I/Users/antonukhanov/Qt/5.9.2/clang_64/lib/QtGui.framework/Headers -I/Users/antonukhanov/Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers -I/Users/antonukhanov/Qt/5.9.2/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include -F/Users/antonukhanov/Qt/5.9.2/clang_64/lib ../Client/issuecreator.h -o moc_issuecreator.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_clientwindow.h
+compiler_uic_make_all: ui_clientwindow.h ui_issuecreator.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_clientwindow.h
+	-$(DEL_FILE) ui_clientwindow.h ui_issuecreator.h
 ui_clientwindow.h: ../Client/clientwindow.ui \
 		../../Qt/5.9.2/clang_64/bin/uic
 	/Users/antonukhanov/Qt/5.9.2/clang_64/bin/uic ../Client/clientwindow.ui -o ui_clientwindow.h
+
+ui_issuecreator.h: ../Client/issuecreator.ui \
+		../../Qt/5.9.2/clang_64/bin/uic
+	/Users/antonukhanov/Qt/5.9.2/clang_64/bin/uic ../Client/issuecreator.ui -o ui_issuecreator.h
 
 compiler_rez_source_make_all:
 compiler_rez_source_clean:
@@ -800,8 +823,6 @@ main.o: ../Client/main.cpp ../Client/clientwindow.h \
 		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QAbstractSocket \
 		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qabstractsocket.h \
-		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QTcpSocket \
-		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qtcpsocket.h \
 		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QHostAddress \
 		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qhostaddress.h \
 		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QTcpServer \
@@ -810,12 +831,13 @@ main.o: ../Client/main.cpp ../Client/clientwindow.h \
 		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlistwidget.h \
 		../Client/Kuznyechik.hpp \
 		../Client/mycrypto.hpp \
-		../Client/cryptopp/rsa.h \
+		../Client/cryptopp/dh.h \
 		../Client/cryptopp/cryptlib.h \
 		../Client/cryptopp/config.h \
 		../Client/cryptopp/stdcpp.h \
 		../Client/cryptopp/trap.h \
 		../Client/cryptopp/ossig.h \
+		../Client/cryptopp/gfpcrypt.h \
 		../Client/cryptopp/pubkey.h \
 		../Client/cryptopp/integer.h \
 		../Client/cryptopp/secblock.h \
@@ -835,17 +857,24 @@ main.o: ../Client/main.cpp ../Client/clientwindow.h \
 		../Client/cryptopp/asn.h \
 		../Client/cryptopp/fips140.h \
 		../Client/cryptopp/argnames.h \
-		../Client/cryptopp/pkcspad.h \
+		../Client/cryptopp/modexppc.h \
 		../Client/cryptopp/sha.h \
 		../Client/cryptopp/iterhash.h \
-		../Client/cryptopp/oaep.h \
-		../Client/cryptopp/emsa2.h \
+		../Client/cryptopp/hmac.h \
+		../Client/cryptopp/seckey.h \
+		../Client/cryptopp/dh2.h \
+		../Client/cryptopp/nbtheory.h \
 		../Client/cryptopp/osrng.h \
 		../Client/cryptopp/randpool.h \
 		../Client/cryptopp/aes.h \
 		../Client/cryptopp/rijndael.h \
-		../Client/cryptopp/seckey.h \
 		../Client/cryptopp/rng.h \
+		../Client/peer.h \
+		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QTcpSocket \
+		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qtcpsocket.h \
+		../Client/issuecreator.h \
+		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QDialog \
+		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
 		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QApplication \
 		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Client/main.cpp
@@ -855,8 +884,6 @@ clientwindow.o: ../Client/clientwindow.cpp ../Client/clientwindow.h \
 		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QAbstractSocket \
 		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qabstractsocket.h \
-		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QTcpSocket \
-		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qtcpsocket.h \
 		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QHostAddress \
 		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qhostaddress.h \
 		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QTcpServer \
@@ -865,12 +892,13 @@ clientwindow.o: ../Client/clientwindow.cpp ../Client/clientwindow.h \
 		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qlistwidget.h \
 		../Client/Kuznyechik.hpp \
 		../Client/mycrypto.hpp \
-		../Client/cryptopp/rsa.h \
+		../Client/cryptopp/dh.h \
 		../Client/cryptopp/cryptlib.h \
 		../Client/cryptopp/config.h \
 		../Client/cryptopp/stdcpp.h \
 		../Client/cryptopp/trap.h \
 		../Client/cryptopp/ossig.h \
+		../Client/cryptopp/gfpcrypt.h \
 		../Client/cryptopp/pubkey.h \
 		../Client/cryptopp/integer.h \
 		../Client/cryptopp/secblock.h \
@@ -890,17 +918,24 @@ clientwindow.o: ../Client/clientwindow.cpp ../Client/clientwindow.h \
 		../Client/cryptopp/asn.h \
 		../Client/cryptopp/fips140.h \
 		../Client/cryptopp/argnames.h \
-		../Client/cryptopp/pkcspad.h \
+		../Client/cryptopp/modexppc.h \
 		../Client/cryptopp/sha.h \
 		../Client/cryptopp/iterhash.h \
-		../Client/cryptopp/oaep.h \
-		../Client/cryptopp/emsa2.h \
+		../Client/cryptopp/hmac.h \
+		../Client/cryptopp/seckey.h \
+		../Client/cryptopp/dh2.h \
+		../Client/cryptopp/nbtheory.h \
 		../Client/cryptopp/osrng.h \
 		../Client/cryptopp/randpool.h \
 		../Client/cryptopp/aes.h \
 		../Client/cryptopp/rijndael.h \
-		../Client/cryptopp/seckey.h \
 		../Client/cryptopp/rng.h \
+		../Client/peer.h \
+		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/QTcpSocket \
+		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qtcpsocket.h \
+		../Client/issuecreator.h \
+		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QDialog \
+		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
 		ui_clientwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clientwindow.o ../Client/clientwindow.cpp
 
@@ -916,8 +951,17 @@ peer.o: ../Client/peer.cpp ../Client/peer.h \
 		../../Qt/5.9.2/clang_64/lib/QtNetwork.framework/Headers/qtcpsocket.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o peer.o ../Client/peer.cpp
 
+issuecreator.o: ../Client/issuecreator.cpp ../Client/issuecreator.h \
+		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QDialog \
+		../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
+		ui_issuecreator.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o issuecreator.o ../Client/issuecreator.cpp
+
 moc_clientwindow.o: moc_clientwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_clientwindow.o moc_clientwindow.cpp
+
+moc_issuecreator.o: moc_issuecreator.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_issuecreator.o moc_issuecreator.cpp
 
 ####### Install
 
