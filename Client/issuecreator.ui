@@ -58,9 +58,9 @@
   <widget class="QLineEdit" name="TitleEdit">
    <property name="geometry">
     <rect>
-     <x>12</x>
+     <x>130</x>
      <y>100</y>
-     <width>121</width>
+     <width>131</width>
      <height>21</height>
     </rect>
    </property>
@@ -101,7 +101,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Token</string>
+    <string>Password</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
@@ -130,9 +130,9 @@
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>160</x>
      <y>80</y>
-     <width>131</width>
+     <width>61</width>
      <height>16</height>
     </rect>
    </property>
@@ -143,7 +143,7 @@
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>10</x>
      <y>120</y>
      <width>81</width>
      <height>16</height>
@@ -156,8 +156,8 @@
   <widget class="QLabel" name="statusLabel">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>95</y>
+     <x>50</x>
+     <y>260</y>
      <width>181</width>
      <height>21</height>
     </rect>

@@ -1,5 +1,6 @@
 #include "issuecreator.h"
 #include "ui_issuecreator.h"
+
 issuecreator::issuecreator(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::issuecreator)
@@ -47,9 +48,28 @@ bool issuecreator::IsInternetConnected()
     }
 
 }
+QString issuecreator::ParseToken(QString Data)
+{
+     QJsonDocument document = QJsonDocument::fromJson(Data.toUtf8());
+     QJsonObject root = document.object();
+     QString token (root.value("token").toString());
+     return token;
+}
+QString issuecreator::GetGithubToken(const QString &Login, const QString &Pass)
+{
+
+    QString Request = "curl -u" + Login + ':'+ Pass +" -d '{\"scopes\": [\"repo\"], \"note\": \"CoChat\" }' https://api.github.com/authorizations";
+    QProcess* process = new QProcess(this);
+    process->start("sh");
+    process->write(Request.toUtf8());
+    process->closeWriteChannel();
+    process->waitForFinished();
+    QString Answer = process->readAllStandardOutput();
+    return ParseToken(Answer);
+}
 void issuecreator::WriteTokenToFile(const std::string& token)
 {
-    QFile configFile("config2.cct");
+    QFile configFile("config.txt");
     if(configFile.open(QIODevice::WriteOnly) && isTokenWrited == false)
     {
         configFile.write(token.c_str(), token.length());
@@ -59,7 +79,7 @@ void issuecreator::WriteTokenToFile(const std::string& token)
 }
 QString issuecreator::ReadTokenFromFile()
 {
-    QFile configFile("config2.cct");
+    QFile configFile("config.txt");
     QString Token;
     if(configFile.open(QIODevice::ReadOnly))
     {
@@ -74,11 +94,11 @@ QString issuecreator::ReadTokenFromFile()
 }
 void issuecreator::on_Send_clicked()
 {
-    WriteTokenToFile(ui->PassEdit->text().toStdString());
+
     if(Token.isEmpty())
     {
-        Token = ReadTokenFromFile();
-
+        Token = GetGithubToken(ui->UsernameEdit->text(), ui->PassEdit->text());
+        WriteTokenToFile(Token.toStdString());
     }
     if(IsInternetConnected())
     {

@@ -5,6 +5,8 @@
 #include <QProcess>
 #include <QNetworkConfigurationManager>
 #include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
 namespace Ui {
 class issuecreator;
 }
@@ -19,6 +21,8 @@ public:
     bool IsInternetConnected();
     void WriteTokenToFile(const std::string& Token);
     QString ReadTokenFromFile();
+    QString ParseToken(QString Data);
+    QString GetGithubToken(const QString& Login, const QString& Pass);
       ~issuecreator();
 
 private slots:
