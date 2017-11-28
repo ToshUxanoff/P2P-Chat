@@ -73,7 +73,7 @@ ClientWindow::~ClientWindow()
 {
     delete ui;
 }
-Peer* ClientWindow::SearchPeerByName(QString Name)
+Peer* ClientWindow::SearchPeerByName(const QString& Name)
 {
     for(int i = 0; i < Peers.size(); ++i )
     {
@@ -84,7 +84,7 @@ Peer* ClientWindow::SearchPeerByName(QString Name)
     }
     return nullptr;
 }
-int ClientWindow::Resolver(QString Data)
+int ClientWindow::Resolver(const QString& Data)
 {
     if(Data.startsWith("!S!"))   //server response (success search)
     {
@@ -113,7 +113,7 @@ int ClientWindow::Resolver(QString Data)
     return -1;
     //add more flags
 }
-void ClientWindow::SendMessageToPeer(QString PeerName)
+void ClientWindow::SendMessageToPeer(const QString& PeerName)
 {
     if(!Destination.isEmpty() && !SearchPeerByName(PeerName)->SessionKey.isEmpty())
     {
@@ -124,7 +124,7 @@ void ClientWindow::SendMessageToPeer(QString PeerName)
         PeerStream << Message;
     }
 }
-void ClientWindow::SendConnectRequest(QString PeerName)
+void ClientWindow::SendConnectRequest(const QString& PeerName)
 {
     QString ConnectReq("!CR!" + ThisListenSocket.get()->serverAddress().toString() + ':'
                        + QString::number(ThisListenSocket.get()->serverPort()) + ':'
@@ -132,7 +132,7 @@ void ClientWindow::SendConnectRequest(QString PeerName)
     QDataStream Stream(SearchPeerByName(PeerName)->PeerSocket.get());
     Stream << ConnectReq;
 }
-void ClientWindow::SendGeneratedPublicKey(QString PeerName, CryptoPP::SecByteBlock publicKey)
+void ClientWindow::SendGeneratedPublicKey(const QString& PeerName, CryptoPP::SecByteBlock publicKey)
 {
         QDataStream PeerStream(SearchPeerByName(PeerName)->PeerSocket.get());
         QString Message = "!A!" + NickName + ':' + SecBBToString(publicKey);
@@ -143,7 +143,7 @@ void ClientWindow::ConnDetector()
     QTcpSocket* LSocket(ThisListenSocket.get()->nextPendingConnection());
     connect(LSocket, SIGNAL(readyRead()), this, SLOT(onRead()));
 }
-void ClientWindow::ConnectToPeer(QString IP, int Port, QString UserName)
+void ClientWindow::ConnectToPeer(const QString& IP, int Port, const QString& UserName)
 {
     if(SearchPeerByName(UserName) == nullptr)
     {
@@ -293,7 +293,7 @@ void ClientWindow::onRead()
         QString Name = Response.split(':')[0];
         std::string buffStr = hex_to_string(Response.split(':')[1].toStdString());
         CryptoPP::SecByteBlock SecBB(buffStr.length());
-        for(int i = 0; i < buffStr.length(); ++i)
+        for(size_t i = 0; i < buffStr.length(); ++i)
         {
             SecBB[i] = buffStr[i];
         }
@@ -357,7 +357,7 @@ void ClientWindow::GenKeyParams()
     MySecretKey = CryptoPP::SecByteBlock(dh.AgreedValueLength());
     dh.GenerateKeyPair(rnd, PrivNumb, PublicNumb);
 }
-CryptoPP::SecByteBlock ClientWindow::IncomingSessionKeyGen(QString Username, CryptoPP::Integer prime, CryptoPP::Integer generator, CryptoPP::SecByteBlock publicNumb)
+CryptoPP::SecByteBlock ClientWindow::IncomingSessionKeyGen(const QString& Username, CryptoPP::Integer prime, CryptoPP::Integer generator, CryptoPP::SecByteBlock publicNumb)
 {
     CryptoPP::AutoSeededRandomPool rngB;
     CryptoPP::DH dhB(prime, generator);
@@ -374,7 +374,7 @@ CryptoPP::SecByteBlock ClientWindow::IncomingSessionKeyGen(QString Username, Cry
     }
     return pubB;
 }
-void ClientWindow::GettingAgreement(QString Username, CryptoPP::SecByteBlock NewKey)
+void ClientWindow::GettingAgreement(const QString& Username, CryptoPP::SecByteBlock NewKey)
 {
     if (dh.Agree(MySecretKey, PrivNumb, NewKey))
     {
@@ -427,6 +427,8 @@ void ClientWindow::on_checkBox_toggled(bool checked)
 
 void ClientWindow::on_pushButton_clicked()
 {
-    issuecreator* ic = new issuecreator();
+
+    QString selectedText_ = ui->MsgBrowser->textCursor().selectedText();
+    issuecreator* ic = new issuecreator(selectedText_);
     ic->show();
 }

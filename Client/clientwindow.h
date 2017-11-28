@@ -37,23 +37,22 @@ private slots:
     void ConnDetector();
     void on_UpdateListButton_clicked();
     void on_checkBox_toggled(bool checked);
-
     void on_pushButton_clicked();
 
 private:
     //<=methods=>
-    int Resolver(QString Data);
-    void SendMessageToPeer(QString PeerName);
-    void ConnectToPeer(QString IP, int Port, QString UserName);
-    void SendConnectRequest(QString PeerName);
+    int Resolver(const QString &Data);
+    void SendMessageToPeer(const QString &PeerName);
+    void ConnectToPeer(const QString &IP, int Port, const QString &UserName);
+    void SendConnectRequest(const QString &PeerName);
     void ParseAllUsersData(QString Response);
     QString Encrypt(QString &Message, QString Key);
     QString Decrypt(QString &Message, QString Key);
     void GenKeyParams();
-    CryptoPP::SecByteBlock IncomingSessionKeyGen(QString Username, CryptoPP::Integer prime, CryptoPP::Integer generator, CryptoPP::SecByteBlock publicNumb);
-    void GettingAgreement(QString Username, CryptoPP::SecByteBlock NewKey);
-    void SendGeneratedPublicKey(QString UserName, CryptoPP::SecByteBlock publicKey);
-    Peer* SearchPeerByName(QString Name);
+    CryptoPP::SecByteBlock IncomingSessionKeyGen(const QString &Username, CryptoPP::Integer prime, CryptoPP::Integer generator, CryptoPP::SecByteBlock publicNumb);
+    void GettingAgreement(const QString &Username, CryptoPP::SecByteBlock NewKey);
+    void SendGeneratedPublicKey(const QString &UserName, CryptoPP::SecByteBlock publicKey);
+    Peer* SearchPeerByName(const QString &Name);
     //<=fields=>
         //crypto
     CryptoPP::DH dh;

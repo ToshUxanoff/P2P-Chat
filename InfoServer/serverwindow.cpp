@@ -29,7 +29,7 @@ ServerWindow::~ServerWindow()
     delete ui;
 
 }
-void ServerWindow::AddNewUser(QString NickName, QString Status, QString Address)
+void ServerWindow::AddNewUser(const QString &NickName, const QString &Status, const QString &Address)
 {
     QSqlQuery query(DataBase);
     query.prepare("INSERT INTO UsersList  (Name, Status, Addr) VALUES (:Name, :Status, :Addr)");
@@ -38,7 +38,7 @@ void ServerWindow::AddNewUser(QString NickName, QString Status, QString Address)
     query.bindValue(":Addr", Address);
     query.exec();
 }
-QString ServerWindow::SearchUser(QString Username)
+QString ServerWindow::SearchUser(const QString& Username)
 {
    QSqlQuery query(DataBase);
    QString RetStr;
@@ -67,7 +67,7 @@ void ServerWindow::SendAllUsers(QTcpSocket *ClientSocket)
     ClientStream << "!S!" + AllUsersData;
 
 }
-int ServerWindow::Resolver(QString& Data)
+int ServerWindow::Resolver(const QString& Data)
 {
     if (Data.startsWith("!0!"))
     {

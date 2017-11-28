@@ -13,12 +13,16 @@ class issuecreator : public QDialog
 
 public:
     explicit issuecreator(QWidget *parent = 0);
+    issuecreator(const QString& selectedText, QWidget* parent = 0);
+    bool IsInternetConnected();
+
     ~issuecreator();
 
 private slots:
 
     void on_Send_clicked();
 private:
+    QString IssueDescription;
     Ui::issuecreator *ui;
 };
 

@@ -19,7 +19,7 @@ class ServerWindow : public QMainWindow
 public:
     explicit ServerWindow(QWidget *parent = 0);
     ~ServerWindow();
-    int Resolver(QString& Data);
+    int Resolver(const QString &Data);
 
 private slots:
     void on_Starting_clicked();
@@ -28,12 +28,14 @@ private slots:
     void ListeningClient();
 
 private:
-    void AddNewUser(QString NickName, QString Status, QString Address);
-    void SendAllUsers(QTcpSocket* ClientSocket);
-    QString SearchUser(QString Username);
     //server address and port
     QString ServerAddress = "127.0.0.1";
     int Port = 9090;
+    //<=database funcs=>
+    void AddNewUser(const QString& NickName, const QString& Status,const QString& Address);
+    void SendAllUsers(QTcpSocket* ClientSocket);
+    QString SearchUser(const QString& Username);
+
     bool ServerOn = false;
     Ui::ServerWindow *ui;
     std::unique_ptr<QTcpServer> tcpServer;
