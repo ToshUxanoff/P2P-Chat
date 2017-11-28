@@ -2,7 +2,9 @@
 #define ISSUECREATOR_H
 
 #include <QDialog>
-
+#include <QProcess>
+#include <QNetworkConfigurationManager>
+#include <QFile>
 namespace Ui {
 class issuecreator;
 }
@@ -15,13 +17,17 @@ public:
     explicit issuecreator(QWidget *parent = 0);
     issuecreator(const QString& selectedText, QWidget* parent = 0);
     bool IsInternetConnected();
-
-    ~issuecreator();
+    void WriteTokenToFile(const std::string& Token);
+    QString ReadTokenFromFile();
+      ~issuecreator();
 
 private slots:
 
     void on_Send_clicked();
 private:
+
+    bool isTokenWrited = false;
+    QString Token;
     QString IssueDescription;
     Ui::issuecreator *ui;
 };

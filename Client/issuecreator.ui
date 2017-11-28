@@ -101,7 +101,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Password</string>
+    <string>Token</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
