@@ -374,14 +374,13 @@ CryptoPP::SecByteBlock ClientWindow::IncomingSessionKeyGen(const QString& Userna
     }
     return pubB;
 }
-void ClientWindow::GettingAgreement(const QString& Username, CryptoPP::SecByteBlock NewKey)
+void ClientWindow::GettingAgreement(const QString& Username, CryptoPP::SecByteBlock publicNumb)
 {
-    if (dh.Agree(MySecretKey, PrivNumb, NewKey))
+    if (dh.Agree(MySecretKey, PrivNumb, publicNumb))
     {
         ui->DebugWindow->append("Success key exchange with: " + Username);
         SearchPeerByName(Username)->SetSessionKey(SecBBToString(MySecretKey));
     }
-
 }
 
 QString ClientWindow::Encrypt(QString &Message, QString Key)

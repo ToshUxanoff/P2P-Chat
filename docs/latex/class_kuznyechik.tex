@@ -1,0 +1,105 @@
+\hypertarget{class_kuznyechik}{}\section{Kuznyechik Class Reference}
+\label{class_kuznyechik}\index{Kuznyechik@{Kuznyechik}}
+
+
+Класс из библиотеки-\/реализации алгоритма \char`\"{}Кузнечик\char`\"{}. Ссылка на документацию -\/ в источниках.  
+
+
+
+
+{\ttfamily \#include $<$Kuznyechik.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_kuznyechik_a3fa49cd54a47b9cc2d5a32beabd05264}{Kuznyechik} (const \hyperlink{class_byte_block}{Byte\+Block} \&key)
+\item 
+\hyperlink{class_kuznyechik_a8e3a616991d823600e38d4a974124d1d}{Kuznyechik} (const \hyperlink{class_kuznyechik}{Kuznyechik} \&rhs)
+\item 
+\hyperlink{class_kuznyechik_a0dab125f7a2ba66559ee611256985c45}{$\sim$\+Kuznyechik} ()
+\item 
+void \hyperlink{class_kuznyechik_ace290770ef015f19d6c0e06c66a4f29d}{encrypt} (const \hyperlink{class_byte_block}{Byte\+Block} \&src, \hyperlink{class_byte_block}{Byte\+Block} \&dst) const
+\item 
+void \hyperlink{class_kuznyechik_a8f699d0a38e8fa9c147d7b31d759bf26}{decrypt} (const \hyperlink{class_byte_block}{Byte\+Block} \&src, \hyperlink{class_byte_block}{Byte\+Block} \&dst) const
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const int \hyperlink{class_kuznyechik_acf61a43f8d6c726b0d334df98bdc0337}{block\+\_\+lenght} \{\hyperlink{_kuznyechik_8hpp_a22a79078d4bc53268ab86f316856248f}{B\+L\+O\+C\+K\+\_\+\+L\+E\+N\+G\+TH}\}
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \hyperlink{class_byte_block}{Byte\+Block} $>$ \hyperlink{class_kuznyechik_a19e910dc6d7358b07ab733c31ae52b8d}{keys}
+\end{DoxyCompactItemize}
+\subsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static bool \hyperlink{class_kuznyechik_ad174f2e619e033cc9f29a265825aba41}{is\+\_\+init} = false
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Класс из библиотеки-\/реализации алгоритма \char`\"{}Кузнечик\char`\"{}. Ссылка на документацию -\/ в источниках. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_kuznyechik_a3fa49cd54a47b9cc2d5a32beabd05264}\label{class_kuznyechik_a3fa49cd54a47b9cc2d5a32beabd05264}} 
+\index{Kuznyechik@{Kuznyechik}!Kuznyechik@{Kuznyechik}}
+\index{Kuznyechik@{Kuznyechik}!Kuznyechik@{Kuznyechik}}
+\subsubsection{\texorpdfstring{Kuznyechik()}{Kuznyechik()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Kuznyechik\+::\+Kuznyechik (\begin{DoxyParamCaption}\item[{const \hyperlink{class_byte_block}{Byte\+Block} \&}]{key }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_kuznyechik_a8e3a616991d823600e38d4a974124d1d}\label{class_kuznyechik_a8e3a616991d823600e38d4a974124d1d}} 
+\index{Kuznyechik@{Kuznyechik}!Kuznyechik@{Kuznyechik}}
+\index{Kuznyechik@{Kuznyechik}!Kuznyechik@{Kuznyechik}}
+\subsubsection{\texorpdfstring{Kuznyechik()}{Kuznyechik()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Kuznyechik\+::\+Kuznyechik (\begin{DoxyParamCaption}\item[{const \hyperlink{class_kuznyechik}{Kuznyechik} \&}]{rhs }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_kuznyechik_a0dab125f7a2ba66559ee611256985c45}\label{class_kuznyechik_a0dab125f7a2ba66559ee611256985c45}} 
+\index{Kuznyechik@{Kuznyechik}!````~Kuznyechik@{$\sim$\+Kuznyechik}}
+\index{````~Kuznyechik@{$\sim$\+Kuznyechik}!Kuznyechik@{Kuznyechik}}
+\subsubsection{\texorpdfstring{$\sim$\+Kuznyechik()}{~Kuznyechik()}}
+{\footnotesize\ttfamily Kuznyechik\+::$\sim$\+Kuznyechik (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_kuznyechik_a8f699d0a38e8fa9c147d7b31d759bf26}\label{class_kuznyechik_a8f699d0a38e8fa9c147d7b31d759bf26}} 
+\index{Kuznyechik@{Kuznyechik}!decrypt@{decrypt}}
+\index{decrypt@{decrypt}!Kuznyechik@{Kuznyechik}}
+\subsubsection{\texorpdfstring{decrypt()}{decrypt()}}
+{\footnotesize\ttfamily void Kuznyechik\+::decrypt (\begin{DoxyParamCaption}\item[{const \hyperlink{class_byte_block}{Byte\+Block} \&}]{src,  }\item[{\hyperlink{class_byte_block}{Byte\+Block} \&}]{dst }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_kuznyechik_ace290770ef015f19d6c0e06c66a4f29d}\label{class_kuznyechik_ace290770ef015f19d6c0e06c66a4f29d}} 
+\index{Kuznyechik@{Kuznyechik}!encrypt@{encrypt}}
+\index{encrypt@{encrypt}!Kuznyechik@{Kuznyechik}}
+\subsubsection{\texorpdfstring{encrypt()}{encrypt()}}
+{\footnotesize\ttfamily void Kuznyechik\+::encrypt (\begin{DoxyParamCaption}\item[{const \hyperlink{class_byte_block}{Byte\+Block} \&}]{src,  }\item[{\hyperlink{class_byte_block}{Byte\+Block} \&}]{dst }\end{DoxyParamCaption}) const}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_kuznyechik_acf61a43f8d6c726b0d334df98bdc0337}\label{class_kuznyechik_acf61a43f8d6c726b0d334df98bdc0337}} 
+\index{Kuznyechik@{Kuznyechik}!block\+\_\+lenght@{block\+\_\+lenght}}
+\index{block\+\_\+lenght@{block\+\_\+lenght}!Kuznyechik@{Kuznyechik}}
+\subsubsection{\texorpdfstring{block\+\_\+lenght}{block\_lenght}}
+{\footnotesize\ttfamily const int Kuznyechik\+::block\+\_\+lenght \{\hyperlink{_kuznyechik_8hpp_a22a79078d4bc53268ab86f316856248f}{B\+L\+O\+C\+K\+\_\+\+L\+E\+N\+G\+TH}\}\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_kuznyechik_ad174f2e619e033cc9f29a265825aba41}\label{class_kuznyechik_ad174f2e619e033cc9f29a265825aba41}} 
+\index{Kuznyechik@{Kuznyechik}!is\+\_\+init@{is\+\_\+init}}
+\index{is\+\_\+init@{is\+\_\+init}!Kuznyechik@{Kuznyechik}}
+\subsubsection{\texorpdfstring{is\+\_\+init}{is\_init}}
+{\footnotesize\ttfamily bool Kuznyechik\+::is\+\_\+init = false\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+\mbox{\Hypertarget{class_kuznyechik_a19e910dc6d7358b07ab733c31ae52b8d}\label{class_kuznyechik_a19e910dc6d7358b07ab733c31ae52b8d}} 
+\index{Kuznyechik@{Kuznyechik}!keys@{keys}}
+\index{keys@{keys}!Kuznyechik@{Kuznyechik}}
+\subsubsection{\texorpdfstring{keys}{keys}}
+{\footnotesize\ttfamily std\+::vector$<$\hyperlink{class_byte_block}{Byte\+Block}$>$ Kuznyechik\+::keys\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+P2\+P-\/\+Chat/\+Client/\hyperlink{_kuznyechik_8hpp}{Kuznyechik.\+hpp}\item 
+P2\+P-\/\+Chat/\+Client/\hyperlink{_kuznyechik_8cpp}{Kuznyechik.\+cpp}\end{DoxyCompactItemize}

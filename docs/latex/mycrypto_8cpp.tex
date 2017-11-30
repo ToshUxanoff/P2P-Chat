@@ -1,0 +1,79 @@
+\hypertarget{mycrypto_8cpp}{}\section{P2\+P-\/\+Chat/\+Client/mycrypto.cpp File Reference}
+\label{mycrypto_8cpp}\index{P2\+P-\/\+Chat/\+Client/mycrypto.\+cpp@{P2\+P-\/\+Chat/\+Client/mycrypto.\+cpp}}
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
+{\ttfamily \#include \char`\"{}mycrypto.\+hpp\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{mycrypto_8cpp_aff71aa0d084ae3b604be05fa66e1d4cd}{swap} (\hyperlink{class_byte_block}{Byte\+Block} \&lhs, \hyperlink{class_byte_block}{Byte\+Block} \&rhs)
+\item 
+vector$<$ \hyperlink{class_byte_block}{Byte\+Block} $>$ \hyperlink{mycrypto_8cpp_aca8f1e35e07bad7877de3f38099a9ebf}{split\+\_\+blocks} (const \hyperlink{class_byte_block}{Byte\+Block} \&src, size\+\_\+t length)
+\item 
+\hyperlink{class_byte_block}{Byte\+Block} \hyperlink{mycrypto_8cpp_a87b84e4ba166cfd86cf867ee46f484b9}{join\+\_\+blocks} (const vector$<$ \hyperlink{class_byte_block}{Byte\+Block} $>$ \&blocks)
+\item 
+void \hyperlink{mycrypto_8cpp_a66b7e84b7ce7f030d3201391fb1d87a0}{xor\+\_\+blocks} (\hyperlink{class_byte_block}{Byte\+Block} \&to\+\_\+assign, const \hyperlink{class_byte_block}{Byte\+Block} \&lhs, const \hyperlink{class_byte_block}{Byte\+Block} \&rhs)
+\item 
+char \hyperlink{mycrypto_8cpp_abf3d7cc2f7701e78a90341a4548e1086}{to\+\_\+hex\+\_\+literal} (\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} number)
+\item 
+\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} \hyperlink{mycrypto_8cpp_a62f60a18a3ac811f2e323f66257a3690}{from\+\_\+hex\+\_\+literal} (char symbol)
+\item 
+string \hyperlink{mycrypto_8cpp_a261821e5645d5395ce6fe261340f9d83}{hex\+\_\+representation} (const \hyperlink{class_byte_block}{Byte\+Block} \&bb)
+\item 
+\hyperlink{class_byte_block}{Byte\+Block} \hyperlink{mycrypto_8cpp_a80685caf4cdb3afae96ad431b5d2e088}{hex\+\_\+to\+\_\+bytes} (const string \&s)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{mycrypto_8cpp_a62f60a18a3ac811f2e323f66257a3690}\label{mycrypto_8cpp_a62f60a18a3ac811f2e323f66257a3690}} 
+\index{mycrypto.\+cpp@{mycrypto.\+cpp}!from\+\_\+hex\+\_\+literal@{from\+\_\+hex\+\_\+literal}}
+\index{from\+\_\+hex\+\_\+literal@{from\+\_\+hex\+\_\+literal}!mycrypto.\+cpp@{mycrypto.\+cpp}}
+\subsubsection{\texorpdfstring{from\+\_\+hex\+\_\+literal()}{from\_hex\_literal()}}
+{\footnotesize\ttfamily \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} from\+\_\+hex\+\_\+literal (\begin{DoxyParamCaption}\item[{char}]{symbol }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{mycrypto_8cpp_a261821e5645d5395ce6fe261340f9d83}\label{mycrypto_8cpp_a261821e5645d5395ce6fe261340f9d83}} 
+\index{mycrypto.\+cpp@{mycrypto.\+cpp}!hex\+\_\+representation@{hex\+\_\+representation}}
+\index{hex\+\_\+representation@{hex\+\_\+representation}!mycrypto.\+cpp@{mycrypto.\+cpp}}
+\subsubsection{\texorpdfstring{hex\+\_\+representation()}{hex\_representation()}}
+{\footnotesize\ttfamily string hex\+\_\+representation (\begin{DoxyParamCaption}\item[{const \hyperlink{class_byte_block}{Byte\+Block} \&}]{bb }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{mycrypto_8cpp_a80685caf4cdb3afae96ad431b5d2e088}\label{mycrypto_8cpp_a80685caf4cdb3afae96ad431b5d2e088}} 
+\index{mycrypto.\+cpp@{mycrypto.\+cpp}!hex\+\_\+to\+\_\+bytes@{hex\+\_\+to\+\_\+bytes}}
+\index{hex\+\_\+to\+\_\+bytes@{hex\+\_\+to\+\_\+bytes}!mycrypto.\+cpp@{mycrypto.\+cpp}}
+\subsubsection{\texorpdfstring{hex\+\_\+to\+\_\+bytes()}{hex\_to\_bytes()}}
+{\footnotesize\ttfamily \hyperlink{class_byte_block}{Byte\+Block} hex\+\_\+to\+\_\+bytes (\begin{DoxyParamCaption}\item[{const string \&}]{s }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{mycrypto_8cpp_a87b84e4ba166cfd86cf867ee46f484b9}\label{mycrypto_8cpp_a87b84e4ba166cfd86cf867ee46f484b9}} 
+\index{mycrypto.\+cpp@{mycrypto.\+cpp}!join\+\_\+blocks@{join\+\_\+blocks}}
+\index{join\+\_\+blocks@{join\+\_\+blocks}!mycrypto.\+cpp@{mycrypto.\+cpp}}
+\subsubsection{\texorpdfstring{join\+\_\+blocks()}{join\_blocks()}}
+{\footnotesize\ttfamily \hyperlink{class_byte_block}{Byte\+Block} join\+\_\+blocks (\begin{DoxyParamCaption}\item[{const vector$<$ \hyperlink{class_byte_block}{Byte\+Block} $>$ \&}]{blocks }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{mycrypto_8cpp_aca8f1e35e07bad7877de3f38099a9ebf}\label{mycrypto_8cpp_aca8f1e35e07bad7877de3f38099a9ebf}} 
+\index{mycrypto.\+cpp@{mycrypto.\+cpp}!split\+\_\+blocks@{split\+\_\+blocks}}
+\index{split\+\_\+blocks@{split\+\_\+blocks}!mycrypto.\+cpp@{mycrypto.\+cpp}}
+\subsubsection{\texorpdfstring{split\+\_\+blocks()}{split\_blocks()}}
+{\footnotesize\ttfamily vector$<$\hyperlink{class_byte_block}{Byte\+Block}$>$ split\+\_\+blocks (\begin{DoxyParamCaption}\item[{const \hyperlink{class_byte_block}{Byte\+Block} \&}]{src,  }\item[{size\+\_\+t}]{length }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{mycrypto_8cpp_aff71aa0d084ae3b604be05fa66e1d4cd}\label{mycrypto_8cpp_aff71aa0d084ae3b604be05fa66e1d4cd}} 
+\index{mycrypto.\+cpp@{mycrypto.\+cpp}!swap@{swap}}
+\index{swap@{swap}!mycrypto.\+cpp@{mycrypto.\+cpp}}
+\subsubsection{\texorpdfstring{swap()}{swap()}}
+{\footnotesize\ttfamily void swap (\begin{DoxyParamCaption}\item[{\hyperlink{class_byte_block}{Byte\+Block} \&}]{lhs,  }\item[{\hyperlink{class_byte_block}{Byte\+Block} \&}]{rhs }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{mycrypto_8cpp_abf3d7cc2f7701e78a90341a4548e1086}\label{mycrypto_8cpp_abf3d7cc2f7701e78a90341a4548e1086}} 
+\index{mycrypto.\+cpp@{mycrypto.\+cpp}!to\+\_\+hex\+\_\+literal@{to\+\_\+hex\+\_\+literal}}
+\index{to\+\_\+hex\+\_\+literal@{to\+\_\+hex\+\_\+literal}!mycrypto.\+cpp@{mycrypto.\+cpp}}
+\subsubsection{\texorpdfstring{to\+\_\+hex\+\_\+literal()}{to\_hex\_literal()}}
+{\footnotesize\ttfamily char to\+\_\+hex\+\_\+literal (\begin{DoxyParamCaption}\item[{\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE}}]{number }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{mycrypto_8cpp_a66b7e84b7ce7f030d3201391fb1d87a0}\label{mycrypto_8cpp_a66b7e84b7ce7f030d3201391fb1d87a0}} 
+\index{mycrypto.\+cpp@{mycrypto.\+cpp}!xor\+\_\+blocks@{xor\+\_\+blocks}}
+\index{xor\+\_\+blocks@{xor\+\_\+blocks}!mycrypto.\+cpp@{mycrypto.\+cpp}}
+\subsubsection{\texorpdfstring{xor\+\_\+blocks()}{xor\_blocks()}}
+{\footnotesize\ttfamily void xor\+\_\+blocks (\begin{DoxyParamCaption}\item[{\hyperlink{class_byte_block}{Byte\+Block} \&}]{to\+\_\+assign,  }\item[{const \hyperlink{class_byte_block}{Byte\+Block} \&}]{lhs,  }\item[{const \hyperlink{class_byte_block}{Byte\+Block} \&}]{rhs }\end{DoxyParamCaption})}
+

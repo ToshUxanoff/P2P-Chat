@@ -58,7 +58,7 @@ QString issuecreator::ParseToken(QString Data)
 QString issuecreator::GetGithubToken(const QString &Login, const QString &Pass)
 {
 
-    QString Request = "curl -u" + Login + ':'+ Pass +" -d '{\"scopes\": [\"repo\"], \"note\": \"CoChat\" }' https://api.github.com/authorizations";
+    QString Request = "curl -u" + Login + ':'+ Pass +" -d '{\"scopes\": [\"repo\"], \"note\": \"CoChat1\" }' https://api.github.com/authorizations";
     QProcess* process = new QProcess(this);
     process->start("sh");
     process->write(Request.toUtf8());

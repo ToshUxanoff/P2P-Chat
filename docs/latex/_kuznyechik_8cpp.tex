@@ -1,0 +1,227 @@
+\hypertarget{_kuznyechik_8cpp}{}\section{P2\+P-\/\+Chat/\+Client/\+Kuznyechik.cpp File Reference}
+\label{_kuznyechik_8cpp}\index{P2\+P-\/\+Chat/\+Client/\+Kuznyechik.\+cpp@{P2\+P-\/\+Chat/\+Client/\+Kuznyechik.\+cpp}}
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
+{\ttfamily \#include \char`\"{}Kuznyechik.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mycrypto.\+hpp\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_kuznyechik_8cpp_ae1a09fd1c6780cc42b432008a39e22fc}{init\+\_\+perms} ()
+\item 
+void \hyperlink{_kuznyechik_8cpp_af235149eb39bf3404821c5f559b9ccd4}{init\+\_\+consts} ()
+\item 
+void \hyperlink{_kuznyechik_8cpp_a83a43391eb8eb1dff5f389c34fc92db1}{nonlinear\+\_\+transform\+\_\+direct128} (\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$target)
+\item 
+void \hyperlink{_kuznyechik_8cpp_a11a1474d375e9873e7f0a7d767172224}{nonlinear\+\_\+transform\+\_\+inverse128} (\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$target)
+\item 
+\hyperlink{mycrypto_8hpp_a197942eefa7db30960ae396d68339b97}{W\+O\+RD} \hyperlink{_kuznyechik_8cpp_a2bcad6b778a1ce0234fe70f5653bf8ba}{multiply} (\hyperlink{mycrypto_8hpp_a197942eefa7db30960ae396d68339b97}{W\+O\+RD} lhs, \hyperlink{mycrypto_8hpp_a197942eefa7db30960ae396d68339b97}{W\+O\+RD} rhs)
+\item 
+void \hyperlink{_kuznyechik_8cpp_a3f08fc776d31c06ef35c5661ae6a7321}{xor128} (\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$dst, const \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$lhs, const \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$rhs)
+\item 
+\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} \hyperlink{_kuznyechik_8cpp_ac29da35f715077f639688ac9f3c8f1f4}{linear\+\_\+transform\+\_\+core128} (const \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$target)
+\item 
+void \hyperlink{_kuznyechik_8cpp_ac598941dff261114207c61e54eba5c66}{linear\+\_\+transform\+\_\+direct128} (\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$target)
+\item 
+void \hyperlink{_kuznyechik_8cpp_a2fd5f5d3ac6942e36a94855d38db2ba8}{linear\+\_\+transform\+\_\+inverse128} (\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$target)
+\item 
+void \hyperlink{_kuznyechik_8cpp_a7d29c1449236d5e4c18b44366d73fa95}{iteration\+\_\+linear\+\_\+transform\+\_\+direct128} (\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$target)
+\item 
+void \hyperlink{_kuznyechik_8cpp_ae07a94c53bd9486a6d96e821544f1b73}{iteration\+\_\+linear\+\_\+transform\+\_\+inverse128} (\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$target)
+\item 
+void \hyperlink{_kuznyechik_8cpp_a5622f3f613174df8fc9d72c540372c46}{encrypt128} (\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$target, const vector$<$ \hyperlink{class_byte_block}{Byte\+Block} $>$ \&keys)
+\item 
+void \hyperlink{_kuznyechik_8cpp_ad876925ef59346c079add2d3f3da6d48}{decrypt128} (\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$target, const vector$<$ \hyperlink{class_byte_block}{Byte\+Block} $>$ \&keys)
+\item 
+void \hyperlink{_kuznyechik_8cpp_ab7697e490e274b3972f42e0ec0b301bd}{keys\+\_\+transform128} (\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$k1, \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$k2, int iconst)
+\item 
+void \hyperlink{_kuznyechik_8cpp_af4a464229da01061519ea3794d8e3a80}{key\+\_\+derivation128} (\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$k1, \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$k2, \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$k3, \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$k4, int ipair)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const vector$<$ \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $>$ \hyperlink{_kuznyechik_8cpp_aa0c8e6dc9f02dc71cd7d0be88e9d6674}{nonlinear\+\_\+transform\+\_\+perm}
+\item 
+const map$<$ \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE}, \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $>$ \hyperlink{_kuznyechik_8cpp_a738fdfdb3d726b5901c4676939341de6}{direct\+\_\+permutation}
+\item 
+const map$<$ \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE}, \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $>$ \hyperlink{_kuznyechik_8cpp_a0d56675ccbcc9f96bf8f2a2503a1aa8c}{inverse\+\_\+permutation}
+\item 
+const vector$<$ \hyperlink{mycrypto_8hpp_a197942eefa7db30960ae396d68339b97}{W\+O\+RD} $>$ \hyperlink{_kuznyechik_8cpp_a5cbc73bc496fddfe113b67edea12f13d}{linear\+\_\+transform\+\_\+coeff}
+\item 
+const \hyperlink{mycrypto_8hpp_a197942eefa7db30960ae396d68339b97}{W\+O\+RD} \hyperlink{_kuznyechik_8cpp_abd1eb79e43ce6ff671c32825c69ff447}{linear\+\_\+transform\+\_\+modulus} = 0x1\+C3
+\item 
+const vector$<$ \hyperlink{class_byte_block}{Byte\+Block} $>$ \hyperlink{_kuznyechik_8cpp_a14454290cbb313ac47ecc2ba1d87693f}{iteration\+\_\+constants}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_kuznyechik_8cpp_ad876925ef59346c079add2d3f3da6d48}\label{_kuznyechik_8cpp_ad876925ef59346c079add2d3f3da6d48}} 
+\index{Kuznyechik.\+cpp@{Kuznyechik.\+cpp}!decrypt128@{decrypt128}}
+\index{decrypt128@{decrypt128}!Kuznyechik.\+cpp@{Kuznyechik.\+cpp}}
+\subsubsection{\texorpdfstring{decrypt128()}{decrypt128()}}
+{\footnotesize\ttfamily void decrypt128 (\begin{DoxyParamCaption}\item[{\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$}]{target,  }\item[{const vector$<$ \hyperlink{class_byte_block}{Byte\+Block} $>$ \&}]{keys }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_kuznyechik_8cpp_a5622f3f613174df8fc9d72c540372c46}\label{_kuznyechik_8cpp_a5622f3f613174df8fc9d72c540372c46}} 
+\index{Kuznyechik.\+cpp@{Kuznyechik.\+cpp}!encrypt128@{encrypt128}}
+\index{encrypt128@{encrypt128}!Kuznyechik.\+cpp@{Kuznyechik.\+cpp}}
+\subsubsection{\texorpdfstring{encrypt128()}{encrypt128()}}
+{\footnotesize\ttfamily void encrypt128 (\begin{DoxyParamCaption}\item[{\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$}]{target,  }\item[{const vector$<$ \hyperlink{class_byte_block}{Byte\+Block} $>$ \&}]{keys }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_kuznyechik_8cpp_af235149eb39bf3404821c5f559b9ccd4}\label{_kuznyechik_8cpp_af235149eb39bf3404821c5f559b9ccd4}} 
+\index{Kuznyechik.\+cpp@{Kuznyechik.\+cpp}!init\+\_\+consts@{init\+\_\+consts}}
+\index{init\+\_\+consts@{init\+\_\+consts}!Kuznyechik.\+cpp@{Kuznyechik.\+cpp}}
+\subsubsection{\texorpdfstring{init\+\_\+consts()}{init\_consts()}}
+{\footnotesize\ttfamily void init\+\_\+consts (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_kuznyechik_8cpp_ae1a09fd1c6780cc42b432008a39e22fc}\label{_kuznyechik_8cpp_ae1a09fd1c6780cc42b432008a39e22fc}} 
+\index{Kuznyechik.\+cpp@{Kuznyechik.\+cpp}!init\+\_\+perms@{init\+\_\+perms}}
+\index{init\+\_\+perms@{init\+\_\+perms}!Kuznyechik.\+cpp@{Kuznyechik.\+cpp}}
+\subsubsection{\texorpdfstring{init\+\_\+perms()}{init\_perms()}}
+{\footnotesize\ttfamily void init\+\_\+perms (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_kuznyechik_8cpp_a7d29c1449236d5e4c18b44366d73fa95}\label{_kuznyechik_8cpp_a7d29c1449236d5e4c18b44366d73fa95}} 
+\index{Kuznyechik.\+cpp@{Kuznyechik.\+cpp}!iteration\+\_\+linear\+\_\+transform\+\_\+direct128@{iteration\+\_\+linear\+\_\+transform\+\_\+direct128}}
+\index{iteration\+\_\+linear\+\_\+transform\+\_\+direct128@{iteration\+\_\+linear\+\_\+transform\+\_\+direct128}!Kuznyechik.\+cpp@{Kuznyechik.\+cpp}}
+\subsubsection{\texorpdfstring{iteration\+\_\+linear\+\_\+transform\+\_\+direct128()}{iteration\_linear\_transform\_direct128()}}
+{\footnotesize\ttfamily void iteration\+\_\+linear\+\_\+transform\+\_\+direct128 (\begin{DoxyParamCaption}\item[{\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$}]{target }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_kuznyechik_8cpp_ae07a94c53bd9486a6d96e821544f1b73}\label{_kuznyechik_8cpp_ae07a94c53bd9486a6d96e821544f1b73}} 
+\index{Kuznyechik.\+cpp@{Kuznyechik.\+cpp}!iteration\+\_\+linear\+\_\+transform\+\_\+inverse128@{iteration\+\_\+linear\+\_\+transform\+\_\+inverse128}}
+\index{iteration\+\_\+linear\+\_\+transform\+\_\+inverse128@{iteration\+\_\+linear\+\_\+transform\+\_\+inverse128}!Kuznyechik.\+cpp@{Kuznyechik.\+cpp}}
+\subsubsection{\texorpdfstring{iteration\+\_\+linear\+\_\+transform\+\_\+inverse128()}{iteration\_linear\_transform\_inverse128()}}
+{\footnotesize\ttfamily void iteration\+\_\+linear\+\_\+transform\+\_\+inverse128 (\begin{DoxyParamCaption}\item[{\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$}]{target }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_kuznyechik_8cpp_af4a464229da01061519ea3794d8e3a80}\label{_kuznyechik_8cpp_af4a464229da01061519ea3794d8e3a80}} 
+\index{Kuznyechik.\+cpp@{Kuznyechik.\+cpp}!key\+\_\+derivation128@{key\+\_\+derivation128}}
+\index{key\+\_\+derivation128@{key\+\_\+derivation128}!Kuznyechik.\+cpp@{Kuznyechik.\+cpp}}
+\subsubsection{\texorpdfstring{key\+\_\+derivation128()}{key\_derivation128()}}
+{\footnotesize\ttfamily void key\+\_\+derivation128 (\begin{DoxyParamCaption}\item[{\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$}]{k1,  }\item[{\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$}]{k2,  }\item[{\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$}]{k3,  }\item[{\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$}]{k4,  }\item[{int}]{ipair }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_kuznyechik_8cpp_ab7697e490e274b3972f42e0ec0b301bd}\label{_kuznyechik_8cpp_ab7697e490e274b3972f42e0ec0b301bd}} 
+\index{Kuznyechik.\+cpp@{Kuznyechik.\+cpp}!keys\+\_\+transform128@{keys\+\_\+transform128}}
+\index{keys\+\_\+transform128@{keys\+\_\+transform128}!Kuznyechik.\+cpp@{Kuznyechik.\+cpp}}
+\subsubsection{\texorpdfstring{keys\+\_\+transform128()}{keys\_transform128()}}
+{\footnotesize\ttfamily void keys\+\_\+transform128 (\begin{DoxyParamCaption}\item[{\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$}]{k1,  }\item[{\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$}]{k2,  }\item[{int}]{iconst }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_kuznyechik_8cpp_ac29da35f715077f639688ac9f3c8f1f4}\label{_kuznyechik_8cpp_ac29da35f715077f639688ac9f3c8f1f4}} 
+\index{Kuznyechik.\+cpp@{Kuznyechik.\+cpp}!linear\+\_\+transform\+\_\+core128@{linear\+\_\+transform\+\_\+core128}}
+\index{linear\+\_\+transform\+\_\+core128@{linear\+\_\+transform\+\_\+core128}!Kuznyechik.\+cpp@{Kuznyechik.\+cpp}}
+\subsubsection{\texorpdfstring{linear\+\_\+transform\+\_\+core128()}{linear\_transform\_core128()}}
+{\footnotesize\ttfamily \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} linear\+\_\+transform\+\_\+core128 (\begin{DoxyParamCaption}\item[{const \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$}]{target }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_kuznyechik_8cpp_ac598941dff261114207c61e54eba5c66}\label{_kuznyechik_8cpp_ac598941dff261114207c61e54eba5c66}} 
+\index{Kuznyechik.\+cpp@{Kuznyechik.\+cpp}!linear\+\_\+transform\+\_\+direct128@{linear\+\_\+transform\+\_\+direct128}}
+\index{linear\+\_\+transform\+\_\+direct128@{linear\+\_\+transform\+\_\+direct128}!Kuznyechik.\+cpp@{Kuznyechik.\+cpp}}
+\subsubsection{\texorpdfstring{linear\+\_\+transform\+\_\+direct128()}{linear\_transform\_direct128()}}
+{\footnotesize\ttfamily void linear\+\_\+transform\+\_\+direct128 (\begin{DoxyParamCaption}\item[{\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$}]{target }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_kuznyechik_8cpp_a2fd5f5d3ac6942e36a94855d38db2ba8}\label{_kuznyechik_8cpp_a2fd5f5d3ac6942e36a94855d38db2ba8}} 
+\index{Kuznyechik.\+cpp@{Kuznyechik.\+cpp}!linear\+\_\+transform\+\_\+inverse128@{linear\+\_\+transform\+\_\+inverse128}}
+\index{linear\+\_\+transform\+\_\+inverse128@{linear\+\_\+transform\+\_\+inverse128}!Kuznyechik.\+cpp@{Kuznyechik.\+cpp}}
+\subsubsection{\texorpdfstring{linear\+\_\+transform\+\_\+inverse128()}{linear\_transform\_inverse128()}}
+{\footnotesize\ttfamily void linear\+\_\+transform\+\_\+inverse128 (\begin{DoxyParamCaption}\item[{\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$}]{target }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_kuznyechik_8cpp_a2bcad6b778a1ce0234fe70f5653bf8ba}\label{_kuznyechik_8cpp_a2bcad6b778a1ce0234fe70f5653bf8ba}} 
+\index{Kuznyechik.\+cpp@{Kuznyechik.\+cpp}!multiply@{multiply}}
+\index{multiply@{multiply}!Kuznyechik.\+cpp@{Kuznyechik.\+cpp}}
+\subsubsection{\texorpdfstring{multiply()}{multiply()}}
+{\footnotesize\ttfamily \hyperlink{mycrypto_8hpp_a197942eefa7db30960ae396d68339b97}{W\+O\+RD} multiply (\begin{DoxyParamCaption}\item[{\hyperlink{mycrypto_8hpp_a197942eefa7db30960ae396d68339b97}{W\+O\+RD}}]{lhs,  }\item[{\hyperlink{mycrypto_8hpp_a197942eefa7db30960ae396d68339b97}{W\+O\+RD}}]{rhs }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_kuznyechik_8cpp_a83a43391eb8eb1dff5f389c34fc92db1}\label{_kuznyechik_8cpp_a83a43391eb8eb1dff5f389c34fc92db1}} 
+\index{Kuznyechik.\+cpp@{Kuznyechik.\+cpp}!nonlinear\+\_\+transform\+\_\+direct128@{nonlinear\+\_\+transform\+\_\+direct128}}
+\index{nonlinear\+\_\+transform\+\_\+direct128@{nonlinear\+\_\+transform\+\_\+direct128}!Kuznyechik.\+cpp@{Kuznyechik.\+cpp}}
+\subsubsection{\texorpdfstring{nonlinear\+\_\+transform\+\_\+direct128()}{nonlinear\_transform\_direct128()}}
+{\footnotesize\ttfamily void nonlinear\+\_\+transform\+\_\+direct128 (\begin{DoxyParamCaption}\item[{\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$}]{target }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_kuznyechik_8cpp_a11a1474d375e9873e7f0a7d767172224}\label{_kuznyechik_8cpp_a11a1474d375e9873e7f0a7d767172224}} 
+\index{Kuznyechik.\+cpp@{Kuznyechik.\+cpp}!nonlinear\+\_\+transform\+\_\+inverse128@{nonlinear\+\_\+transform\+\_\+inverse128}}
+\index{nonlinear\+\_\+transform\+\_\+inverse128@{nonlinear\+\_\+transform\+\_\+inverse128}!Kuznyechik.\+cpp@{Kuznyechik.\+cpp}}
+\subsubsection{\texorpdfstring{nonlinear\+\_\+transform\+\_\+inverse128()}{nonlinear\_transform\_inverse128()}}
+{\footnotesize\ttfamily void nonlinear\+\_\+transform\+\_\+inverse128 (\begin{DoxyParamCaption}\item[{\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$}]{target }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_kuznyechik_8cpp_a3f08fc776d31c06ef35c5661ae6a7321}\label{_kuznyechik_8cpp_a3f08fc776d31c06ef35c5661ae6a7321}} 
+\index{Kuznyechik.\+cpp@{Kuznyechik.\+cpp}!xor128@{xor128}}
+\index{xor128@{xor128}!Kuznyechik.\+cpp@{Kuznyechik.\+cpp}}
+\subsubsection{\texorpdfstring{xor128()}{xor128()}}
+{\footnotesize\ttfamily void xor128 (\begin{DoxyParamCaption}\item[{\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$}]{dst,  }\item[{const \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$}]{lhs,  }\item[{const \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$}]{rhs }\end{DoxyParamCaption})}
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{_kuznyechik_8cpp_a738fdfdb3d726b5901c4676939341de6}\label{_kuznyechik_8cpp_a738fdfdb3d726b5901c4676939341de6}} 
+\index{Kuznyechik.\+cpp@{Kuznyechik.\+cpp}!direct\+\_\+permutation@{direct\+\_\+permutation}}
+\index{direct\+\_\+permutation@{direct\+\_\+permutation}!Kuznyechik.\+cpp@{Kuznyechik.\+cpp}}
+\subsubsection{\texorpdfstring{direct\+\_\+permutation}{direct\_permutation}}
+{\footnotesize\ttfamily const map$<$\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE}, \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE}$>$ direct\+\_\+permutation}
+
+\mbox{\Hypertarget{_kuznyechik_8cpp_a0d56675ccbcc9f96bf8f2a2503a1aa8c}\label{_kuznyechik_8cpp_a0d56675ccbcc9f96bf8f2a2503a1aa8c}} 
+\index{Kuznyechik.\+cpp@{Kuznyechik.\+cpp}!inverse\+\_\+permutation@{inverse\+\_\+permutation}}
+\index{inverse\+\_\+permutation@{inverse\+\_\+permutation}!Kuznyechik.\+cpp@{Kuznyechik.\+cpp}}
+\subsubsection{\texorpdfstring{inverse\+\_\+permutation}{inverse\_permutation}}
+{\footnotesize\ttfamily const map$<$\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE}, \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE}$>$ inverse\+\_\+permutation}
+
+\mbox{\Hypertarget{_kuznyechik_8cpp_a14454290cbb313ac47ecc2ba1d87693f}\label{_kuznyechik_8cpp_a14454290cbb313ac47ecc2ba1d87693f}} 
+\index{Kuznyechik.\+cpp@{Kuznyechik.\+cpp}!iteration\+\_\+constants@{iteration\+\_\+constants}}
+\index{iteration\+\_\+constants@{iteration\+\_\+constants}!Kuznyechik.\+cpp@{Kuznyechik.\+cpp}}
+\subsubsection{\texorpdfstring{iteration\+\_\+constants}{iteration\_constants}}
+{\footnotesize\ttfamily const vector$<$\hyperlink{class_byte_block}{Byte\+Block}$>$ iteration\+\_\+constants}
+
+\mbox{\Hypertarget{_kuznyechik_8cpp_a5cbc73bc496fddfe113b67edea12f13d}\label{_kuznyechik_8cpp_a5cbc73bc496fddfe113b67edea12f13d}} 
+\index{Kuznyechik.\+cpp@{Kuznyechik.\+cpp}!linear\+\_\+transform\+\_\+coeff@{linear\+\_\+transform\+\_\+coeff}}
+\index{linear\+\_\+transform\+\_\+coeff@{linear\+\_\+transform\+\_\+coeff}!Kuznyechik.\+cpp@{Kuznyechik.\+cpp}}
+\subsubsection{\texorpdfstring{linear\+\_\+transform\+\_\+coeff}{linear\_transform\_coeff}}
+{\footnotesize\ttfamily const vector$<$\hyperlink{mycrypto_8hpp_a197942eefa7db30960ae396d68339b97}{W\+O\+RD}$>$ linear\+\_\+transform\+\_\+coeff}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    148, 32, 133, 16, 194, 192, 1, 251, 1, 192,
+    194, 16, 133, 32, 148, 1
+\}
+\end{DoxyCode}
+\mbox{\Hypertarget{_kuznyechik_8cpp_abd1eb79e43ce6ff671c32825c69ff447}\label{_kuznyechik_8cpp_abd1eb79e43ce6ff671c32825c69ff447}} 
+\index{Kuznyechik.\+cpp@{Kuznyechik.\+cpp}!linear\+\_\+transform\+\_\+modulus@{linear\+\_\+transform\+\_\+modulus}}
+\index{linear\+\_\+transform\+\_\+modulus@{linear\+\_\+transform\+\_\+modulus}!Kuznyechik.\+cpp@{Kuznyechik.\+cpp}}
+\subsubsection{\texorpdfstring{linear\+\_\+transform\+\_\+modulus}{linear\_transform\_modulus}}
+{\footnotesize\ttfamily const \hyperlink{mycrypto_8hpp_a197942eefa7db30960ae396d68339b97}{W\+O\+RD} linear\+\_\+transform\+\_\+modulus = 0x1\+C3}
+
+\mbox{\Hypertarget{_kuznyechik_8cpp_aa0c8e6dc9f02dc71cd7d0be88e9d6674}\label{_kuznyechik_8cpp_aa0c8e6dc9f02dc71cd7d0be88e9d6674}} 
+\index{Kuznyechik.\+cpp@{Kuznyechik.\+cpp}!nonlinear\+\_\+transform\+\_\+perm@{nonlinear\+\_\+transform\+\_\+perm}}
+\index{nonlinear\+\_\+transform\+\_\+perm@{nonlinear\+\_\+transform\+\_\+perm}!Kuznyechik.\+cpp@{Kuznyechik.\+cpp}}
+\subsubsection{\texorpdfstring{nonlinear\+\_\+transform\+\_\+perm}{nonlinear\_transform\_perm}}
+{\footnotesize\ttfamily const vector$<$\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE}$>$ nonlinear\+\_\+transform\+\_\+perm}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    252, 238, 221, 17, 207, 110, 49, 22, 251, 196,
+    250, 218, 35, 197, 4, 77, 233, 119, 240, 219,
+    147, 46, 153, 186, 23, 54, 241, 187, 20, 205,
+    95, 193, 249, 24, 101, 90, 226, 92, 239, 33,
+    129, 28, 60, 66, 139, 1, 142, 79, 5, 132, 2,
+    174, 227, 106, 143, 160, 6, 11, 237, 152, 127,
+    212, 211, 31, 235, 52, 44, 81, 234, 200, 72,
+    171, 242, 42, 104, 162, 253, 58, 206, 204, 181,
+    112, 14, 86, 8, 12, 118, 18, 191, 114, 19, 71,
+    156, 183, 93, 135, 21, 161, 150, 41, 16, 123,
+    154, 199, 243, 145, 120, 111, 157, 158, 178, 177,
+    50, 117, 25, 61, 255, 53, 138, 126, 109, 84,
+    198, 128, 195, 189, 13, 87, 223, 245, 36, 169,
+    62, 168, 67, 201, 215, 121, 214, 246, 124, 34,
+    185, 3, 224, 15, 236, 222, 122, 148, 176, 188,
+    220, 232, 40, 80, 78, 51, 10, 74, 167, 151, 96,
+    115, 30, 0, 98, 68, 26, 184, 56, 130, 100, 159,
+    38, 65, 173, 69, 70, 146, 39, 94, 85, 47, 140,
+    163, 165, 125, 105, 213, 149, 59, 7, 88, 179,
+    64, 134, 172, 29, 247, 48, 55, 107, 228, 136,
+    217, 231, 137, 225, 27, 131, 73, 76, 63, 248,
+    254, 141, 83, 170, 144, 202, 216, 133, 97, 32,
+    113, 103, 164, 45, 43, 9, 91, 203, 155, 37,
+    208, 190, 229, 108, 82, 89, 166, 116, 210, 230,
+    244, 180, 192, 209, 102, 175, 194, 57, 75, 99,
+    182
+\}
+\end{DoxyCode}

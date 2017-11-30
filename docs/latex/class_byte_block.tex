@@ -1,0 +1,185 @@
+\hypertarget{class_byte_block}{}\section{Byte\+Block Class Reference}
+\label{class_byte_block}\index{Byte\+Block@{Byte\+Block}}
+
+
+Класс из библиотеки-\/реализации алгоритма \char`\"{}Кузнечик\char`\"{}. Ссылка на документацию -\/ в источниках.  
+
+
+
+
+{\ttfamily \#include $<$mycrypto.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_byte_block_a39169d96104d9cb1016065e19c2b032e}{Byte\+Block} (size\+\_\+t size\+\_\+=0, \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} init\+\_\+value=0)
+\item 
+\hyperlink{class_byte_block_aac1e3e7f8030c711a76aec7f716ce6ef}{Byte\+Block} (\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$p\+Blocks\+\_\+, size\+\_\+t size\+\_\+)
+\item 
+\hyperlink{class_byte_block_a1609a4a3919796383a94df4471e02478}{Byte\+Block} (\hyperlink{class_byte_block}{Byte\+Block} \&\&rhs)
+\item 
+\hyperlink{class_byte_block_ae34629ddad3e2185596f6fb346fb0dd8}{$\sim$\+Byte\+Block} ()
+\item 
+void \hyperlink{class_byte_block_af34224909c38e21d94d5c869599516ff}{operator=} (\hyperlink{class_byte_block}{Byte\+Block} \&\&rhs)
+\item 
+\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$ \hyperlink{class_byte_block_af61ceea6259a82189d1576f16931a9bf}{byte\+\_\+ptr} ()
+\item 
+const \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$ \hyperlink{class_byte_block_ad1cca46563041dfa94469213e71eeab6}{byte\+\_\+ptr} () const
+\item 
+\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} \& \hyperlink{class_byte_block_a512ce89c574508343ed1c80c7422ae71}{operator\mbox{[}$\,$\mbox{]}} (size\+\_\+t index)
+\item 
+\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} \hyperlink{class_byte_block_a1188eeaf7da2316bdca468ea91727cd2}{operator\mbox{[}$\,$\mbox{]}} (size\+\_\+t index) const
+\item 
+bool \hyperlink{class_byte_block_a08193b9eb12da9889420f95bee6ce610}{operator==} (const \hyperlink{class_byte_block}{Byte\+Block} \&lhs) const
+\item 
+bool \hyperlink{class_byte_block_a083e6c9d3ec3e39d79953eb48551d0cf}{operator!=} (const \hyperlink{class_byte_block}{Byte\+Block} \&lhs) const
+\item 
+void \hyperlink{class_byte_block_aba0c3bafa18238bb269ec40962baa3c1}{reset} (const \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$p\+Blocks\+\_\+, size\+\_\+t size\+\_\+)
+\item 
+size\+\_\+t \hyperlink{class_byte_block_a160a348384c35cd7beae4e123b74bf18}{size} () const
+\item 
+\hyperlink{class_byte_block}{Byte\+Block} \hyperlink{class_byte_block_a67954bc5c1f34b2ab865bacb777c9f37}{deep\+\_\+copy} () const
+\item 
+\hyperlink{class_byte_block}{Byte\+Block} \hyperlink{class_byte_block_ad60eb576a039f436736d35e3a6d09131}{operator()} (size\+\_\+t begin, size\+\_\+t length) const
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$ \hyperlink{class_byte_block_a9cc668dbb2b3562e1b72b2265f3bc077}{p\+Blocks}
+\item 
+size\+\_\+t \hyperlink{class_byte_block_a96ef9896e7d4a252485bbac909c7cb76}{amount\+\_\+of\+\_\+bytes}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_byte_block_aff71aa0d084ae3b604be05fa66e1d4cd}{swap} (\hyperlink{class_byte_block}{Byte\+Block} \&lhs, \hyperlink{class_byte_block}{Byte\+Block} \&rhs)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Класс из библиотеки-\/реализации алгоритма \char`\"{}Кузнечик\char`\"{}. Ссылка на документацию -\/ в источниках. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_byte_block_a39169d96104d9cb1016065e19c2b032e}\label{class_byte_block_a39169d96104d9cb1016065e19c2b032e}} 
+\index{Byte\+Block@{Byte\+Block}!Byte\+Block@{Byte\+Block}}
+\index{Byte\+Block@{Byte\+Block}!Byte\+Block@{Byte\+Block}}
+\subsubsection{\texorpdfstring{Byte\+Block()}{ByteBlock()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Byte\+Block\+::\+Byte\+Block (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size\+\_\+ = {\ttfamily 0},  }\item[{\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE}}]{init\+\_\+value = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_byte_block_aac1e3e7f8030c711a76aec7f716ce6ef}\label{class_byte_block_aac1e3e7f8030c711a76aec7f716ce6ef}} 
+\index{Byte\+Block@{Byte\+Block}!Byte\+Block@{Byte\+Block}}
+\index{Byte\+Block@{Byte\+Block}!Byte\+Block@{Byte\+Block}}
+\subsubsection{\texorpdfstring{Byte\+Block()}{ByteBlock()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Byte\+Block\+::\+Byte\+Block (\begin{DoxyParamCaption}\item[{\hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$}]{p\+Blocks\+\_\+,  }\item[{size\+\_\+t}]{size\+\_\+ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_byte_block_a1609a4a3919796383a94df4471e02478}\label{class_byte_block_a1609a4a3919796383a94df4471e02478}} 
+\index{Byte\+Block@{Byte\+Block}!Byte\+Block@{Byte\+Block}}
+\index{Byte\+Block@{Byte\+Block}!Byte\+Block@{Byte\+Block}}
+\subsubsection{\texorpdfstring{Byte\+Block()}{ByteBlock()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Byte\+Block\+::\+Byte\+Block (\begin{DoxyParamCaption}\item[{\hyperlink{class_byte_block}{Byte\+Block} \&\&}]{rhs }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_byte_block_ae34629ddad3e2185596f6fb346fb0dd8}\label{class_byte_block_ae34629ddad3e2185596f6fb346fb0dd8}} 
+\index{Byte\+Block@{Byte\+Block}!````~Byte\+Block@{$\sim$\+Byte\+Block}}
+\index{````~Byte\+Block@{$\sim$\+Byte\+Block}!Byte\+Block@{Byte\+Block}}
+\subsubsection{\texorpdfstring{$\sim$\+Byte\+Block()}{~ByteBlock()}}
+{\footnotesize\ttfamily Byte\+Block\+::$\sim$\+Byte\+Block (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_byte_block_af61ceea6259a82189d1576f16931a9bf}\label{class_byte_block_af61ceea6259a82189d1576f16931a9bf}} 
+\index{Byte\+Block@{Byte\+Block}!byte\+\_\+ptr@{byte\+\_\+ptr}}
+\index{byte\+\_\+ptr@{byte\+\_\+ptr}!Byte\+Block@{Byte\+Block}}
+\subsubsection{\texorpdfstring{byte\+\_\+ptr()}{byte\_ptr()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$ Byte\+Block\+::byte\+\_\+ptr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_byte_block_ad1cca46563041dfa94469213e71eeab6}\label{class_byte_block_ad1cca46563041dfa94469213e71eeab6}} 
+\index{Byte\+Block@{Byte\+Block}!byte\+\_\+ptr@{byte\+\_\+ptr}}
+\index{byte\+\_\+ptr@{byte\+\_\+ptr}!Byte\+Block@{Byte\+Block}}
+\subsubsection{\texorpdfstring{byte\+\_\+ptr()}{byte\_ptr()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$ Byte\+Block\+::byte\+\_\+ptr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_byte_block_a67954bc5c1f34b2ab865bacb777c9f37}\label{class_byte_block_a67954bc5c1f34b2ab865bacb777c9f37}} 
+\index{Byte\+Block@{Byte\+Block}!deep\+\_\+copy@{deep\+\_\+copy}}
+\index{deep\+\_\+copy@{deep\+\_\+copy}!Byte\+Block@{Byte\+Block}}
+\subsubsection{\texorpdfstring{deep\+\_\+copy()}{deep\_copy()}}
+{\footnotesize\ttfamily \hyperlink{class_byte_block}{Byte\+Block} Byte\+Block\+::deep\+\_\+copy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_byte_block_a083e6c9d3ec3e39d79953eb48551d0cf}\label{class_byte_block_a083e6c9d3ec3e39d79953eb48551d0cf}} 
+\index{Byte\+Block@{Byte\+Block}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!Byte\+Block@{Byte\+Block}}
+\subsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool Byte\+Block\+::operator!= (\begin{DoxyParamCaption}\item[{const \hyperlink{class_byte_block}{Byte\+Block} \&}]{lhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_byte_block_ad60eb576a039f436736d35e3a6d09131}\label{class_byte_block_ad60eb576a039f436736d35e3a6d09131}} 
+\index{Byte\+Block@{Byte\+Block}!operator()@{operator()}}
+\index{operator()@{operator()}!Byte\+Block@{Byte\+Block}}
+\subsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily \hyperlink{class_byte_block}{Byte\+Block} Byte\+Block\+::operator() (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{begin,  }\item[{size\+\_\+t}]{length }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_byte_block_af34224909c38e21d94d5c869599516ff}\label{class_byte_block_af34224909c38e21d94d5c869599516ff}} 
+\index{Byte\+Block@{Byte\+Block}!operator=@{operator=}}
+\index{operator=@{operator=}!Byte\+Block@{Byte\+Block}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily void Byte\+Block\+::operator= (\begin{DoxyParamCaption}\item[{\hyperlink{class_byte_block}{Byte\+Block} \&\&}]{rhs }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_byte_block_a08193b9eb12da9889420f95bee6ce610}\label{class_byte_block_a08193b9eb12da9889420f95bee6ce610}} 
+\index{Byte\+Block@{Byte\+Block}!operator==@{operator==}}
+\index{operator==@{operator==}!Byte\+Block@{Byte\+Block}}
+\subsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool Byte\+Block\+::operator== (\begin{DoxyParamCaption}\item[{const \hyperlink{class_byte_block}{Byte\+Block} \&}]{lhs }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_byte_block_a512ce89c574508343ed1c80c7422ae71}\label{class_byte_block_a512ce89c574508343ed1c80c7422ae71}} 
+\index{Byte\+Block@{Byte\+Block}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!Byte\+Block@{Byte\+Block}}
+\subsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} \& Byte\+Block\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_byte_block_a1188eeaf7da2316bdca468ea91727cd2}\label{class_byte_block_a1188eeaf7da2316bdca468ea91727cd2}} 
+\index{Byte\+Block@{Byte\+Block}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!Byte\+Block@{Byte\+Block}}
+\subsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} Byte\+Block\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_byte_block_aba0c3bafa18238bb269ec40962baa3c1}\label{class_byte_block_aba0c3bafa18238bb269ec40962baa3c1}} 
+\index{Byte\+Block@{Byte\+Block}!reset@{reset}}
+\index{reset@{reset}!Byte\+Block@{Byte\+Block}}
+\subsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily void Byte\+Block\+::reset (\begin{DoxyParamCaption}\item[{const \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE} $\ast$}]{p\+Blocks\+\_\+,  }\item[{size\+\_\+t}]{size\+\_\+ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_byte_block_a160a348384c35cd7beae4e123b74bf18}\label{class_byte_block_a160a348384c35cd7beae4e123b74bf18}} 
+\index{Byte\+Block@{Byte\+Block}!size@{size}}
+\index{size@{size}!Byte\+Block@{Byte\+Block}}
+\subsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily size\+\_\+t Byte\+Block\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+\subsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{class_byte_block_aff71aa0d084ae3b604be05fa66e1d4cd}\label{class_byte_block_aff71aa0d084ae3b604be05fa66e1d4cd}} 
+\index{Byte\+Block@{Byte\+Block}!swap@{swap}}
+\index{swap@{swap}!Byte\+Block@{Byte\+Block}}
+\subsubsection{\texorpdfstring{swap}{swap}}
+{\footnotesize\ttfamily void swap (\begin{DoxyParamCaption}\item[{\hyperlink{class_byte_block}{Byte\+Block} \&}]{lhs,  }\item[{\hyperlink{class_byte_block}{Byte\+Block} \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_byte_block_a96ef9896e7d4a252485bbac909c7cb76}\label{class_byte_block_a96ef9896e7d4a252485bbac909c7cb76}} 
+\index{Byte\+Block@{Byte\+Block}!amount\+\_\+of\+\_\+bytes@{amount\+\_\+of\+\_\+bytes}}
+\index{amount\+\_\+of\+\_\+bytes@{amount\+\_\+of\+\_\+bytes}!Byte\+Block@{Byte\+Block}}
+\subsubsection{\texorpdfstring{amount\+\_\+of\+\_\+bytes}{amount\_of\_bytes}}
+{\footnotesize\ttfamily size\+\_\+t Byte\+Block\+::amount\+\_\+of\+\_\+bytes\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{class_byte_block_a9cc668dbb2b3562e1b72b2265f3bc077}\label{class_byte_block_a9cc668dbb2b3562e1b72b2265f3bc077}} 
+\index{Byte\+Block@{Byte\+Block}!p\+Blocks@{p\+Blocks}}
+\index{p\+Blocks@{p\+Blocks}!Byte\+Block@{Byte\+Block}}
+\subsubsection{\texorpdfstring{p\+Blocks}{pBlocks}}
+{\footnotesize\ttfamily \hyperlink{mycrypto_8hpp_a4ae1dab0fb4b072a66584546209e7d58}{B\+Y\+TE}$\ast$ Byte\+Block\+::p\+Blocks\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+P2\+P-\/\+Chat/\+Client/\hyperlink{mycrypto_8hpp}{mycrypto.\+hpp}\item 
+P2\+P-\/\+Chat/\+Client/\hyperlink{mycrypto_8cpp}{mycrypto.\+cpp}\end{DoxyCompactItemize}

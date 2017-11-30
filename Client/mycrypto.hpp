@@ -6,7 +6,7 @@ using std::string;
 
 typedef unsigned char BYTE;
 typedef unsigned short WORD;
-
+//! Класс из библиотеки-реализации алгоритма "Кузнечик". Ссылка на документацию - в источниках.
 class ByteBlock {
 	BYTE * pBlocks;
 	size_t amount_of_bytes;
@@ -77,6 +77,7 @@ ByteBlock hex_to_bytes(const string & s);
 // requirement. It must have got:
 // copy constructor, methods encrypt and decrypt with the same interface
 // and public member-data block_lenght
+//! Класс из библиотеки-реализации алгоритма "Кузнечик". Ссылка на документацию - в источниках.
 template <typename CipherType>
 class CFB_Mode {
     const CipherType algorithm;

@@ -5,7 +5,7 @@
 #include "mycrypto.hpp"
 
 #define BLOCK_LENGTH 16
-
+//! Класс из библиотеки-реализации алгоритма "Кузнечик". Ссылка на документацию - в источниках.
 class Kuznyechik {
 	std::vector<ByteBlock> keys;
 	static bool is_init;
