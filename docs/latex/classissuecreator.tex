@@ -1,4 +1,4 @@
-\hypertarget{classissuecreator}{}\section{issuecreator Class Reference}
+\section{issuecreator Class Reference}
 \label{classissuecreator}\index{issuecreator@{issuecreator}}
 
 
@@ -18,37 +18,37 @@ Inheritance diagram for issuecreator\+:\begin{figure}[H]
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classissuecreator_af18020b34fc69c9ffea22e7f748b8f96}{issuecreator} (Q\+Widget $\ast$parent=0)
+\textbf{ issuecreator} (Q\+Widget $\ast$parent=0)
 \begin{DoxyCompactList}\small\item\em Конструктор по умолчанию \end{DoxyCompactList}\item 
-\hyperlink{classissuecreator_ae623be0a0b031f1382b844133e51e1cb}{issuecreator} (const Q\+String \&selected\+Text, Q\+Widget $\ast$parent=0)
+\textbf{ issuecreator} (const Q\+String \&selected\+Text, Q\+Widget $\ast$parent=0)
 \begin{DoxyCompactList}\small\item\em Конструктор для случая с выделенным текстом. \end{DoxyCompactList}\item 
-bool \hyperlink{classissuecreator_a9c4e6f82cc1c1523bbd92d38b35b75ad}{Is\+Internet\+Connected} ()
+bool \textbf{ Is\+Internet\+Connected} ()
 \begin{DoxyCompactList}\small\item\em Проверка интернет-\/соединения. Проверка соединения с помощью стандартных средств Qt. \end{DoxyCompactList}\item 
-void \hyperlink{classissuecreator_a7d8b501ffe33324bad13029113674d3d}{Write\+Token\+To\+File} (const std\+::string \&\hyperlink{classissuecreator_ad8f87f64c334987f0316a3d3191d55c8}{Token})
+void \textbf{ Write\+Token\+To\+File} (const std\+::string \&\textbf{ Token})
 \begin{DoxyCompactList}\small\item\em Запись в config-\/файл токена. \end{DoxyCompactList}\item 
-Q\+String \hyperlink{classissuecreator_a52fc815f5dd3099817a1613f4af9de9b}{Read\+Token\+From\+File} ()
+Q\+String \textbf{ Read\+Token\+From\+File} ()
 \begin{DoxyCompactList}\small\item\em Чтение токена из config-\/файла. \end{DoxyCompactList}\item 
-Q\+String \hyperlink{classissuecreator_a32184b3842bd6352faeef506b85c649a}{Parse\+Token} (Q\+String Data)
+Q\+String \textbf{ Parse\+Token} (Q\+String Data)
 \begin{DoxyCompactList}\small\item\em Парсинг полученных данных от Github и получение токена из них. \end{DoxyCompactList}\item 
-Q\+String \hyperlink{classissuecreator_a332d178719de5c6905603d4715fe179f}{Get\+Github\+Token} (const Q\+String \&Login, const Q\+String \&Pass)
+Q\+String \textbf{ Get\+Github\+Token} (const Q\+String \&Login, const Q\+String \&Pass)
 \begin{DoxyCompactList}\small\item\em Отправка запроса на получение Github токена. \end{DoxyCompactList}\item 
-\hyperlink{classissuecreator_ac3f6c719cc0c836d709f92a166f5ee30}{$\sim$issuecreator} ()
+\textbf{ $\sim$issuecreator} ()
 \end{DoxyCompactItemize}
 \subsection*{Private Slots}
 \begin{DoxyCompactItemize}
 \item 
-void \hyperlink{classissuecreator_a03af040ad19d02a8c271fe0c7b40d160}{on\+\_\+\+Send\+\_\+clicked} ()
+void \textbf{ on\+\_\+\+Send\+\_\+clicked} ()
 \begin{DoxyCompactList}\small\item\em Слот, отвечающий за отправку запроса на Github с целью создания Issue. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-bool \hyperlink{classissuecreator_ab95a97a1a87dae8170bfaf0c95859413}{is\+Token\+Writed} = false
+bool \textbf{ is\+Token\+Writed} = false
 \begin{DoxyCompactList}\small\item\em Флаг, сигнализирующий о наличии токена в файле config. \end{DoxyCompactList}\item 
-Q\+String \hyperlink{classissuecreator_ad8f87f64c334987f0316a3d3191d55c8}{Token}
+Q\+String \textbf{ Token}
 \begin{DoxyCompactList}\small\item\em Токен \end{DoxyCompactList}\item 
-Q\+String \hyperlink{classissuecreator_a7d6bc72a5a8ddafa35e3d0e759918586}{Issue\+Description}
+Q\+String \textbf{ Issue\+Description}
 \begin{DoxyCompactList}\small\item\em Описание проблемы \end{DoxyCompactList}\item 
-Ui\+::issuecreator $\ast$ \hyperlink{classissuecreator_ae85db2bae308918495f313ac058b006b}{ui}
+Ui\+::issuecreator $\ast$ \textbf{ ui}
 \end{DoxyCompactItemize}
 
 
@@ -56,39 +56,39 @@ Ui\+::issuecreator $\ast$ \hyperlink{classissuecreator_ae85db2bae308918495f313ac
 Класс, предоставляющий интерфейc для создания Github Issues. 
 
 \subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classissuecreator_af18020b34fc69c9ffea22e7f748b8f96}\label{classissuecreator_af18020b34fc69c9ffea22e7f748b8f96}} 
+\mbox{\label{classissuecreator_af18020b34fc69c9ffea22e7f748b8f96}} 
 \index{issuecreator@{issuecreator}!issuecreator@{issuecreator}}
 \index{issuecreator@{issuecreator}!issuecreator@{issuecreator}}
-\subsubsection{\texorpdfstring{issuecreator()}{issuecreator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\subsubsection{issuecreator()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily issuecreator\+::issuecreator (\begin{DoxyParamCaption}\item[{Q\+Widget $\ast$}]{parent = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
 
 
 Конструктор по умолчанию 
 
-\mbox{\Hypertarget{classissuecreator_ae623be0a0b031f1382b844133e51e1cb}\label{classissuecreator_ae623be0a0b031f1382b844133e51e1cb}} 
+\mbox{\label{classissuecreator_ae623be0a0b031f1382b844133e51e1cb}} 
 \index{issuecreator@{issuecreator}!issuecreator@{issuecreator}}
 \index{issuecreator@{issuecreator}!issuecreator@{issuecreator}}
-\subsubsection{\texorpdfstring{issuecreator()}{issuecreator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\subsubsection{issuecreator()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily issuecreator\+::issuecreator (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{selected\+Text,  }\item[{Q\+Widget $\ast$}]{parent = {\ttfamily 0} }\end{DoxyParamCaption})}
 
 
 
 Конструктор для случая с выделенным текстом. 
 
-Весь выделенный текст в окне сообщений будет перенесен в панель ввода Description. \mbox{\Hypertarget{classissuecreator_ac3f6c719cc0c836d709f92a166f5ee30}\label{classissuecreator_ac3f6c719cc0c836d709f92a166f5ee30}} 
+Весь выделенный текст в окне сообщений будет перенесен в панель ввода Description. \mbox{\label{classissuecreator_ac3f6c719cc0c836d709f92a166f5ee30}} 
 \index{issuecreator@{issuecreator}!````~issuecreator@{$\sim$issuecreator}}
 \index{````~issuecreator@{$\sim$issuecreator}!issuecreator@{issuecreator}}
-\subsubsection{\texorpdfstring{$\sim$issuecreator()}{~issuecreator()}}
+\subsubsection{$\sim$issuecreator()}
 {\footnotesize\ttfamily issuecreator\+::$\sim$issuecreator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
 \subsection{Member Function Documentation}
-\mbox{\Hypertarget{classissuecreator_a332d178719de5c6905603d4715fe179f}\label{classissuecreator_a332d178719de5c6905603d4715fe179f}} 
+\mbox{\label{classissuecreator_a332d178719de5c6905603d4715fe179f}} 
 \index{issuecreator@{issuecreator}!Get\+Github\+Token@{Get\+Github\+Token}}
 \index{Get\+Github\+Token@{Get\+Github\+Token}!issuecreator@{issuecreator}}
-\subsubsection{\texorpdfstring{Get\+Github\+Token()}{GetGithubToken()}}
+\subsubsection{Get\+Github\+Token()}
 {\footnotesize\ttfamily Q\+String issuecreator\+::\+Get\+Github\+Token (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{Login,  }\item[{const Q\+String \&}]{Pass }\end{DoxyParamCaption})}
 
 
@@ -102,10 +102,10 @@ Ui\+::issuecreator $\ast$ \hyperlink{classissuecreator_ae85db2bae308918495f313ac
 \mbox{\tt in}  & {\em Pass} & Пароль от аккаунта Github. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{classissuecreator_a9c4e6f82cc1c1523bbd92d38b35b75ad}\label{classissuecreator_a9c4e6f82cc1c1523bbd92d38b35b75ad}} 
+\mbox{\label{classissuecreator_a9c4e6f82cc1c1523bbd92d38b35b75ad}} 
 \index{issuecreator@{issuecreator}!Is\+Internet\+Connected@{Is\+Internet\+Connected}}
 \index{Is\+Internet\+Connected@{Is\+Internet\+Connected}!issuecreator@{issuecreator}}
-\subsubsection{\texorpdfstring{Is\+Internet\+Connected()}{IsInternetConnected()}}
+\subsubsection{Is\+Internet\+Connected()}
 {\footnotesize\ttfamily bool issuecreator\+::\+Is\+Internet\+Connected (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
@@ -115,20 +115,20 @@ Ui\+::issuecreator $\ast$ \hyperlink{classissuecreator_ae85db2bae308918495f313ac
 \begin{DoxyReturn}{Returns}
 False если отсутствует интернет-\/соединение. Иначе -\/ true. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classissuecreator_a03af040ad19d02a8c271fe0c7b40d160}\label{classissuecreator_a03af040ad19d02a8c271fe0c7b40d160}} 
+\mbox{\label{classissuecreator_a03af040ad19d02a8c271fe0c7b40d160}} 
 \index{issuecreator@{issuecreator}!on\+\_\+\+Send\+\_\+clicked@{on\+\_\+\+Send\+\_\+clicked}}
 \index{on\+\_\+\+Send\+\_\+clicked@{on\+\_\+\+Send\+\_\+clicked}!issuecreator@{issuecreator}}
-\subsubsection{\texorpdfstring{on\+\_\+\+Send\+\_\+clicked}{on\_Send\_clicked}}
+\subsubsection{on\+\_\+\+Send\+\_\+clicked}
 {\footnotesize\ttfamily void issuecreator\+::on\+\_\+\+Send\+\_\+clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
 
 
 
 Слот, отвечающий за отправку запроса на Github с целью создания Issue. 
 
-\mbox{\Hypertarget{classissuecreator_a32184b3842bd6352faeef506b85c649a}\label{classissuecreator_a32184b3842bd6352faeef506b85c649a}} 
+\mbox{\label{classissuecreator_a32184b3842bd6352faeef506b85c649a}} 
 \index{issuecreator@{issuecreator}!Parse\+Token@{Parse\+Token}}
 \index{Parse\+Token@{Parse\+Token}!issuecreator@{issuecreator}}
-\subsubsection{\texorpdfstring{Parse\+Token()}{ParseToken()}}
+\subsubsection{Parse\+Token()}
 {\footnotesize\ttfamily Q\+String issuecreator\+::\+Parse\+Token (\begin{DoxyParamCaption}\item[{Q\+String}]{Data }\end{DoxyParamCaption})}
 
 
@@ -143,10 +143,10 @@ False если отсутствует интернет-\/соединение. �
 \begin{DoxyReturn}{Returns}
 Строка -\/ токен. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classissuecreator_a52fc815f5dd3099817a1613f4af9de9b}\label{classissuecreator_a52fc815f5dd3099817a1613f4af9de9b}} 
+\mbox{\label{classissuecreator_a52fc815f5dd3099817a1613f4af9de9b}} 
 \index{issuecreator@{issuecreator}!Read\+Token\+From\+File@{Read\+Token\+From\+File}}
 \index{Read\+Token\+From\+File@{Read\+Token\+From\+File}!issuecreator@{issuecreator}}
-\subsubsection{\texorpdfstring{Read\+Token\+From\+File()}{ReadTokenFromFile()}}
+\subsubsection{Read\+Token\+From\+File()}
 {\footnotesize\ttfamily Q\+String issuecreator\+::\+Read\+Token\+From\+File (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
@@ -156,10 +156,10 @@ False если отсутствует интернет-\/соединение. �
 \begin{DoxyReturn}{Returns}
 Строка -\/ токен. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classissuecreator_a7d8b501ffe33324bad13029113674d3d}\label{classissuecreator_a7d8b501ffe33324bad13029113674d3d}} 
+\mbox{\label{classissuecreator_a7d8b501ffe33324bad13029113674d3d}} 
 \index{issuecreator@{issuecreator}!Write\+Token\+To\+File@{Write\+Token\+To\+File}}
 \index{Write\+Token\+To\+File@{Write\+Token\+To\+File}!issuecreator@{issuecreator}}
-\subsubsection{\texorpdfstring{Write\+Token\+To\+File()}{WriteTokenToFile()}}
+\subsubsection{Write\+Token\+To\+File()}
 {\footnotesize\ttfamily void issuecreator\+::\+Write\+Token\+To\+File (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{Token }\end{DoxyParamCaption})}
 
 
@@ -174,45 +174,45 @@ False если отсутствует интернет-\/соединение. �
 
 
 \subsection{Member Data Documentation}
-\mbox{\Hypertarget{classissuecreator_a7d6bc72a5a8ddafa35e3d0e759918586}\label{classissuecreator_a7d6bc72a5a8ddafa35e3d0e759918586}} 
+\mbox{\label{classissuecreator_a7d6bc72a5a8ddafa35e3d0e759918586}} 
 \index{issuecreator@{issuecreator}!Issue\+Description@{Issue\+Description}}
 \index{Issue\+Description@{Issue\+Description}!issuecreator@{issuecreator}}
-\subsubsection{\texorpdfstring{Issue\+Description}{IssueDescription}}
+\subsubsection{Issue\+Description}
 {\footnotesize\ttfamily Q\+String issuecreator\+::\+Issue\+Description\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 Описание проблемы 
 
-\mbox{\Hypertarget{classissuecreator_ab95a97a1a87dae8170bfaf0c95859413}\label{classissuecreator_ab95a97a1a87dae8170bfaf0c95859413}} 
+\mbox{\label{classissuecreator_ab95a97a1a87dae8170bfaf0c95859413}} 
 \index{issuecreator@{issuecreator}!is\+Token\+Writed@{is\+Token\+Writed}}
 \index{is\+Token\+Writed@{is\+Token\+Writed}!issuecreator@{issuecreator}}
-\subsubsection{\texorpdfstring{is\+Token\+Writed}{isTokenWrited}}
+\subsubsection{is\+Token\+Writed}
 {\footnotesize\ttfamily bool issuecreator\+::is\+Token\+Writed = false\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 Флаг, сигнализирующий о наличии токена в файле config. 
 
-\mbox{\Hypertarget{classissuecreator_ad8f87f64c334987f0316a3d3191d55c8}\label{classissuecreator_ad8f87f64c334987f0316a3d3191d55c8}} 
+\mbox{\label{classissuecreator_ad8f87f64c334987f0316a3d3191d55c8}} 
 \index{issuecreator@{issuecreator}!Token@{Token}}
 \index{Token@{Token}!issuecreator@{issuecreator}}
-\subsubsection{\texorpdfstring{Token}{Token}}
+\subsubsection{Token}
 {\footnotesize\ttfamily Q\+String issuecreator\+::\+Token\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 Токен 
 
-\mbox{\Hypertarget{classissuecreator_ae85db2bae308918495f313ac058b006b}\label{classissuecreator_ae85db2bae308918495f313ac058b006b}} 
+\mbox{\label{classissuecreator_ae85db2bae308918495f313ac058b006b}} 
 \index{issuecreator@{issuecreator}!ui@{ui}}
 \index{ui@{ui}!issuecreator@{issuecreator}}
-\subsubsection{\texorpdfstring{ui}{ui}}
+\subsubsection{ui}
 {\footnotesize\ttfamily Ui\+::issuecreator$\ast$ issuecreator\+::ui\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-P2\+P-\/\+Chat/\+Client/\hyperlink{issuecreator_8h}{issuecreator.\+h}\item 
-P2\+P-\/\+Chat/\+Client/\hyperlink{issuecreator_8cpp}{issuecreator.\+cpp}\end{DoxyCompactItemize}
+/\+Users/antonukhanov/\+P2\+P-\/\+Chat/\+Client/\textbf{ issuecreator.\+h}\item 
+/\+Users/antonukhanov/\+P2\+P-\/\+Chat/\+Client/\textbf{ issuecreator.\+cpp}\end{DoxyCompactItemize}

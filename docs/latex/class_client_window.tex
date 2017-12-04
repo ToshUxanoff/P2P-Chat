@@ -1,4 +1,4 @@
-\hypertarget{class_client_window}{}\section{Client\+Window Class Reference}
+\section{Client\+Window Class Reference}
 \label{class_client_window}\index{Client\+Window@{Client\+Window}}
 
 
@@ -18,94 +18,94 @@ Inheritance diagram for Client\+Window\+:\begin{figure}[H]
 \subsection*{Public Slots}
 \begin{DoxyCompactItemize}
 \item 
-void \hyperlink{class_client_window_a09a50177ec2bfc59fc9ec8f698153111}{on\+\_\+\+Search\+Line\+\_\+return\+Pressed} ()
+void \textbf{ on\+\_\+\+Search\+Line\+\_\+return\+Pressed} ()
 \begin{DoxyCompactList}\small\item\em Слот, отвечающий за отправку поискового запроса на сервер по нажатию кнопки Return. \end{DoxyCompactList}\item 
-void \hyperlink{class_client_window_a6af59313228995e6c55d265db7ce3995}{on\+Read} ()
+void \textbf{ on\+Read} ()
 \begin{DoxyCompactList}\small\item\em Слот, отвечающий за получение входящих данных \end{DoxyCompactList}\item 
-void \hyperlink{class_client_window_ac2bce105ea893651dc9daf567bb966b5}{on\+\_\+\+Name\+Input\+\_\+return\+Pressed} ()
+void \textbf{ on\+\_\+\+Name\+Input\+\_\+return\+Pressed} ()
 \begin{DoxyCompactList}\small\item\em Слот, отвечающий за сохранение и отправку на сервер имени пользователя \end{DoxyCompactList}\item 
-void \hyperlink{class_client_window_a3868f97e58d97ea716137c52e50b968d}{on\+\_\+\+Send\+Msg\+\_\+clicked} ()
+void \textbf{ on\+\_\+\+Send\+Msg\+\_\+clicked} ()
 \begin{DoxyCompactList}\small\item\em Слот, отвечающий за отправку сообщения пиру по нажатию (вызывает функцию отправки сообщения) \end{DoxyCompactList}\item 
-void \hyperlink{class_client_window_a53683c81555a53e513066619a66bdbf4}{on\+\_\+\+Friend\+List\+\_\+item\+Double\+Clicked} (Q\+List\+Widget\+Item $\ast$item)
+void \textbf{ on\+\_\+\+Friend\+List\+\_\+item\+Double\+Clicked} (Q\+List\+Widget\+Item $\ast$item)
 \begin{DoxyCompactList}\small\item\em Слот, определяющий имя пира, который был выбран пользователем (используется для отправки сообщений выбранному пользователю) \end{DoxyCompactList}\item 
-void \hyperlink{class_client_window_a201f45c14dfb71277f628ea6607d2959}{on\+\_\+\+Msg\+Input\+\_\+return\+Pressed} ()
-\begin{DoxyCompactList}\small\item\em Слот, аналогичный \hyperlink{class_client_window_a3868f97e58d97ea716137c52e50b968d}{on\+\_\+\+Send\+Msg\+\_\+clicked()}. Вызывает функцию отправки сообщения \end{DoxyCompactList}\item 
-void \hyperlink{class_client_window_a1b54deb39018f95424f67e26c928db3f}{Conn\+Detector} ()
+void \textbf{ on\+\_\+\+Msg\+Input\+\_\+return\+Pressed} ()
+\begin{DoxyCompactList}\small\item\em Слот, аналогичный \doxyref{on\+\_\+\+Send\+Msg\+\_\+clicked()}{p.}{class_client_window_a3868f97e58d97ea716137c52e50b968d}. Вызывает функцию отправки сообщения \end{DoxyCompactList}\item 
+void \textbf{ Conn\+Detector} ()
 \begin{DoxyCompactList}\small\item\em Слот для обнаружения входящих соединений \end{DoxyCompactList}\item 
-void \hyperlink{class_client_window_a03213f4bad0ff25e75eeb617b61d5bdf}{on\+\_\+\+Update\+List\+Button\+\_\+clicked} ()
+void \textbf{ on\+\_\+\+Update\+List\+Button\+\_\+clicked} ()
 \begin{DoxyCompactList}\small\item\em Слот, отвечающий за запрос серверу на получение списка всех пиров в сети. Активируется по нажатию кнопки Updated. \end{DoxyCompactList}\item 
-void \hyperlink{class_client_window_a9d4b9f1e07bd287fcf7acbe62ab1efd3}{on\+\_\+check\+Box\+\_\+toggled} (bool checked)
+void \textbf{ on\+\_\+check\+Box\+\_\+toggled} (bool checked)
 \begin{DoxyCompactList}\small\item\em Слот, информирующий о нажатии галочки \char`\"{}\+Private\char`\"{} при входе в сеть. Устанавливает соответствующий статус(\+Private, Public)текущему пользователю \end{DoxyCompactList}\item 
-void \hyperlink{class_client_window_ab8699235cbe5cc75a3180fdee7fb195c}{on\+\_\+push\+Button\+\_\+clicked} ()
+void \textbf{ on\+\_\+push\+Button\+\_\+clicked} ()
 \begin{DoxyCompactList}\small\item\em Слот для открытия Issue Creator по нажатию соответствующей кнопки \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_client_window_a23d2aaa14ef2a3587252a32bca6ce9c4}{Client\+Window} (int Port, Q\+String address, Q\+Widget $\ast$parent=0)
+\textbf{ Client\+Window} (int Port, Q\+String address, Q\+Widget $\ast$parent=0)
 \begin{DoxyCompactList}\small\item\em Конструктор, принимающий на вход порт и адрес информационного сервера \end{DoxyCompactList}\item 
-\hyperlink{class_client_window_af98431ebb79bc205a7da60ada28ddb91}{$\sim$\+Client\+Window} ()
+\textbf{ $\sim$\+Client\+Window} ()
 \begin{DoxyCompactList}\small\item\em Деструктор \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-int \hyperlink{class_client_window_af38cd3b6f4d7e7ab2c805460a95d3172}{Resolver} (const Q\+String \&Data)
+int \textbf{ Resolver} (const Q\+String \&Data)
 \begin{DoxyCompactList}\small\item\em Функция, предназначенная для распознавания типа данных, переданных в неё \end{DoxyCompactList}\item 
-void \hyperlink{class_client_window_a1da98989dfae2558359e2bfe0a87f03d}{Send\+Message\+To\+Peer} (const Q\+String \&Peer\+Name)
+void \textbf{ Send\+Message\+To\+Peer} (const Q\+String \&Peer\+Name)
 \begin{DoxyCompactList}\small\item\em Функция для отправки сообщения пиру \end{DoxyCompactList}\item 
-void \hyperlink{class_client_window_a6a95a02873ba28363e00cb27d7e9cc6c}{Connect\+To\+Peer} (const Q\+String \&IP, int Port, const Q\+String \&User\+Name)
+void \textbf{ Connect\+To\+Peer} (const Q\+String \&IP, int Port, const Q\+String \&User\+Name)
 \begin{DoxyCompactList}\small\item\em Функция для отправки запроса на соединение другому пиру \end{DoxyCompactList}\item 
-void \hyperlink{class_client_window_a8c4913533d66f626237a353e98b81d69}{Send\+Connect\+Request} (const Q\+String \&Peer\+Name)
-\begin{DoxyCompactList}\small\item\em Функция для отправки запроса на соединение другому пиру если текущий пользователь -\/ приватный. \end{DoxyCompactList}\item 
-void \hyperlink{class_client_window_adef4d0491b4ac3d7f4066acfef0841c4}{Parse\+All\+Users\+Data} (Q\+String Response)
+void \textbf{ Send\+Connect\+Request} (const Q\+String \&Peer\+Name)
+\begin{DoxyCompactList}\small\item\em Функция для отправки запроса на соединение другому пиру если статус текущего пользователя -\/ приватный. \end{DoxyCompactList}\item 
+void \textbf{ Parse\+All\+Users\+Data} (Q\+String Response)
 \begin{DoxyCompactList}\small\item\em Парсер списка пользователей, полученного от сервера \end{DoxyCompactList}\item 
-Q\+String \hyperlink{class_client_window_a1d4012db90be784b11e1eda58202582c}{Encrypt} (Q\+String \&Message, Q\+String Key)
+Q\+String \textbf{ Encrypt} (Q\+String \&Message, Q\+String Key)
 \begin{DoxyCompactList}\small\item\em Функция зашифровки сообщения с заданным ключом Функция шифрует сообщение по алгоритму \char`\"{}Кузнечик\char`\"{} (ГОСТ Р 34.\+12-\/2015) с заданным ключом. Подробнее ознакомиться с реализацией можно перейдя по ссылке в источниках. \end{DoxyCompactList}\item 
-Q\+String \hyperlink{class_client_window_ad577402b282f11ee0be8e1772acc9d8c}{Decrypt} (Q\+String \&Message, Q\+String Key)
+Q\+String \textbf{ Decrypt} (Q\+String \&Message, Q\+String Key)
 \begin{DoxyCompactList}\small\item\em Функция расшифровки сообщения с заданным ключом Функция дешифрует сообщение по алгоритму \char`\"{}Кузнечик\char`\"{} (ГОСТ Р 34.\+12-\/2015) с заданным ключом. Подробнее ознакомиться с реализацией можно перейдя по ссылке в источниках. \end{DoxyCompactList}\item 
-void \hyperlink{class_client_window_a80e1035659b8f9867ac4c40920617cec}{Gen\+Key\+Params} ()
+void \textbf{ Gen\+Key\+Params} ()
 \begin{DoxyCompactList}\small\item\em Функция для генерации параметров ключей (Prime, Generator, Priv\+Numb, Public\+Numb) и самой пары ключей. \end{DoxyCompactList}\item 
-Crypto\+P\+P\+::\+Sec\+Byte\+Block \hyperlink{class_client_window_aeef0e4f3943b8d83aba3d8f1f784562b}{Incoming\+Session\+Key\+Gen} (const Q\+String \&Username, Crypto\+P\+P\+::\+Integer prime, Crypto\+P\+P\+::\+Integer generator, Crypto\+P\+P\+::\+Sec\+Byte\+Block public\+Numb)
+Crypto\+P\+P\+::\+Sec\+Byte\+Block \textbf{ Incoming\+Session\+Key\+Gen} (const Q\+String \&Username, Crypto\+P\+P\+::\+Integer prime, Crypto\+P\+P\+::\+Integer generator, Crypto\+P\+P\+::\+Sec\+Byte\+Block public\+Numb)
 \begin{DoxyCompactList}\small\item\em Функция для генерации параметров и выработки сеансового ключа с пиром, приславшим свои публичные данные для обмена ключами. \end{DoxyCompactList}\item 
-void \hyperlink{class_client_window_ad44d1603d88233c0f18dba2f64198da1}{Getting\+Agreement} (const Q\+String \&Username, Crypto\+P\+P\+::\+Sec\+Byte\+Block public\+Numb)
+void \textbf{ Getting\+Agreement} (const Q\+String \&Username, Crypto\+P\+P\+::\+Sec\+Byte\+Block public\+Numb)
 \begin{DoxyCompactList}\small\item\em Функция для согласования общего сеансового ключа \end{DoxyCompactList}\item 
-void \hyperlink{class_client_window_a64b8023ab0edf40ea745b667039846e6}{Send\+Generated\+Public\+Key} (const Q\+String \&User\+Name, Crypto\+P\+P\+::\+Sec\+Byte\+Block public\+Key)
+void \textbf{ Send\+Generated\+Public\+Key} (const Q\+String \&User\+Name, Crypto\+P\+P\+::\+Sec\+Byte\+Block public\+Key)
 \begin{DoxyCompactList}\small\item\em Функция отправки публичного ключа заданному пиру \end{DoxyCompactList}\item 
-\hyperlink{class_peer}{Peer} $\ast$ \hyperlink{class_client_window_a040d239df2ae3f017b371ed2367642e5}{Search\+Peer\+By\+Name} (const Q\+String \&Name)
+\textbf{ Peer} $\ast$ \textbf{ Search\+Peer\+By\+Name} (const Q\+String \&Name)
 \begin{DoxyCompactList}\small\item\em Функция поиска пира в структуре по имени. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-Crypto\+P\+P\+::\+DH \hyperlink{class_client_window_a70e338edd34ee5043c35c03c6da85190}{dh}
+Crypto\+P\+P\+::\+DH \textbf{ dh}
 \begin{DoxyCompactList}\small\item\em Объект класса DH, необходимый для реализации алгоритма Диффи-\/Хеллмана. Подробнее можно узнать в официальной документации библиотеки Crypto\+PP. \end{DoxyCompactList}\item 
-Crypto\+P\+P\+::\+Integer \hyperlink{class_client_window_aab318f5417f89201dc6633b2e481e817}{Prime}
+Crypto\+P\+P\+::\+Integer \textbf{ Prime}
 \begin{DoxyCompactList}\small\item\em Параметр необходимый для генерации пары ключей. Подробнее можно узнать в официальной документации библиотеки Crypto\+PP. \end{DoxyCompactList}\item 
-Crypto\+P\+P\+::\+Integer \hyperlink{class_client_window_a72c4ff89452aba7e047970ad83c51369}{Generator}
+Crypto\+P\+P\+::\+Integer \textbf{ Generator}
 \begin{DoxyCompactList}\small\item\em Параметр необходимый для генерации пары ключей. Подробнее можно узнать в официальной документации библиотеки Crypto\+PP. \end{DoxyCompactList}\item 
-Crypto\+P\+P\+::\+Sec\+Byte\+Block \hyperlink{class_client_window_a4c4248eb0be6db957bbd835146e36699}{Priv\+Numb}
+Crypto\+P\+P\+::\+Sec\+Byte\+Block \textbf{ Priv\+Numb}
 \begin{DoxyCompactList}\small\item\em Публичное сгенерированное с помощью вышеуказанных параметров число. Подробнее можно узнать в официальной документации библиотеки Crypto\+PP. \end{DoxyCompactList}\item 
-Crypto\+P\+P\+::\+Sec\+Byte\+Block \hyperlink{class_client_window_a213087869fc5bfb7427add5248e60046}{Public\+Numb}
+Crypto\+P\+P\+::\+Sec\+Byte\+Block \textbf{ Public\+Numb}
 \begin{DoxyCompactList}\small\item\em Приватное сгенерированное с помощью вышеуказанных параметров число. Подробнее можно узнать в официальной документации библиотеки Crypto\+PP. \end{DoxyCompactList}\item 
-Crypto\+P\+P\+::\+Sec\+Byte\+Block \hyperlink{class_client_window_a771a96af9209f03fab4db74ad343c280}{My\+Secret\+Key}
+Crypto\+P\+P\+::\+Sec\+Byte\+Block \textbf{ My\+Secret\+Key}
 \begin{DoxyCompactList}\small\item\em Приватный ключ. Подробнее можно узнать в официальной документации библиотеки Crypto\+PP. \end{DoxyCompactList}\item 
-Q\+Vector$<$ \hyperlink{class_peer}{Peer} $>$ \hyperlink{class_client_window_a8e6109e2659c78a3f959df0a450862ae}{Peers}
+Q\+Vector$<$ \textbf{ Peer} $>$ \textbf{ Peers}
 \begin{DoxyCompactList}\small\item\em Структура для хранения списка известных пиров \end{DoxyCompactList}\item 
-std\+::unique\+\_\+ptr$<$ Q\+Tcp\+Socket $>$ \hyperlink{class_client_window_a74e7b0eb499506ff2071e314cdab83dc}{Server\+Socket}
+std\+::unique\+\_\+ptr$<$ Q\+Tcp\+Socket $>$ \textbf{ Server\+Socket}
 \begin{DoxyCompactList}\small\item\em Указатель на сокет инициализированный адресом и портом информационного сервера \end{DoxyCompactList}\item 
-std\+::unique\+\_\+ptr$<$ Q\+Tcp\+Server $>$ \hyperlink{class_client_window_acff726e7e30b6bb9fd190181fbea4835}{This\+Listen\+Socket}
+std\+::unique\+\_\+ptr$<$ Q\+Tcp\+Server $>$ \textbf{ This\+Listen\+Socket}
 \begin{DoxyCompactList}\small\item\em Указатель на слушающий сокет текущего пользователя \end{DoxyCompactList}\item 
-Q\+String \hyperlink{class_client_window_a98ff51a0d70a591431b56d5e001a51d9}{Destination}
+Q\+String \textbf{ Destination}
 \begin{DoxyCompactList}\small\item\em Имя адресата \end{DoxyCompactList}\item 
-Q\+String \hyperlink{class_client_window_a0a1282c1054a3810a4c772db4ffde530}{Nick\+Name}
+Q\+String \textbf{ Nick\+Name}
 \begin{DoxyCompactList}\small\item\em Имя текущего пользователя \end{DoxyCompactList}\item 
-Q\+String \hyperlink{class_client_window_abaec733868dc94910f89011513ab4c7b}{Server\+IP}
+Q\+String \textbf{ Server\+IP}
 \begin{DoxyCompactList}\small\item\em I\+Pv4 адрес сервера \end{DoxyCompactList}\item 
-int \hyperlink{class_client_window_a3f0c47409cc45b690b52ecf177a86adb}{Server\+Port}
+int \textbf{ Server\+Port}
 \begin{DoxyCompactList}\small\item\em Порт информационного сервера \end{DoxyCompactList}\item 
-bool \hyperlink{class_client_window_a060cbd4e58c77c64edb9b5dd69c8da7d}{Connected\+To\+Server} = false
+bool \textbf{ Connected\+To\+Server} = false
 \begin{DoxyCompactList}\small\item\em Флаг, сигнализирующий о успешном присоединении к серверу. Если соединения нет -\/ поиск недоступен. \end{DoxyCompactList}\item 
-bool \hyperlink{class_client_window_a0112c19a3296b1908e823d9baaa2246b}{Private} = false
+bool \textbf{ Private} = false
 \begin{DoxyCompactList}\small\item\em Флаг, сигнализирующий о статусе пользователя. \end{DoxyCompactList}\item 
-Ui\+::\+Client\+Window $\ast$ \hyperlink{class_client_window_a1fbbfac70cc4e23f0d44ac209804bfc9}{ui}
+Ui\+::\+Client\+Window $\ast$ \textbf{ ui}
 \end{DoxyCompactItemize}
 
 
@@ -113,10 +113,10 @@ Ui\+::\+Client\+Window $\ast$ \hyperlink{class_client_window_a1fbbfac70cc4e23f0d
 Класс, предоставляющий интерфейc пользователя 
 
 \subsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{class_client_window_a23d2aaa14ef2a3587252a32bca6ce9c4}\label{class_client_window_a23d2aaa14ef2a3587252a32bca6ce9c4}} 
+\mbox{\label{class_client_window_a23d2aaa14ef2a3587252a32bca6ce9c4}} 
 \index{Client\+Window@{Client\+Window}!Client\+Window@{Client\+Window}}
 \index{Client\+Window@{Client\+Window}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Client\+Window()}{ClientWindow()}}
+\subsubsection{Client\+Window()}
 {\footnotesize\ttfamily Client\+Window\+::\+Client\+Window (\begin{DoxyParamCaption}\item[{int}]{Port,  }\item[{Q\+String}]{address,  }\item[{Q\+Widget $\ast$}]{parent = {\ttfamily 0} }\end{DoxyParamCaption})}
 
 
@@ -130,10 +130,10 @@ Ui\+::\+Client\+Window $\ast$ \hyperlink{class_client_window_a1fbbfac70cc4e23f0d
 \mbox{\tt in}  & {\em address} & I\+Pv4 адрес \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_client_window_af98431ebb79bc205a7da60ada28ddb91}\label{class_client_window_af98431ebb79bc205a7da60ada28ddb91}} 
+\mbox{\label{class_client_window_af98431ebb79bc205a7da60ada28ddb91}} 
 \index{Client\+Window@{Client\+Window}!````~Client\+Window@{$\sim$\+Client\+Window}}
 \index{````~Client\+Window@{$\sim$\+Client\+Window}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{$\sim$\+Client\+Window()}{~ClientWindow()}}
+\subsubsection{$\sim$\+Client\+Window()}
 {\footnotesize\ttfamily Client\+Window\+::$\sim$\+Client\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
@@ -143,27 +143,27 @@ Ui\+::\+Client\+Window $\ast$ \hyperlink{class_client_window_a1fbbfac70cc4e23f0d
 
 
 \subsection{Member Function Documentation}
-\mbox{\Hypertarget{class_client_window_a1b54deb39018f95424f67e26c928db3f}\label{class_client_window_a1b54deb39018f95424f67e26c928db3f}} 
+\mbox{\label{class_client_window_a1b54deb39018f95424f67e26c928db3f}} 
 \index{Client\+Window@{Client\+Window}!Conn\+Detector@{Conn\+Detector}}
 \index{Conn\+Detector@{Conn\+Detector}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Conn\+Detector}{ConnDetector}}
+\subsubsection{Conn\+Detector}
 {\footnotesize\ttfamily void Client\+Window\+::\+Conn\+Detector (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
 
 
 
 Слот для обнаружения входящих соединений 
 
-\mbox{\Hypertarget{class_client_window_a6a95a02873ba28363e00cb27d7e9cc6c}\label{class_client_window_a6a95a02873ba28363e00cb27d7e9cc6c}} 
+\mbox{\label{class_client_window_a6a95a02873ba28363e00cb27d7e9cc6c}} 
 \index{Client\+Window@{Client\+Window}!Connect\+To\+Peer@{Connect\+To\+Peer}}
 \index{Connect\+To\+Peer@{Connect\+To\+Peer}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Connect\+To\+Peer()}{ConnectToPeer()}}
+\subsubsection{Connect\+To\+Peer()}
 {\footnotesize\ttfamily void Client\+Window\+::\+Connect\+To\+Peer (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{IP,  }\item[{int}]{Port,  }\item[{const Q\+String \&}]{User\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 Функция для отправки запроса на соединение другому пиру 
 
-Функция инициализирует новый сокет переданными данными (IP, Port), создается новый объект класса \hyperlink{class_peer}{Peer}, использующийся для хранения данных о пользователе, заносит объект в структуру для хранения списка \char`\"{}знакомых\char`\"{} пиров, после чего этому пиру автоматически отправляется запрос на соединение. Получив такой запрос, пир автоматически сохранит пользователя отправившего этот запрос в своей структуре и сможет отправлять ему сообщения. Таким образом пиры будут \char`\"{}знать\char`\"{} друг друга без помощи информационного сервера 
+Функция инициализирует новый сокет переданными данными (IP, Port), создается новый объект класса \doxyref{Peer}{p.}{class_peer}, использующийся для хранения данных о пользователе, заносит объект в структуру для хранения списка \char`\"{}знакомых\char`\"{} пиров, после чего этому пиру автоматически отправляется запрос на соединение. Получив такой запрос, пир автоматически сохранит пользователя отправившего этот запрос в своей структуре и сможет отправлять ему сообщения. Таким образом пиры будут \char`\"{}знать\char`\"{} друг друга без помощи информационного сервера 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em IP} & I\+Pv4 адрес пира, которому будет отправляться запрос. \\
 \hline
@@ -175,10 +175,10 @@ Ui\+::\+Client\+Window $\ast$ \hyperlink{class_client_window_a1fbbfac70cc4e23f0d
 \begin{DoxyReturn}{Returns}
 Ничего не возвращает 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_client_window_ad577402b282f11ee0be8e1772acc9d8c}\label{class_client_window_ad577402b282f11ee0be8e1772acc9d8c}} 
+\mbox{\label{class_client_window_ad577402b282f11ee0be8e1772acc9d8c}} 
 \index{Client\+Window@{Client\+Window}!Decrypt@{Decrypt}}
 \index{Decrypt@{Decrypt}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Decrypt()}{Decrypt()}}
+\subsubsection{Decrypt()}
 {\footnotesize\ttfamily Q\+String Client\+Window\+::\+Decrypt (\begin{DoxyParamCaption}\item[{Q\+String \&}]{Message,  }\item[{Q\+String}]{Key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
@@ -192,10 +192,10 @@ Ui\+::\+Client\+Window $\ast$ \hyperlink{class_client_window_a1fbbfac70cc4e23f0d
 \mbox{\tt in}  & {\em Key} & Ключ для дешифровки /return Возвращает строку -\/ расшифрованное сообщение \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_client_window_a1d4012db90be784b11e1eda58202582c}\label{class_client_window_a1d4012db90be784b11e1eda58202582c}} 
+\mbox{\label{class_client_window_a1d4012db90be784b11e1eda58202582c}} 
 \index{Client\+Window@{Client\+Window}!Encrypt@{Encrypt}}
 \index{Encrypt@{Encrypt}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Encrypt()}{Encrypt()}}
+\subsubsection{Encrypt()}
 {\footnotesize\ttfamily Q\+String Client\+Window\+::\+Encrypt (\begin{DoxyParamCaption}\item[{Q\+String \&}]{Message,  }\item[{Q\+String}]{Key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
@@ -212,10 +212,10 @@ Ui\+::\+Client\+Window $\ast$ \hyperlink{class_client_window_a1fbbfac70cc4e23f0d
 \begin{DoxyReturn}{Returns}
 Возвращает строку -\/ зашифрованное сообщение 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_client_window_a80e1035659b8f9867ac4c40920617cec}\label{class_client_window_a80e1035659b8f9867ac4c40920617cec}} 
+\mbox{\label{class_client_window_a80e1035659b8f9867ac4c40920617cec}} 
 \index{Client\+Window@{Client\+Window}!Gen\+Key\+Params@{Gen\+Key\+Params}}
 \index{Gen\+Key\+Params@{Gen\+Key\+Params}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Gen\+Key\+Params()}{GenKeyParams()}}
+\subsubsection{Gen\+Key\+Params()}
 {\footnotesize\ttfamily void Client\+Window\+::\+Gen\+Key\+Params (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
@@ -225,10 +225,10 @@ Ui\+::\+Client\+Window $\ast$ \hyperlink{class_client_window_a1fbbfac70cc4e23f0d
 Подробнее о параметрах можно прочесть в описании алгоритма Диффи-\/Хеллмана. \begin{DoxyReturn}{Returns}
 Ничего не возвращает 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_client_window_ad44d1603d88233c0f18dba2f64198da1}\label{class_client_window_ad44d1603d88233c0f18dba2f64198da1}} 
+\mbox{\label{class_client_window_ad44d1603d88233c0f18dba2f64198da1}} 
 \index{Client\+Window@{Client\+Window}!Getting\+Agreement@{Getting\+Agreement}}
 \index{Getting\+Agreement@{Getting\+Agreement}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Getting\+Agreement()}{GettingAgreement()}}
+\subsubsection{Getting\+Agreement()}
 {\footnotesize\ttfamily void Client\+Window\+::\+Getting\+Agreement (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{Username,  }\item[{Crypto\+P\+P\+::\+Sec\+Byte\+Block}]{public\+Numb }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
@@ -245,10 +245,10 @@ Ui\+::\+Client\+Window $\ast$ \hyperlink{class_client_window_a1fbbfac70cc4e23f0d
 \begin{DoxyReturn}{Returns}
 Ничего не возвращает 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_client_window_aeef0e4f3943b8d83aba3d8f1f784562b}\label{class_client_window_aeef0e4f3943b8d83aba3d8f1f784562b}} 
+\mbox{\label{class_client_window_aeef0e4f3943b8d83aba3d8f1f784562b}} 
 \index{Client\+Window@{Client\+Window}!Incoming\+Session\+Key\+Gen@{Incoming\+Session\+Key\+Gen}}
 \index{Incoming\+Session\+Key\+Gen@{Incoming\+Session\+Key\+Gen}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Incoming\+Session\+Key\+Gen()}{IncomingSessionKeyGen()}}
+\subsubsection{Incoming\+Session\+Key\+Gen()}
 {\footnotesize\ttfamily Crypto\+P\+P\+::\+Sec\+Byte\+Block Client\+Window\+::\+Incoming\+Session\+Key\+Gen (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{Username,  }\item[{Crypto\+P\+P\+::\+Integer}]{prime,  }\item[{Crypto\+P\+P\+::\+Integer}]{generator,  }\item[{Crypto\+P\+P\+::\+Sec\+Byte\+Block}]{public\+Numb }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
@@ -269,113 +269,113 @@ Ui\+::\+Client\+Window $\ast$ \hyperlink{class_client_window_a1fbbfac70cc4e23f0d
 \begin{DoxyReturn}{Returns}
 Возвращает сеансовый ключ для данного пира 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_client_window_a9d4b9f1e07bd287fcf7acbe62ab1efd3}\label{class_client_window_a9d4b9f1e07bd287fcf7acbe62ab1efd3}} 
+\mbox{\label{class_client_window_a9d4b9f1e07bd287fcf7acbe62ab1efd3}} 
 \index{Client\+Window@{Client\+Window}!on\+\_\+check\+Box\+\_\+toggled@{on\+\_\+check\+Box\+\_\+toggled}}
 \index{on\+\_\+check\+Box\+\_\+toggled@{on\+\_\+check\+Box\+\_\+toggled}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{on\+\_\+check\+Box\+\_\+toggled}{on\_checkBox\_toggled}}
+\subsubsection{on\+\_\+check\+Box\+\_\+toggled}
 {\footnotesize\ttfamily void Client\+Window\+::on\+\_\+check\+Box\+\_\+toggled (\begin{DoxyParamCaption}\item[{bool}]{checked }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
 
 
 
 Слот, информирующий о нажатии галочки \char`\"{}\+Private\char`\"{} при входе в сеть. Устанавливает соответствующий статус(\+Private, Public)текущему пользователю 
 
-\mbox{\Hypertarget{class_client_window_a53683c81555a53e513066619a66bdbf4}\label{class_client_window_a53683c81555a53e513066619a66bdbf4}} 
+\mbox{\label{class_client_window_a53683c81555a53e513066619a66bdbf4}} 
 \index{Client\+Window@{Client\+Window}!on\+\_\+\+Friend\+List\+\_\+item\+Double\+Clicked@{on\+\_\+\+Friend\+List\+\_\+item\+Double\+Clicked}}
 \index{on\+\_\+\+Friend\+List\+\_\+item\+Double\+Clicked@{on\+\_\+\+Friend\+List\+\_\+item\+Double\+Clicked}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{on\+\_\+\+Friend\+List\+\_\+item\+Double\+Clicked}{on\_FriendList\_itemDoubleClicked}}
+\subsubsection{on\+\_\+\+Friend\+List\+\_\+item\+Double\+Clicked}
 {\footnotesize\ttfamily void Client\+Window\+::on\+\_\+\+Friend\+List\+\_\+item\+Double\+Clicked (\begin{DoxyParamCaption}\item[{Q\+List\+Widget\+Item $\ast$}]{item }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
 
 
 
 Слот, определяющий имя пира, который был выбран пользователем (используется для отправки сообщений выбранному пользователю) 
 
-\mbox{\Hypertarget{class_client_window_a201f45c14dfb71277f628ea6607d2959}\label{class_client_window_a201f45c14dfb71277f628ea6607d2959}} 
+\mbox{\label{class_client_window_a201f45c14dfb71277f628ea6607d2959}} 
 \index{Client\+Window@{Client\+Window}!on\+\_\+\+Msg\+Input\+\_\+return\+Pressed@{on\+\_\+\+Msg\+Input\+\_\+return\+Pressed}}
 \index{on\+\_\+\+Msg\+Input\+\_\+return\+Pressed@{on\+\_\+\+Msg\+Input\+\_\+return\+Pressed}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{on\+\_\+\+Msg\+Input\+\_\+return\+Pressed}{on\_MsgInput\_returnPressed}}
+\subsubsection{on\+\_\+\+Msg\+Input\+\_\+return\+Pressed}
 {\footnotesize\ttfamily void Client\+Window\+::on\+\_\+\+Msg\+Input\+\_\+return\+Pressed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
 
 
 
-Слот, аналогичный \hyperlink{class_client_window_a3868f97e58d97ea716137c52e50b968d}{on\+\_\+\+Send\+Msg\+\_\+clicked()}. Вызывает функцию отправки сообщения 
+Слот, аналогичный \doxyref{on\+\_\+\+Send\+Msg\+\_\+clicked()}{p.}{class_client_window_a3868f97e58d97ea716137c52e50b968d}. Вызывает функцию отправки сообщения 
 
-\mbox{\Hypertarget{class_client_window_ac2bce105ea893651dc9daf567bb966b5}\label{class_client_window_ac2bce105ea893651dc9daf567bb966b5}} 
+\mbox{\label{class_client_window_ac2bce105ea893651dc9daf567bb966b5}} 
 \index{Client\+Window@{Client\+Window}!on\+\_\+\+Name\+Input\+\_\+return\+Pressed@{on\+\_\+\+Name\+Input\+\_\+return\+Pressed}}
 \index{on\+\_\+\+Name\+Input\+\_\+return\+Pressed@{on\+\_\+\+Name\+Input\+\_\+return\+Pressed}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{on\+\_\+\+Name\+Input\+\_\+return\+Pressed}{on\_NameInput\_returnPressed}}
+\subsubsection{on\+\_\+\+Name\+Input\+\_\+return\+Pressed}
 {\footnotesize\ttfamily void Client\+Window\+::on\+\_\+\+Name\+Input\+\_\+return\+Pressed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
 
 
 
 Слот, отвечающий за сохранение и отправку на сервер имени пользователя 
 
-\mbox{\Hypertarget{class_client_window_ab8699235cbe5cc75a3180fdee7fb195c}\label{class_client_window_ab8699235cbe5cc75a3180fdee7fb195c}} 
+\mbox{\label{class_client_window_ab8699235cbe5cc75a3180fdee7fb195c}} 
 \index{Client\+Window@{Client\+Window}!on\+\_\+push\+Button\+\_\+clicked@{on\+\_\+push\+Button\+\_\+clicked}}
 \index{on\+\_\+push\+Button\+\_\+clicked@{on\+\_\+push\+Button\+\_\+clicked}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{on\+\_\+push\+Button\+\_\+clicked}{on\_pushButton\_clicked}}
+\subsubsection{on\+\_\+push\+Button\+\_\+clicked}
 {\footnotesize\ttfamily void Client\+Window\+::on\+\_\+push\+Button\+\_\+clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
 
 
 
 Слот для открытия Issue Creator по нажатию соответствующей кнопки 
 
-\mbox{\Hypertarget{class_client_window_a09a50177ec2bfc59fc9ec8f698153111}\label{class_client_window_a09a50177ec2bfc59fc9ec8f698153111}} 
+\mbox{\label{class_client_window_a09a50177ec2bfc59fc9ec8f698153111}} 
 \index{Client\+Window@{Client\+Window}!on\+\_\+\+Search\+Line\+\_\+return\+Pressed@{on\+\_\+\+Search\+Line\+\_\+return\+Pressed}}
 \index{on\+\_\+\+Search\+Line\+\_\+return\+Pressed@{on\+\_\+\+Search\+Line\+\_\+return\+Pressed}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{on\+\_\+\+Search\+Line\+\_\+return\+Pressed}{on\_SearchLine\_returnPressed}}
+\subsubsection{on\+\_\+\+Search\+Line\+\_\+return\+Pressed}
 {\footnotesize\ttfamily void Client\+Window\+::on\+\_\+\+Search\+Line\+\_\+return\+Pressed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
 
 
 
 Слот, отвечающий за отправку поискового запроса на сервер по нажатию кнопки Return. 
 
-\mbox{\Hypertarget{class_client_window_a3868f97e58d97ea716137c52e50b968d}\label{class_client_window_a3868f97e58d97ea716137c52e50b968d}} 
+\mbox{\label{class_client_window_a3868f97e58d97ea716137c52e50b968d}} 
 \index{Client\+Window@{Client\+Window}!on\+\_\+\+Send\+Msg\+\_\+clicked@{on\+\_\+\+Send\+Msg\+\_\+clicked}}
 \index{on\+\_\+\+Send\+Msg\+\_\+clicked@{on\+\_\+\+Send\+Msg\+\_\+clicked}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{on\+\_\+\+Send\+Msg\+\_\+clicked}{on\_SendMsg\_clicked}}
+\subsubsection{on\+\_\+\+Send\+Msg\+\_\+clicked}
 {\footnotesize\ttfamily void Client\+Window\+::on\+\_\+\+Send\+Msg\+\_\+clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
 
 
 
 Слот, отвечающий за отправку сообщения пиру по нажатию (вызывает функцию отправки сообщения) 
 
-\mbox{\Hypertarget{class_client_window_a03213f4bad0ff25e75eeb617b61d5bdf}\label{class_client_window_a03213f4bad0ff25e75eeb617b61d5bdf}} 
+\mbox{\label{class_client_window_a03213f4bad0ff25e75eeb617b61d5bdf}} 
 \index{Client\+Window@{Client\+Window}!on\+\_\+\+Update\+List\+Button\+\_\+clicked@{on\+\_\+\+Update\+List\+Button\+\_\+clicked}}
 \index{on\+\_\+\+Update\+List\+Button\+\_\+clicked@{on\+\_\+\+Update\+List\+Button\+\_\+clicked}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{on\+\_\+\+Update\+List\+Button\+\_\+clicked}{on\_UpdateListButton\_clicked}}
+\subsubsection{on\+\_\+\+Update\+List\+Button\+\_\+clicked}
 {\footnotesize\ttfamily void Client\+Window\+::on\+\_\+\+Update\+List\+Button\+\_\+clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
 
 
 
 Слот, отвечающий за запрос серверу на получение списка всех пиров в сети. Активируется по нажатию кнопки Updated. 
 
-\mbox{\Hypertarget{class_client_window_a6af59313228995e6c55d265db7ce3995}\label{class_client_window_a6af59313228995e6c55d265db7ce3995}} 
+\mbox{\label{class_client_window_a6af59313228995e6c55d265db7ce3995}} 
 \index{Client\+Window@{Client\+Window}!on\+Read@{on\+Read}}
 \index{on\+Read@{on\+Read}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{on\+Read}{onRead}}
+\subsubsection{on\+Read}
 {\footnotesize\ttfamily void Client\+Window\+::on\+Read (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
 
 
 
 Слот, отвечающий за получение входящих данных 
 
-Передает данные в Resolver, который вернет информацию о формате пришедших данных. После определения формата (сообщение, ответ от сервера, запрос на обмен ключами и т.\+п.) -\/ функция передает данные на обработку \mbox{\Hypertarget{class_client_window_adef4d0491b4ac3d7f4066acfef0841c4}\label{class_client_window_adef4d0491b4ac3d7f4066acfef0841c4}} 
+Передает данные в Resolver, который вернет информацию о формате пришедших данных. После определения формата (сообщение, ответ от сервера, запрос на обмен ключами и т.\+п.) -\/ функция передает данные на обработку \mbox{\label{class_client_window_adef4d0491b4ac3d7f4066acfef0841c4}} 
 \index{Client\+Window@{Client\+Window}!Parse\+All\+Users\+Data@{Parse\+All\+Users\+Data}}
 \index{Parse\+All\+Users\+Data@{Parse\+All\+Users\+Data}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Parse\+All\+Users\+Data()}{ParseAllUsersData()}}
+\subsubsection{Parse\+All\+Users\+Data()}
 {\footnotesize\ttfamily void Client\+Window\+::\+Parse\+All\+Users\+Data (\begin{DoxyParamCaption}\item[{Q\+String}]{Response }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 Парсер списка пользователей, полученного от сервера 
 
-Выполняет парсинг полученной на вход строки, после чего заносит каждого пользователя в структуру. Вызывается при входе в сеть, либо при обновлении всего списка \mbox{[}in\mbox{]} Response Строка, содержащая информацию обо всех пользователях в сети \begin{DoxyReturn}{Returns}
+Выполняет парсинг полученной на вход строки, после чего заносит каждого пользователя в структуру. Вызывается при входе в сеть, либо при обновлении всего списка [in] Response Строка, содержащая информацию обо всех пользователях в сети \begin{DoxyReturn}{Returns}
 Ничего не возвращает 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_client_window_af38cd3b6f4d7e7ab2c805460a95d3172}\label{class_client_window_af38cd3b6f4d7e7ab2c805460a95d3172}} 
+\mbox{\label{class_client_window_af38cd3b6f4d7e7ab2c805460a95d3172}} 
 \index{Client\+Window@{Client\+Window}!Resolver@{Resolver}}
 \index{Resolver@{Resolver}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Resolver()}{Resolver()}}
+\subsubsection{Resolver()}
 {\footnotesize\ttfamily int Client\+Window\+::\+Resolver (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{Data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
@@ -390,11 +390,11 @@ Ui\+::\+Client\+Window $\ast$ \hyperlink{class_client_window_a1fbbfac70cc4e23f0d
 \begin{DoxyReturn}{Returns}
 Число -\/ код, соответствующий типу пришедших данных. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_client_window_a040d239df2ae3f017b371ed2367642e5}\label{class_client_window_a040d239df2ae3f017b371ed2367642e5}} 
+\mbox{\label{class_client_window_a040d239df2ae3f017b371ed2367642e5}} 
 \index{Client\+Window@{Client\+Window}!Search\+Peer\+By\+Name@{Search\+Peer\+By\+Name}}
 \index{Search\+Peer\+By\+Name@{Search\+Peer\+By\+Name}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Search\+Peer\+By\+Name()}{SearchPeerByName()}}
-{\footnotesize\ttfamily \hyperlink{class_peer}{Peer} $\ast$ Client\+Window\+::\+Search\+Peer\+By\+Name (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+\subsubsection{Search\+Peer\+By\+Name()}
+{\footnotesize\ttfamily \textbf{ Peer} $\ast$ Client\+Window\+::\+Search\+Peer\+By\+Name (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
@@ -408,15 +408,15 @@ Ui\+::\+Client\+Window $\ast$ \hyperlink{class_client_window_a1fbbfac70cc4e23f0d
 \begin{DoxyReturn}{Returns}
 Возвращает указатель на объект пира 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_client_window_a8c4913533d66f626237a353e98b81d69}\label{class_client_window_a8c4913533d66f626237a353e98b81d69}} 
+\mbox{\label{class_client_window_a8c4913533d66f626237a353e98b81d69}} 
 \index{Client\+Window@{Client\+Window}!Send\+Connect\+Request@{Send\+Connect\+Request}}
 \index{Send\+Connect\+Request@{Send\+Connect\+Request}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Send\+Connect\+Request()}{SendConnectRequest()}}
+\subsubsection{Send\+Connect\+Request()}
 {\footnotesize\ttfamily void Client\+Window\+::\+Send\+Connect\+Request (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{Peer\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Функция для отправки запроса на соединение другому пиру если текущий пользователь -\/ приватный. 
+Функция для отправки запроса на соединение другому пиру если статус текущего пользователя -\/ приватный. 
 
 Запрос на соединение не должен отправляться от приватного пира без необходимости, чтобы не раскрывать его. Если такая необходимость появляется -\/ запрос отправляется, тогда адресат будет знать приватного пользователя. 
 \begin{DoxyParams}[1]{Parameters}
@@ -426,10 +426,10 @@ Ui\+::\+Client\+Window $\ast$ \hyperlink{class_client_window_a1fbbfac70cc4e23f0d
 \begin{DoxyReturn}{Returns}
 Ничего не возвращает 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_client_window_a64b8023ab0edf40ea745b667039846e6}\label{class_client_window_a64b8023ab0edf40ea745b667039846e6}} 
+\mbox{\label{class_client_window_a64b8023ab0edf40ea745b667039846e6}} 
 \index{Client\+Window@{Client\+Window}!Send\+Generated\+Public\+Key@{Send\+Generated\+Public\+Key}}
 \index{Send\+Generated\+Public\+Key@{Send\+Generated\+Public\+Key}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Send\+Generated\+Public\+Key()}{SendGeneratedPublicKey()}}
+\subsubsection{Send\+Generated\+Public\+Key()}
 {\footnotesize\ttfamily void Client\+Window\+::\+Send\+Generated\+Public\+Key (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{User\+Name,  }\item[{Crypto\+P\+P\+::\+Sec\+Byte\+Block}]{public\+Key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
@@ -446,10 +446,10 @@ Ui\+::\+Client\+Window $\ast$ \hyperlink{class_client_window_a1fbbfac70cc4e23f0d
 \begin{DoxyReturn}{Returns}
 Ничего не возвращает 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_client_window_a1da98989dfae2558359e2bfe0a87f03d}\label{class_client_window_a1da98989dfae2558359e2bfe0a87f03d}} 
+\mbox{\label{class_client_window_a1da98989dfae2558359e2bfe0a87f03d}} 
 \index{Client\+Window@{Client\+Window}!Send\+Message\+To\+Peer@{Send\+Message\+To\+Peer}}
 \index{Send\+Message\+To\+Peer@{Send\+Message\+To\+Peer}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Send\+Message\+To\+Peer()}{SendMessageToPeer()}}
+\subsubsection{Send\+Message\+To\+Peer()}
 {\footnotesize\ttfamily void Client\+Window\+::\+Send\+Message\+To\+Peer (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{Peer\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
@@ -467,165 +467,165 @@ Ui\+::\+Client\+Window $\ast$ \hyperlink{class_client_window_a1fbbfac70cc4e23f0d
 
 
 \subsection{Member Data Documentation}
-\mbox{\Hypertarget{class_client_window_a060cbd4e58c77c64edb9b5dd69c8da7d}\label{class_client_window_a060cbd4e58c77c64edb9b5dd69c8da7d}} 
+\mbox{\label{class_client_window_a060cbd4e58c77c64edb9b5dd69c8da7d}} 
 \index{Client\+Window@{Client\+Window}!Connected\+To\+Server@{Connected\+To\+Server}}
 \index{Connected\+To\+Server@{Connected\+To\+Server}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Connected\+To\+Server}{ConnectedToServer}}
+\subsubsection{Connected\+To\+Server}
 {\footnotesize\ttfamily bool Client\+Window\+::\+Connected\+To\+Server = false\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 Флаг, сигнализирующий о успешном присоединении к серверу. Если соединения нет -\/ поиск недоступен. 
 
-\mbox{\Hypertarget{class_client_window_a98ff51a0d70a591431b56d5e001a51d9}\label{class_client_window_a98ff51a0d70a591431b56d5e001a51d9}} 
+\mbox{\label{class_client_window_a98ff51a0d70a591431b56d5e001a51d9}} 
 \index{Client\+Window@{Client\+Window}!Destination@{Destination}}
 \index{Destination@{Destination}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Destination}{Destination}}
+\subsubsection{Destination}
 {\footnotesize\ttfamily Q\+String Client\+Window\+::\+Destination\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 Имя адресата 
 
-\mbox{\Hypertarget{class_client_window_a70e338edd34ee5043c35c03c6da85190}\label{class_client_window_a70e338edd34ee5043c35c03c6da85190}} 
+\mbox{\label{class_client_window_a70e338edd34ee5043c35c03c6da85190}} 
 \index{Client\+Window@{Client\+Window}!dh@{dh}}
 \index{dh@{dh}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{dh}{dh}}
+\subsubsection{dh}
 {\footnotesize\ttfamily Crypto\+P\+P\+::\+DH Client\+Window\+::dh\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 Объект класса DH, необходимый для реализации алгоритма Диффи-\/Хеллмана. Подробнее можно узнать в официальной документации библиотеки Crypto\+PP. 
 
-\mbox{\Hypertarget{class_client_window_a72c4ff89452aba7e047970ad83c51369}\label{class_client_window_a72c4ff89452aba7e047970ad83c51369}} 
+\mbox{\label{class_client_window_a72c4ff89452aba7e047970ad83c51369}} 
 \index{Client\+Window@{Client\+Window}!Generator@{Generator}}
 \index{Generator@{Generator}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Generator}{Generator}}
+\subsubsection{Generator}
 {\footnotesize\ttfamily Crypto\+P\+P\+::\+Integer Client\+Window\+::\+Generator\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 Параметр необходимый для генерации пары ключей. Подробнее можно узнать в официальной документации библиотеки Crypto\+PP. 
 
-\mbox{\Hypertarget{class_client_window_a771a96af9209f03fab4db74ad343c280}\label{class_client_window_a771a96af9209f03fab4db74ad343c280}} 
+\mbox{\label{class_client_window_a771a96af9209f03fab4db74ad343c280}} 
 \index{Client\+Window@{Client\+Window}!My\+Secret\+Key@{My\+Secret\+Key}}
 \index{My\+Secret\+Key@{My\+Secret\+Key}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{My\+Secret\+Key}{MySecretKey}}
+\subsubsection{My\+Secret\+Key}
 {\footnotesize\ttfamily Crypto\+P\+P\+::\+Sec\+Byte\+Block Client\+Window\+::\+My\+Secret\+Key\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 Приватный ключ. Подробнее можно узнать в официальной документации библиотеки Crypto\+PP. 
 
-\mbox{\Hypertarget{class_client_window_a0a1282c1054a3810a4c772db4ffde530}\label{class_client_window_a0a1282c1054a3810a4c772db4ffde530}} 
+\mbox{\label{class_client_window_a0a1282c1054a3810a4c772db4ffde530}} 
 \index{Client\+Window@{Client\+Window}!Nick\+Name@{Nick\+Name}}
 \index{Nick\+Name@{Nick\+Name}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Nick\+Name}{NickName}}
+\subsubsection{Nick\+Name}
 {\footnotesize\ttfamily Q\+String Client\+Window\+::\+Nick\+Name\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 Имя текущего пользователя 
 
-\mbox{\Hypertarget{class_client_window_a8e6109e2659c78a3f959df0a450862ae}\label{class_client_window_a8e6109e2659c78a3f959df0a450862ae}} 
+\mbox{\label{class_client_window_a8e6109e2659c78a3f959df0a450862ae}} 
 \index{Client\+Window@{Client\+Window}!Peers@{Peers}}
 \index{Peers@{Peers}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Peers}{Peers}}
-{\footnotesize\ttfamily Q\+Vector$<$\hyperlink{class_peer}{Peer}$>$ Client\+Window\+::\+Peers\hspace{0.3cm}{\ttfamily [private]}}
+\subsubsection{Peers}
+{\footnotesize\ttfamily Q\+Vector$<$\textbf{ Peer}$>$ Client\+Window\+::\+Peers\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 Структура для хранения списка известных пиров 
 
-\mbox{\Hypertarget{class_client_window_aab318f5417f89201dc6633b2e481e817}\label{class_client_window_aab318f5417f89201dc6633b2e481e817}} 
+\mbox{\label{class_client_window_aab318f5417f89201dc6633b2e481e817}} 
 \index{Client\+Window@{Client\+Window}!Prime@{Prime}}
 \index{Prime@{Prime}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Prime}{Prime}}
+\subsubsection{Prime}
 {\footnotesize\ttfamily Crypto\+P\+P\+::\+Integer Client\+Window\+::\+Prime\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 Параметр необходимый для генерации пары ключей. Подробнее можно узнать в официальной документации библиотеки Crypto\+PP. 
 
-\mbox{\Hypertarget{class_client_window_a0112c19a3296b1908e823d9baaa2246b}\label{class_client_window_a0112c19a3296b1908e823d9baaa2246b}} 
+\mbox{\label{class_client_window_a0112c19a3296b1908e823d9baaa2246b}} 
 \index{Client\+Window@{Client\+Window}!Private@{Private}}
 \index{Private@{Private}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Private}{Private}}
+\subsubsection{Private}
 {\footnotesize\ttfamily bool Client\+Window\+::\+Private = false\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 Флаг, сигнализирующий о статусе пользователя. 
 
-\mbox{\Hypertarget{class_client_window_a4c4248eb0be6db957bbd835146e36699}\label{class_client_window_a4c4248eb0be6db957bbd835146e36699}} 
+\mbox{\label{class_client_window_a4c4248eb0be6db957bbd835146e36699}} 
 \index{Client\+Window@{Client\+Window}!Priv\+Numb@{Priv\+Numb}}
 \index{Priv\+Numb@{Priv\+Numb}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Priv\+Numb}{PrivNumb}}
+\subsubsection{Priv\+Numb}
 {\footnotesize\ttfamily Crypto\+P\+P\+::\+Sec\+Byte\+Block Client\+Window\+::\+Priv\+Numb\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 Публичное сгенерированное с помощью вышеуказанных параметров число. Подробнее можно узнать в официальной документации библиотеки Crypto\+PP. 
 
-\mbox{\Hypertarget{class_client_window_a213087869fc5bfb7427add5248e60046}\label{class_client_window_a213087869fc5bfb7427add5248e60046}} 
+\mbox{\label{class_client_window_a213087869fc5bfb7427add5248e60046}} 
 \index{Client\+Window@{Client\+Window}!Public\+Numb@{Public\+Numb}}
 \index{Public\+Numb@{Public\+Numb}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Public\+Numb}{PublicNumb}}
+\subsubsection{Public\+Numb}
 {\footnotesize\ttfamily Crypto\+P\+P\+::\+Sec\+Byte\+Block Client\+Window\+::\+Public\+Numb\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 Приватное сгенерированное с помощью вышеуказанных параметров число. Подробнее можно узнать в официальной документации библиотеки Crypto\+PP. 
 
-\mbox{\Hypertarget{class_client_window_abaec733868dc94910f89011513ab4c7b}\label{class_client_window_abaec733868dc94910f89011513ab4c7b}} 
+\mbox{\label{class_client_window_abaec733868dc94910f89011513ab4c7b}} 
 \index{Client\+Window@{Client\+Window}!Server\+IP@{Server\+IP}}
 \index{Server\+IP@{Server\+IP}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Server\+IP}{ServerIP}}
+\subsubsection{Server\+IP}
 {\footnotesize\ttfamily Q\+String Client\+Window\+::\+Server\+IP\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 I\+Pv4 адрес сервера 
 
-\mbox{\Hypertarget{class_client_window_a3f0c47409cc45b690b52ecf177a86adb}\label{class_client_window_a3f0c47409cc45b690b52ecf177a86adb}} 
+\mbox{\label{class_client_window_a3f0c47409cc45b690b52ecf177a86adb}} 
 \index{Client\+Window@{Client\+Window}!Server\+Port@{Server\+Port}}
 \index{Server\+Port@{Server\+Port}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Server\+Port}{ServerPort}}
+\subsubsection{Server\+Port}
 {\footnotesize\ttfamily int Client\+Window\+::\+Server\+Port\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 Порт информационного сервера 
 
-\mbox{\Hypertarget{class_client_window_a74e7b0eb499506ff2071e314cdab83dc}\label{class_client_window_a74e7b0eb499506ff2071e314cdab83dc}} 
+\mbox{\label{class_client_window_a74e7b0eb499506ff2071e314cdab83dc}} 
 \index{Client\+Window@{Client\+Window}!Server\+Socket@{Server\+Socket}}
 \index{Server\+Socket@{Server\+Socket}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{Server\+Socket}{ServerSocket}}
+\subsubsection{Server\+Socket}
 {\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$Q\+Tcp\+Socket$>$ Client\+Window\+::\+Server\+Socket\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 Указатель на сокет инициализированный адресом и портом информационного сервера 
 
-\mbox{\Hypertarget{class_client_window_acff726e7e30b6bb9fd190181fbea4835}\label{class_client_window_acff726e7e30b6bb9fd190181fbea4835}} 
+\mbox{\label{class_client_window_acff726e7e30b6bb9fd190181fbea4835}} 
 \index{Client\+Window@{Client\+Window}!This\+Listen\+Socket@{This\+Listen\+Socket}}
 \index{This\+Listen\+Socket@{This\+Listen\+Socket}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{This\+Listen\+Socket}{ThisListenSocket}}
+\subsubsection{This\+Listen\+Socket}
 {\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$Q\+Tcp\+Server$>$ Client\+Window\+::\+This\+Listen\+Socket\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 Указатель на слушающий сокет текущего пользователя 
 
-\mbox{\Hypertarget{class_client_window_a1fbbfac70cc4e23f0d44ac209804bfc9}\label{class_client_window_a1fbbfac70cc4e23f0d44ac209804bfc9}} 
+\mbox{\label{class_client_window_a1fbbfac70cc4e23f0d44ac209804bfc9}} 
 \index{Client\+Window@{Client\+Window}!ui@{ui}}
 \index{ui@{ui}!Client\+Window@{Client\+Window}}
-\subsubsection{\texorpdfstring{ui}{ui}}
+\subsubsection{ui}
 {\footnotesize\ttfamily Ui\+::\+Client\+Window$\ast$ Client\+Window\+::ui\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-P2\+P-\/\+Chat/\+Client/\hyperlink{clientwindow_8h}{clientwindow.\+h}\item 
-P2\+P-\/\+Chat/\+Client/\hyperlink{clientwindow_8cpp}{clientwindow.\+cpp}\end{DoxyCompactItemize}
+/\+Users/antonukhanov/\+P2\+P-\/\+Chat/\+Client/\textbf{ clientwindow.\+h}\item 
+/\+Users/antonukhanov/\+P2\+P-\/\+Chat/\+Client/\textbf{ clientwindow.\+cpp}\end{DoxyCompactItemize}

@@ -22,9 +22,8 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">CoChat
-   &#160;<span id="projectnumber">0.9.0</span>
    </div>
-   <div id="projectbrief">Security corporative p2p chat</div>
+   <div id="projectbrief">Security P2P Chat for MacOS</div>
   </td>
  </tr>
  </tbody>
@@ -138,7 +137,7 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a6a95a02873ba28363e00cb27d7e9cc6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция для отправки запроса на соединение другому пиру  <a href="#a6a95a02873ba28363e00cb27d7e9cc6c">More...</a><br /></td></tr>
 <tr class="separator:a6a95a02873ba28363e00cb27d7e9cc6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c4913533d66f626237a353e98b81d69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client_window.html#a8c4913533d66f626237a353e98b81d69">SendConnectRequest</a> (const QString &amp;PeerName)</td></tr>
-<tr class="memdesc:a8c4913533d66f626237a353e98b81d69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция для отправки запроса на соединение другому пиру если текущий пользователь - приватный.  <a href="#a8c4913533d66f626237a353e98b81d69">More...</a><br /></td></tr>
+<tr class="memdesc:a8c4913533d66f626237a353e98b81d69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция для отправки запроса на соединение другому пиру если статус текущего пользователя - приватный.  <a href="#a8c4913533d66f626237a353e98b81d69">More...</a><br /></td></tr>
 <tr class="separator:a8c4913533d66f626237a353e98b81d69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adef4d0491b4ac3d7f4066acfef0841c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_client_window.html#adef4d0491b4ac3d7f4066acfef0841c4">ParseAllUsersData</a> (QString Response)</td></tr>
 <tr class="memdesc:adef4d0491b4ac3d7f4066acfef0841c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Парсер списка пользователей, полученного от сервера  <a href="#adef4d0491b4ac3d7f4066acfef0841c4">More...</a><br /></td></tr>
@@ -955,7 +954,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Функция для отправки запроса на соединение другому пиру если текущий пользователь - приватный. </p>
+<p>Функция для отправки запроса на соединение другому пиру если статус текущего пользователя - приватный. </p>
 <p>Запрос на соединение не должен отправляться от приватного пира без необходимости, чтобы не раскрывать его. Если такая необходимость появляется - запрос отправляется, тогда адресат будет знать приватного пользователя. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">UserName</td><td>Имя пира (необходимо для поиска его в своей структуре, так как приватный пир имеет информацию обо всех публичных, соответственно они есть в его структуре, остается их только найти) </td></tr>
@@ -1431,8 +1430,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>P2P-Chat/Client/<a class="el" href="clientwindow_8h_source.html">clientwindow.h</a></li>
-<li>P2P-Chat/Client/<a class="el" href="clientwindow_8cpp.html">clientwindow.cpp</a></li>
+<li>/Users/antonukhanov/P2P-Chat/Client/<a class="el" href="clientwindow_8h_source.html">clientwindow.h</a></li>
+<li>/Users/antonukhanov/P2P-Chat/Client/<a class="el" href="clientwindow_8cpp.html">clientwindow.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

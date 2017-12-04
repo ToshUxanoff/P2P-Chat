@@ -38,6 +38,20 @@ void ServerWindow::AddNewUser(const QString &NickName, const QString &Status, co
     query.bindValue(":Addr", Address);
     query.exec();
 }
+bool ServerWindow::IsUniqueUser(const QString &Username)
+{
+    QSqlQuery query(DataBase);
+    query.exec("SELECT Name FROM UsersList");
+    while(query.next())
+    {
+        QString Debug = query.value(0).toString();
+        if(Debug == Username)
+        {
+            return false;
+        }
+    }
+    return true;
+}
 QString ServerWindow::SearchUser(const QString& Username)
 {
    QSqlQuery query(DataBase);
@@ -71,7 +85,6 @@ int ServerWindow::Resolver(const QString& Data)
 {
     if (Data.startsWith("!0!"))
     {
-
         return 0; //registration
     }
     else if (Data.startsWith("!1!"))
@@ -126,16 +139,24 @@ void ServerWindow::ListeningClient()
     if(Resolver(Data) == 0) //registration
     {
         Data = Data.mid(3);
-        AddNewUser(Data.split(',')[0], Data.split(',')[2],Data.split(',')[1]);
-        ui->Logs->append("New registration request from " + Data);
-        ui->RegisteredUsers->append(Data.split(',')[0]);
-        SendAllUsers(ClientSocket);
-        Users[Data.split(',')[0]] = ClientSocket;
+        if(IsUniqueUser(Data.split(',')[0])) //new user
+        {
+            AddNewUser(Data.split(',')[0], Data.split(',')[2],Data.split(',')[1]);
+            ui->Logs->append("New registration request from " + Data);
+            ui->RegisteredUsers->append(Data.split(',')[0]);
+            Response ="!CNCTD!";
+            ClientStream << Response;
+            Users[Data.split(',')[0]] = ClientSocket;
+        }
+        else
+        {
+            Response = "!SMESS! Error!Such user already exists!";
+            ClientStream << Response;
+        }
 
     }
     else if(Resolver(Data) == 1)    //login
     {
-        //here request to db
         Data = Data.mid(3);
     }
     else if (Resolver(Data) == 2)
@@ -163,5 +184,5 @@ void ServerWindow::on_Stopping_clicked()
        tcpServer->close();
        ui->Logs->append(QString::fromUtf8("Server was stopped!"));
        ServerOn = false;
-     }
+    }
 }

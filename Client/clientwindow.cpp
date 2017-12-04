@@ -60,10 +60,11 @@ ClientWindow::ClientWindow(int Port, QString address, QWidget *parent)
     ,ui(new Ui::ClientWindow)
 {
     ui->setupUi(this);
+    ui->UpdateListButton->hide();
     ClientWindow::setWindowTitle("CoChat");
     if(!ThisListenSocket.get()->listen())
     {
-        ui->DebugWindow->append("ListenSocket unavailable");
+        ui->DebugLabel->setText("ListenSocket unavailable");
     }
     GenKeyParams();
     connect(ThisListenSocket.get(), SIGNAL(newConnection()), this, SLOT(ConnDetector()));
@@ -105,6 +106,10 @@ int ClientWindow::Resolver(const QString& Data)
     else if(Data.startsWith("!CR!"))   //connect request (private user->public user)
     {
         return 4;
+    }
+    else if (Data == "!CNCTD!")
+    {
+        return 5;
     }
     else if(Data.startsWith("!SMESS!")) //server message (errors etc.)
     {
@@ -204,29 +209,35 @@ void ClientWindow::on_SearchLine_returnPressed()
     }
     else
     {
-        ui->DebugWindow->append("Can't connect to server!");
+        ui->DebugLabel->setText("Can't connect to server!");
     }
 }
 void ClientWindow::on_NameInput_returnPressed()
 {
     NickName = ui->NameInput->text();
-    //hiding controls
-    ui->NameInput->hide();
-    ui->checkBox->hide();
     //connecting to server
-    ServerSocket.get()->connectToHost(ServerIP, ServerPort);
-    QString Status("!PUB!");
-    if(Private == true)
+    ServerSocket.get()->connectToHost(ServerIP, ServerPort); 
+    if (ServerSocket->waitForConnected(100))
     {
-        Status = "!PR!";
+         QString Status("!PUB!");
+         if(Private == true)
+         {
+             Status = "!PR!";
+             ui->UpdateListButton->show();
+         }
+         QString RegStr = "!0!" + NickName + ',' + ThisListenSocket.get()->serverAddress().toString() +':' + QString::number(ThisListenSocket.get()->serverPort()) + ',' + Status; // +address
+         QDataStream ServStream(ServerSocket.get());
+         ServStream << RegStr;
+         connect(ServerSocket.get(), SIGNAL(readyRead()), this, SLOT(onRead()));
     }
-    QString RegStr = "!0!" + NickName + ',' + ThisListenSocket.get()->serverAddress().toString() +':' + QString::number(ThisListenSocket.get()->serverPort()) + ',' + Status; // +address
-    QDataStream ServStream(ServerSocket.get());
-    ServStream << RegStr;
-    connect(ServerSocket.get(), SIGNAL(readyRead()), this, SLOT(onRead()));
-    ui->NameLabel->setText("Logged as " + NickName);
-    ConnectedToServer = true;
-    //generating key
+    else
+    {
+        ui->DebugLabel->setText("Can't connect to server");
+        return;
+    }
+}
+void ClientWindow::isConnectedServer()
+{
 
 }
 void ClientWindow::onRead()
@@ -245,7 +256,7 @@ void ClientWindow::onRead()
         if(Response.split(':')[2] != NickName)
         {
             Response = Response.mid(3);
-            ui->DebugWindow->append("New peer connected! " + Response.split(':')[2]);
+            ui->DebugLabel->setText("New peer connected! " + Response.split(':')[2]);
 
             //parsing
             QHostAddress IP(Response.split(':')[0]);
@@ -286,6 +297,7 @@ void ClientWindow::onRead()
         Response = Response.split(':')[1];
         Response = Decrypt(Response, SearchPeerByName(Name)->SessionKey);
         ui->MsgBrowser->append(Name + ": " + Response);
+        SearchPeerByName(Name)->MessagesHistory.push_back(Name + ": " + Response);
     }
     else if(Resolver(Response) == 3)
     {
@@ -305,28 +317,44 @@ void ClientWindow::onRead()
         ui->FriendList->addItem(Response.split(':')[2]);
         ConnectToPeer(Response.split(':')[0], Response.split(':')[1].toInt(), Response.split(':')[2]);
     }
+    else if (Resolver(Response) == 5)
+    {
+        //hiding controls
+        ui->NameInput->hide();
+        ui->checkBox->hide();
+        ui->NameLabel->setText("Logged as " + NickName);
+        ui->DebugLabel->setText("Successfully connected to server");
+        on_UpdateListButton_clicked();
+        ConnectedToServer = true;
+    }
     else if(Resolver(Response) == 9) //server messages
     {
         Response = Response.mid(7);
-        ui->DebugWindow->append("Server : " + Response);
+        ui->DebugLabel->setText("Server : " + Response);
     }
     else if(Resolver(Response) == -1) //errors
     {
-        ui->DebugWindow->append("Error! " + Response);
+        ui->DebugLabel->setText("Error! " + Response);
     }
 }
 void ClientWindow::on_SendMsg_clicked()
 {
-
-     QString Message = ui->MsgInput->text();
-     ui->MsgBrowser->append ("Me: " + Message);
+     QString Message ="Me: " + ui->MsgInput->text();
+     ui->MsgBrowser->append (Message);
      SendMessageToPeer(Destination);
      ui->MsgInput->clear();
+     SearchPeerByName(Destination)->MessagesHistory.push_back(Message);
 }
 void ClientWindow::on_FriendList_itemDoubleClicked(QListWidgetItem *item)
 {
     Destination = item->text();
     ui->DestName->setText(Destination);
+    ui->MsgBrowser->clear();
+
+    for(size_t i = 0; i < SearchPeerByName(Destination)->MessagesHistory.size(); ++i)
+    {
+     ui->MsgBrowser->append(SearchPeerByName(Destination)->MessagesHistory[i]);
+    }
     if(Private == true && SearchPeerByName(Destination)->SessionKey.isEmpty())
     {
          ui->MsgBrowser->append("\n --- Connect req sended to " + Destination + "--- \n");
@@ -369,7 +397,7 @@ CryptoPP::SecByteBlock ClientWindow::IncomingSessionKeyGen(const QString& Userna
 
     if (dhB.Agree(secretKeyB, privB, publicNumb))
     {
-        ui->DebugWindow->append("Success key exchange with: " + Username);
+
         SearchPeerByName(Username)->SetSessionKey(SecBBToString(secretKeyB));
     }
     return pubB;
@@ -378,7 +406,6 @@ void ClientWindow::GettingAgreement(const QString& Username, CryptoPP::SecByteBl
 {
     if (dh.Agree(MySecretKey, PrivNumb, publicNumb))
     {
-        ui->DebugWindow->append("Success key exchange with: " + Username);
         SearchPeerByName(Username)->SetSessionKey(SecBBToString(MySecretKey));
     }
 }
@@ -430,4 +457,15 @@ void ClientWindow::on_pushButton_clicked()
     QString selectedText_ = ui->MsgBrowser->textCursor().selectedText();
     issuecreator* ic = new issuecreator(selectedText_);
     ic->show();
+}
+
+void ClientWindow::on_SearchButton_clicked()
+{
+    on_SearchLine_returnPressed();
+}
+
+
+void ClientWindow::on_LoginButton_clicked()
+{
+    on_NameInput_returnPressed();
 }

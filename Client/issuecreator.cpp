@@ -58,7 +58,7 @@ QString issuecreator::ParseToken(QString Data)
 QString issuecreator::GetGithubToken(const QString &Login, const QString &Pass)
 {
 
-    QString Request = "curl -u" + Login + ':'+ Pass +" -d '{\"scopes\": [\"repo\"], \"note\": \"CoChat1\" }' https://api.github.com/authorizations";
+    QString Request = "curl -u" + Login + ':'+ Pass +" -d '{\"scopes\": [\"repo\"], \"note\": \"CoChat2\" }' https://api.github.com/authorizations";
     QProcess* process = new QProcess(this);
     process->start("sh");
     process->write(Request.toUtf8());
@@ -69,7 +69,7 @@ QString issuecreator::GetGithubToken(const QString &Login, const QString &Pass)
 }
 void issuecreator::WriteTokenToFile(const std::string& token)
 {
-    QFile configFile("config.txt");
+    QFile configFile("config0.txt");
     if(configFile.open(QIODevice::WriteOnly) && isTokenWrited == false)
     {
         configFile.write(token.c_str(), token.length());
@@ -79,7 +79,7 @@ void issuecreator::WriteTokenToFile(const std::string& token)
 }
 QString issuecreator::ReadTokenFromFile()
 {
-    QFile configFile("config.txt");
+    QFile configFile("config0.txt");
     QString Token;
     if(configFile.open(QIODevice::ReadOnly))
     {

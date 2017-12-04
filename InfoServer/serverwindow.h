@@ -35,7 +35,7 @@ private:
     void AddNewUser(const QString& NickName, const QString& Status,const QString& Address);
     void SendAllUsers(QTcpSocket* ClientSocket);
     QString SearchUser(const QString& Username);
-
+    bool IsUniqueUser(const QString & Username);
     bool ServerOn = false;
     Ui::ServerWindow *ui;
     std::unique_ptr<QTcpServer> tcpServer;

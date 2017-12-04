@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCheckBox>
+#include <QtWidgets/QFrame>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -32,22 +33,25 @@ class Ui_ClientWindow
 {
 public:
     QWidget *centralWidget;
-    QLineEdit *SearchLine;
-    QTextBrowser *DebugWindow;
     QLineEdit *NameInput;
     QLabel *NameLabel;
-    QLabel *label_2;
     QTextBrowser *MsgBrowser;
     QPushButton *SendMsg;
     QLineEdit *MsgInput;
     QLabel *label_3;
     QListWidget *FriendList;
-    QLabel *label_4;
     QCheckBox *checkBox;
     QPushButton *UpdateListButton;
     QLabel *label;
     QLabel *DestName;
+    QFrame *frame;
+    QLineEdit *SearchLine;
+    QLabel *label_2;
+    QPushButton *SearchButton;
+    QLabel *DebugLabel;
+    QFrame *frame_2;
     QPushButton *pushButton;
+    QPushButton *LoginButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -56,61 +60,92 @@ public:
     {
         if (ClientWindow->objectName().isEmpty())
             ClientWindow->setObjectName(QStringLiteral("ClientWindow"));
-        ClientWindow->resize(739, 466);
+        ClientWindow->resize(680, 480);
+        ClientWindow->setMinimumSize(QSize(680, 480));
+        ClientWindow->setMaximumSize(QSize(680, 480));
+        ClientWindow->setAutoFillBackground(false);
+        ClientWindow->setStyleSheet(QStringLiteral(""));
+        ClientWindow->setToolButtonStyle(Qt::ToolButtonIconOnly);
         centralWidget = new QWidget(ClientWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        SearchLine = new QLineEdit(centralWidget);
-        SearchLine->setObjectName(QStringLiteral("SearchLine"));
-        SearchLine->setGeometry(QRect(152, 30, 131, 21));
-        DebugWindow = new QTextBrowser(centralWidget);
-        DebugWindow->setObjectName(QStringLiteral("DebugWindow"));
-        DebugWindow->setGeometry(QRect(10, 350, 261, 61));
         NameInput = new QLineEdit(centralWidget);
         NameInput->setObjectName(QStringLiteral("NameInput"));
-        NameInput->setGeometry(QRect(10, 30, 113, 21));
+        NameInput->setGeometry(QRect(10, 30, 191, 21));
+        NameInput->setStyleSheet(QStringLiteral("border: 1px solid black;"));
         NameLabel = new QLabel(centralWidget);
         NameLabel->setObjectName(QStringLiteral("NameLabel"));
-        NameLabel->setGeometry(QRect(10, 10, 161, 21));
-        label_2 = new QLabel(centralWidget);
-        label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(150, 10, 131, 16));
+        NameLabel->setGeometry(QRect(10, 10, 271, 16));
         MsgBrowser = new QTextBrowser(centralWidget);
         MsgBrowser->setObjectName(QStringLiteral("MsgBrowser"));
-        MsgBrowser->setGeometry(QRect(290, 30, 331, 321));
+        MsgBrowser->setGeometry(QRect(290, 30, 331, 311));
+        MsgBrowser->setStyleSheet(QStringLiteral("border: 1px solid black;"));
         SendMsg = new QPushButton(centralWidget);
         SendMsg->setObjectName(QStringLiteral("SendMsg"));
-        SendMsg->setGeometry(QRect(610, 360, 91, 41));
+        SendMsg->setGeometry(QRect(620, 370, 61, 21));
+        SendMsg->setStyleSheet(QStringLiteral("background-color: rgb(255, 233, 124);border: 1px solid black;"));
         MsgInput = new QLineEdit(centralWidget);
         MsgInput->setObjectName(QStringLiteral("MsgInput"));
-        MsgInput->setGeometry(QRect(290, 350, 331, 61));
+        MsgInput->setGeometry(QRect(290, 370, 331, 51));
+        MsgInput->setStyleSheet(QStringLiteral("border: 1px solid black;"));
         label_3 = new QLabel(centralWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(100, 80, 91, 16));
+        label_3->setGeometry(QRect(10, 90, 91, 16));
         FriendList = new QListWidget(centralWidget);
         FriendList->setObjectName(QStringLiteral("FriendList"));
-        FriendList->setGeometry(QRect(10, 100, 256, 221));
-        label_4 = new QLabel(centralWidget);
-        label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(100, 325, 141, 21));
+        FriendList->setGeometry(QRect(10, 110, 260, 251));
+        FriendList->setStyleSheet(QStringLiteral("border: 1px solid black;"));
         checkBox = new QCheckBox(centralWidget);
         checkBox->setObjectName(QStringLiteral("checkBox"));
         checkBox->setGeometry(QRect(10, 50, 121, 20));
         UpdateListButton = new QPushButton(centralWidget);
         UpdateListButton->setObjectName(QStringLiteral("UpdateListButton"));
-        UpdateListButton->setGeometry(QRect(200, 320, 71, 31));
+        UpdateListButton->setGeometry(QRect(180, 90, 90, 21));
+        UpdateListButton->setStyleSheet(QStringLiteral("background-color:orange ;border: 1px solid black;"));
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(310, 10, 101, 16));
+        label->setGeometry(QRect(300, 10, 101, 16));
         DestName = new QLabel(centralWidget);
         DestName->setObjectName(QStringLiteral("DestName"));
-        DestName->setGeometry(QRect(400, 10, 211, 16));
+        DestName->setGeometry(QRect(390, 10, 131, 16));
+        frame = new QFrame(centralWidget);
+        frame->setObjectName(QStringLiteral("frame"));
+        frame->setGeometry(QRect(10, 360, 261, 61));
+        frame->setStyleSheet(QStringLiteral("background-color: rgb(255, 233, 124); border: 1px solid black ;"));
+        frame->setFrameShape(QFrame::StyledPanel);
+        frame->setFrameShadow(QFrame::Raised);
+        SearchLine = new QLineEdit(frame);
+        SearchLine->setObjectName(QStringLiteral("SearchLine"));
+        SearchLine->setGeometry(QRect(10, 30, 201, 21));
+        SearchLine->setStyleSheet(QStringLiteral("background-color: white; border: 1px solid black;"));
+        label_2 = new QLabel(frame);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setGeometry(QRect(10, 10, 131, 16));
+        label_2->setStyleSheet(QStringLiteral("border:none;"));
+        SearchButton = new QPushButton(frame);
+        SearchButton->setObjectName(QStringLiteral("SearchButton"));
+        SearchButton->setGeometry(QRect(210, 30, 41, 21));
+        SearchButton->setStyleSheet(QStringLiteral("background-color:rgb(132, 176, 255) ;border: 1px solid black;"));
+        DebugLabel = new QLabel(centralWidget);
+        DebugLabel->setObjectName(QStringLiteral("DebugLabel"));
+        DebugLabel->setGeometry(QRect(9, 425, 271, 20));
+        frame_2 = new QFrame(centralWidget);
+        frame_2->setObjectName(QStringLiteral("frame_2"));
+        frame_2->setGeometry(QRect(290, 10, 231, 21));
+        frame_2->setStyleSheet(QStringLiteral("border : 1px solid black;"));
+        frame_2->setFrameShape(QFrame::StyledPanel);
+        frame_2->setFrameShadow(QFrame::Raised);
         pushButton = new QPushButton(centralWidget);
         pushButton->setObjectName(QStringLiteral("pushButton"));
         pushButton->setGeometry(QRect(520, 10, 101, 21));
+        pushButton->setStyleSheet(QStringLiteral("background-color:orange ;border: 1px solid black;"));
+        LoginButton = new QPushButton(centralWidget);
+        LoginButton->setObjectName(QStringLiteral("LoginButton"));
+        LoginButton->setGeometry(QRect(200, 30, 61, 21));
+        LoginButton->setStyleSheet(QStringLiteral("background-color: orange ;border: 1px solid black;"));
         ClientWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(ClientWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 739, 22));
+        menuBar->setGeometry(QRect(0, 0, 680, 22));
         ClientWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(ClientWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -127,18 +162,20 @@ public:
     void retranslateUi(QMainWindow *ClientWindow)
     {
         ClientWindow->setWindowTitle(QApplication::translate("ClientWindow", "ClientWindow", Q_NULLPTR));
-        SearchLine->setText(QString());
         NameInput->setText(QString());
-        NameLabel->setText(QApplication::translate("ClientWindow", "Name", Q_NULLPTR));
-        label_2->setText(QApplication::translate("ClientWindow", "Private users search", Q_NULLPTR));
+        NameLabel->setText(QApplication::translate("ClientWindow", "Your name:", Q_NULLPTR));
         SendMsg->setText(QApplication::translate("ClientWindow", "Send", Q_NULLPTR));
         label_3->setText(QApplication::translate("ClientWindow", "Peers list", Q_NULLPTR));
-        label_4->setText(QApplication::translate("ClientWindow", "Information", Q_NULLPTR));
         checkBox->setText(QApplication::translate("ClientWindow", "Private account", Q_NULLPTR));
         UpdateListButton->setText(QApplication::translate("ClientWindow", "Update", Q_NULLPTR));
         label->setText(QApplication::translate("ClientWindow", "Message for:", Q_NULLPTR));
         DestName->setText(QString());
+        SearchLine->setText(QString());
+        label_2->setText(QApplication::translate("ClientWindow", "Search private users:", Q_NULLPTR));
+        SearchButton->setText(QApplication::translate("ClientWindow", "Go!", Q_NULLPTR));
+        DebugLabel->setText(QString());
         pushButton->setText(QApplication::translate("ClientWindow", "Create Issue", Q_NULLPTR));
+        LoginButton->setText(QApplication::translate("ClientWindow", "Log in", Q_NULLPTR));
     } // retranslateUi
 
 };

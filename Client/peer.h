@@ -2,6 +2,7 @@
 #define PEER_H
 #include <memory>
 #include <QTcpSocket>
+#include <QVector>
 //! Класс, предоставляющий интерфейс для хранения данных о каждом "знакомом" пире
 class Peer
 {
@@ -26,6 +27,7 @@ public:
     QString PeerName; //!< Имя пира
     std::shared_ptr<QTcpSocket> PeerSocket;//!<Указатель на сокет, инициализированный адресом пира
     QString  SessionKey;  //!< Сеансовый ключ для этого пира
+    QVector <QString> MessagesHistory; //!< История сообщений для пира
 };
 
 #endif // PEER_H
