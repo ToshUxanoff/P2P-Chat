@@ -236,10 +236,7 @@ void ClientWindow::on_NameInput_returnPressed()
         return;
     }
 }
-void ClientWindow::isConnectedServer()
-{
 
-}
 void ClientWindow::onRead()
 {
     QTcpSocket* ListenSocket((QTcpSocket*)sender());
@@ -296,7 +293,7 @@ void ClientWindow::onRead()
         QString Name = QString(hex_to_string(Response.split(':')[0].toStdString()).c_str());
         Response = Response.split(':')[1];
         Response = Decrypt(Response, SearchPeerByName(Name)->SessionKey);
-        ui->MsgBrowser->append(Name + ": " + Response);
+        ui->MsgBrowser->append(Name + " : " + Response);
         SearchPeerByName(Name)->MessagesHistory.push_back(Name + ": " + Response);
     }
     else if(Resolver(Response) == 3)
@@ -322,8 +319,10 @@ void ClientWindow::onRead()
         //hiding controls
         ui->NameInput->hide();
         ui->checkBox->hide();
+        ui->LoginButton->hide();
         ui->NameLabel->setText("Logged as " + NickName);
         ui->DebugLabel->setText("Successfully connected to server");
+
         on_UpdateListButton_clicked();
         ConnectedToServer = true;
     }
@@ -339,11 +338,14 @@ void ClientWindow::onRead()
 }
 void ClientWindow::on_SendMsg_clicked()
 {
-     QString Message ="Me: " + ui->MsgInput->text();
-     ui->MsgBrowser->append (Message);
-     SendMessageToPeer(Destination);
-     ui->MsgInput->clear();
-     SearchPeerByName(Destination)->MessagesHistory.push_back(Message);
+    if(!Destination.isEmpty())
+    {
+         QString Message ="Me: " + ui->MsgInput->text();
+         ui->MsgBrowser->append (Message);
+         SendMessageToPeer(Destination);
+         ui->MsgInput->clear();
+         SearchPeerByName(Destination)->MessagesHistory.push_back(Message);
+    }
 }
 void ClientWindow::on_FriendList_itemDoubleClicked(QListWidgetItem *item)
 {

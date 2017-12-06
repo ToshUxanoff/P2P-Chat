@@ -6,6 +6,7 @@
 #include <QHostAddress>
 #include <QTcpServer>
 #include <QListWidgetItem>
+#include <QDateTime>
 #include "Kuznyechik.hpp"
 #include <iomanip>
 #include <sstream>
@@ -16,6 +17,7 @@
 #include <osrng.h>
 #include <peer.h>
 #include <issuecreator.h>
+
 namespace Ui {
 class ClientWindow;
 }
@@ -82,7 +84,6 @@ public slots:
 
 private slots:
     void on_SearchButton_clicked();
-    void isConnectedServer();
     void on_LoginButton_clicked();
 
 private:

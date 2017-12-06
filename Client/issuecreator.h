@@ -2,11 +2,16 @@
 #define ISSUECREATOR_H
 
 #include <QDialog>
-#include <QProcess>
-#include <QNetworkConfigurationManager>
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonArray>
+#include <QNetworkAccessManager>
+#include <QNetworkConfigurationManager>
+#include <QNetworkReply>
+#include <QNetworkRequest>
+#include <iostream>
+#include <QEventLoop>
 namespace Ui {
 class issuecreator;
 }
@@ -61,6 +66,7 @@ private slots:
 /*!
  \brief Слот, отвечающий за отправку запроса на Github с целью создания Issue
 */
+    void replyFinished(QNetworkReply *reply);
     void on_Send_clicked();
 private:
 

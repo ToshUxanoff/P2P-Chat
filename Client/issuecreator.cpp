@@ -58,18 +58,30 @@ QString issuecreator::ParseToken(QString Data)
 QString issuecreator::GetGithubToken(const QString &Login, const QString &Pass)
 {
 
-    QString Request = "curl -u" + Login + ':'+ Pass +" -d '{\"scopes\": [\"repo\"], \"note\": \"CoChat2\" }' https://api.github.com/authorizations";
-    QProcess* process = new QProcess(this);
-    process->start("sh");
-    process->write(Request.toUtf8());
-    process->closeWriteChannel();
-    process->waitForFinished();
-    QString Answer = process->readAllStandardOutput();
+    QJsonObject recordObject;
+    QJsonArray ScopesArray;
+    ScopesArray.push_back("repo");
+    recordObject.insert("scopes", ScopesArray);
+    recordObject.insert("note", QJsonValue::fromVariant("CoChat"));
+    QJsonDocument doc(recordObject);
+    QString LogData = Login + ':' + Pass;
+    QNetworkReply* reply;
+    QNetworkRequest request=QNetworkRequest(QUrl("https://api.github.com/authorizations"));
+    request.setRawHeader("Authorization", "Basic " + LogData.toUtf8().toBase64());
+    request.setRawHeader("Content-Type" , "application/x-www-form-urlencoded");
+    QString JSON = doc.toJson();
+    QNetworkAccessManager manager;
+    reply = manager.post(request, JSON.toUtf8());
+    QEventLoop loop;
+    connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+    loop.exec();
+    QString Answer = reply->readAll();
     return ParseToken(Answer);
 }
 void issuecreator::WriteTokenToFile(const std::string& token)
 {
-    QFile configFile("config0.txt");
+    QFile configFile("config09.txt");
+
     if(configFile.open(QIODevice::WriteOnly) && isTokenWrited == false)
     {
         configFile.write(token.c_str(), token.length());
@@ -79,7 +91,7 @@ void issuecreator::WriteTokenToFile(const std::string& token)
 }
 QString issuecreator::ReadTokenFromFile()
 {
-    QFile configFile("config0.txt");
+    QFile configFile("config09.txt");
     QString Token;
     if(configFile.open(QIODevice::ReadOnly))
     {
@@ -94,7 +106,6 @@ QString issuecreator::ReadTokenFromFile()
 }
 void issuecreator::on_Send_clicked()
 {
-
     if(Token.isEmpty())
     {
         Token = GetGithubToken(ui->UsernameEdit->text(), ui->PassEdit->text());
@@ -102,18 +113,34 @@ void issuecreator::on_Send_clicked()
     }
     if(IsInternetConnected())
     {
-        QString title = '\"'+ui->TitleEdit->text() + '\"';
-        QString description = '\"' + ui->DescriptionEdit->toPlainText() + "\" }'";
-        QString url = " https://api.github.com/repos/" + ui->UsernameEdit->text() +'/' + ui->RepoNameEdit->text() + "/issues";
-        QString Request;
-        Request = "curl -H \"Authorization: token " + Token  +"\" -d '{\"title\":"  + title  + ", \"body\":" + description  + url;
-        QProcess* proc = new QProcess(this);
-        proc->start("sh");
-        proc->write(Request.toUtf8());
-        proc->closeWriteChannel();
-        proc->waitForFinished();
+
+        QJsonObject recordObject;
+        recordObject.insert("title", QJsonValue::fromVariant(ui->TitleEdit->text()));
+        recordObject.insert("body", QJsonValue::fromVariant(ui->DescriptionEdit->toPlainText()));
+        QJsonDocument doc(recordObject);
+
+        QNetworkReply* reply;
+        QString UrlString("https://api.github.com/repos/"+ui->UsernameEdit->text() + '/'+ ui->RepoNameEdit->text() + "/issues");
+        QNetworkRequest request=QNetworkRequest(QUrl(UrlString));
+        request.setRawHeader("Authorization", "token " + Token.toUtf8());
+        request.setRawHeader("Content-Type" , "application/x-www-form-urlencoded");
+        QString JSON = doc.toJson();
+        QNetworkAccessManager manager;
+        reply = manager.post(request, JSON.toUtf8());
+        QEventLoop loop;
+        connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+        loop.exec();
+        QString Debug = reply->readAll();
+
         issuecreator::close();
+
+
     }
+}
+void issuecreator::replyFinished(QNetworkReply *reply)
+{
+    std::cout << reply->readAll().toStdString();
+
 }
 
 

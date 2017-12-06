@@ -81,8 +81,8 @@ public:
         MsgBrowser->setStyleSheet(QStringLiteral("border: 1px solid black;"));
         SendMsg = new QPushButton(centralWidget);
         SendMsg->setObjectName(QStringLiteral("SendMsg"));
-        SendMsg->setGeometry(QRect(620, 370, 61, 21));
-        SendMsg->setStyleSheet(QStringLiteral("background-color: rgb(255, 233, 124);border: 1px solid black;"));
+        SendMsg->setGeometry(QRect(620, 370, 51, 21));
+        SendMsg->setStyleSheet(QStringLiteral("background-color: rgb(43, 239, 138);border: 1px solid black;"));
         MsgInput = new QLineEdit(centralWidget);
         MsgInput->setObjectName(QStringLiteral("MsgInput"));
         MsgInput->setGeometry(QRect(290, 370, 331, 51));
@@ -99,7 +99,7 @@ public:
         checkBox->setGeometry(QRect(10, 50, 121, 20));
         UpdateListButton = new QPushButton(centralWidget);
         UpdateListButton->setObjectName(QStringLiteral("UpdateListButton"));
-        UpdateListButton->setGeometry(QRect(180, 90, 90, 21));
+        UpdateListButton->setGeometry(QRect(199, 90, 71, 21));
         UpdateListButton->setStyleSheet(QStringLiteral("background-color:orange ;border: 1px solid black;"));
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
@@ -109,8 +109,8 @@ public:
         DestName->setGeometry(QRect(390, 10, 131, 16));
         frame = new QFrame(centralWidget);
         frame->setObjectName(QStringLiteral("frame"));
-        frame->setGeometry(QRect(10, 360, 261, 61));
-        frame->setStyleSheet(QStringLiteral("background-color: rgb(255, 233, 124); border: 1px solid black ;"));
+        frame->setGeometry(QRect(10, 360, 260, 61));
+        frame->setStyleSheet(QStringLiteral(" border: 1px solid black ;"));
         frame->setFrameShape(QFrame::StyledPanel);
         frame->setFrameShadow(QFrame::Raised);
         SearchLine = new QLineEdit(frame);
@@ -140,7 +140,7 @@ public:
         pushButton->setStyleSheet(QStringLiteral("background-color:orange ;border: 1px solid black;"));
         LoginButton = new QPushButton(centralWidget);
         LoginButton->setObjectName(QStringLiteral("LoginButton"));
-        LoginButton->setGeometry(QRect(200, 30, 61, 21));
+        LoginButton->setGeometry(QRect(200, 30, 71, 21));
         LoginButton->setStyleSheet(QStringLiteral("background-color: orange ;border: 1px solid black;"));
         ClientWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(ClientWindow);
