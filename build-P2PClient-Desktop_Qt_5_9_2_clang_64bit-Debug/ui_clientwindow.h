@@ -36,7 +36,6 @@ public:
     QLineEdit *NameInput;
     QLabel *NameLabel;
     QTextBrowser *MsgBrowser;
-    QPushButton *SendMsg;
     QLineEdit *MsgInput;
     QLabel *label_3;
     QListWidget *FriendList;
@@ -77,15 +76,11 @@ public:
         NameLabel->setGeometry(QRect(10, 10, 271, 16));
         MsgBrowser = new QTextBrowser(centralWidget);
         MsgBrowser->setObjectName(QStringLiteral("MsgBrowser"));
-        MsgBrowser->setGeometry(QRect(290, 30, 331, 311));
+        MsgBrowser->setGeometry(QRect(290, 30, 331, 321));
         MsgBrowser->setStyleSheet(QStringLiteral("border: 1px solid black;"));
-        SendMsg = new QPushButton(centralWidget);
-        SendMsg->setObjectName(QStringLiteral("SendMsg"));
-        SendMsg->setGeometry(QRect(620, 370, 51, 21));
-        SendMsg->setStyleSheet(QStringLiteral("background-color: rgb(43, 239, 138);border: 1px solid black;"));
         MsgInput = new QLineEdit(centralWidget);
         MsgInput->setObjectName(QStringLiteral("MsgInput"));
-        MsgInput->setGeometry(QRect(290, 370, 331, 51));
+        MsgInput->setGeometry(QRect(290, 360, 331, 61));
         MsgInput->setStyleSheet(QStringLiteral("border: 1px solid black;"));
         label_3 = new QLabel(centralWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
@@ -100,7 +95,10 @@ public:
         UpdateListButton = new QPushButton(centralWidget);
         UpdateListButton->setObjectName(QStringLiteral("UpdateListButton"));
         UpdateListButton->setGeometry(QRect(199, 90, 71, 21));
+        UpdateListButton->setMouseTracking(false);
         UpdateListButton->setStyleSheet(QStringLiteral("background-color:orange ;border: 1px solid black;"));
+        UpdateListButton->setCheckable(false);
+        UpdateListButton->setFlat(false);
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(300, 10, 101, 16));
@@ -164,9 +162,15 @@ public:
         ClientWindow->setWindowTitle(QApplication::translate("ClientWindow", "ClientWindow", Q_NULLPTR));
         NameInput->setText(QString());
         NameLabel->setText(QApplication::translate("ClientWindow", "Your name:", Q_NULLPTR));
-        SendMsg->setText(QApplication::translate("ClientWindow", "Send", Q_NULLPTR));
+        MsgInput->setPlaceholderText(QString());
         label_3->setText(QApplication::translate("ClientWindow", "Peers list", Q_NULLPTR));
         checkBox->setText(QApplication::translate("ClientWindow", "Private account", Q_NULLPTR));
+#ifndef QT_NO_WHATSTHIS
+        UpdateListButton->setWhatsThis(QString());
+#endif // QT_NO_WHATSTHIS
+#ifndef QT_NO_ACCESSIBILITY
+        UpdateListButton->setAccessibleDescription(QString());
+#endif // QT_NO_ACCESSIBILITY
         UpdateListButton->setText(QApplication::translate("ClientWindow", "Update", Q_NULLPTR));
         label->setText(QApplication::translate("ClientWindow", "Message for:", Q_NULLPTR));
         DestName->setText(QString());

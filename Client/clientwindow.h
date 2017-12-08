@@ -53,16 +53,13 @@ public slots:
       \brief Слот, отвечающий за сохранение и отправку на сервер имени пользователя
     */
     void on_NameInput_returnPressed();
-    /*!
-      \brief Слот, отвечающий за отправку сообщения пиру по нажатию (вызывает функцию отправки сообщения)
-    */
-    void on_SendMsg_clicked();
+
     /*!
       \brief Слот, определяющий имя пира, который был выбран пользователем (используется для отправки сообщений выбранному пользователю)
     */
     void on_FriendList_itemDoubleClicked(QListWidgetItem *item);
     /*!
-      \brief Слот, аналогичный on_SendMsg_clicked(). Вызывает функцию отправки сообщения
+      \brief Слот, служащий для cчитывания текста из поля ввода по нажатию клавиши return, добавляющий сообщение в историю и вызывающий функцию отправки сообщения этому пиру
     */
     void on_MsgInput_returnPressed();
     /*!
@@ -103,7 +100,7 @@ private:
       \param[in] PeerName Имя адресата
       \return Ничего не возвращает
     */
-    void SendMessageToPeer(const QString &PeerName);
+    void SendMessageToPeer(const QString &PeerName, QString Message);
     /*!
       \brief Функция для отправки запроса на соединение другому пиру
 
@@ -113,6 +110,7 @@ private:
       \param[in] UserName Имя пира
       \return Ничего не возвращает
     */
+
     void ConnectToPeer(const QString &IP, int Port, const QString &UserName);
     /*!
       \brief Функция для отправки запроса на соединение другому пиру если статус текущего пользователя - приватный.
@@ -191,6 +189,7 @@ private:
      \return Возвращает указатель на объект пира
     */
     Peer* SearchPeerByName(const QString &Name);
+    int IndexPeerByName(const QString &Name);
     //<=fields=>
         //crypto
     CryptoPP::DH dh;   //!< Объект класса DH, необходимый для реализации алгоритма Диффи-Хеллмана. Подробнее можно узнать в официальной документации библиотеки CryptoPP

@@ -70,40 +70,27 @@
       <x>290</x>
       <y>30</y>
       <width>331</width>
-      <height>311</height>
+      <height>321</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">border: 1px solid black;</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="SendMsg">
-    <property name="geometry">
-     <rect>
-      <x>620</x>
-      <y>370</y>
-      <width>51</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(43, 239, 138);border: 1px solid black;</string>
-    </property>
-    <property name="text">
-     <string>Send</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="MsgInput">
     <property name="geometry">
      <rect>
       <x>290</x>
-      <y>370</y>
+      <y>360</y>
       <width>331</width>
-      <height>51</height>
+      <height>61</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">border: 1px solid black;</string>
+    </property>
+    <property name="placeholderText">
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -154,11 +141,26 @@
       <height>21</height>
      </rect>
     </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
+    <property name="whatsThis">
+     <string comment="Update peer list for add new peers" extracomment="Update peer list for add new peers"/>
+    </property>
+    <property name="accessibleDescription">
+     <string comment="Update peer list for add new peers" extracomment="Update peer list for add new peers"/>
+    </property>
     <property name="styleSheet">
      <string notr="true">background-color:orange ;border: 1px solid black;</string>
     </property>
     <property name="text">
      <string>Update</string>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="QLabel" name="label">

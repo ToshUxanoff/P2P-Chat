@@ -36,12 +36,11 @@ QString IntegerToString(CryptoPP::Integer Numb)
     return RetStr;
 }
 QString SecBBToString(CryptoPP::SecByteBlock Block)
-{   
+{
     std::string buff(Block.begin(), Block.end());
     QString RetStr = QString::fromStdString(string_to_hex(buff));
     return RetStr;
 }
-
 void BlockAddition(std::string &Message)
 {
    while(Message.length()%32 != 0)
@@ -85,6 +84,18 @@ Peer* ClientWindow::SearchPeerByName(const QString& Name)
     }
     return nullptr;
 }
+int ClientWindow::IndexPeerByName(const QString &Name)
+{
+    int i = 0;
+    for(i = 0; i < Peers.size(); ++i)
+    {
+        if(Peers[i].PeerName == Name)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
 int ClientWindow::Resolver(const QString& Data)
 {
     if(Data.startsWith("!S!"))   //server response (success search)
@@ -118,12 +129,12 @@ int ClientWindow::Resolver(const QString& Data)
     return -1;
     //add more flags
 }
-void ClientWindow::SendMessageToPeer(const QString& PeerName)
+
+void ClientWindow::SendMessageToPeer(const QString& PeerName, QString Message)
 {
     if(!Destination.isEmpty() && !SearchPeerByName(PeerName)->SessionKey.isEmpty())
     {
         QDataStream PeerStream(SearchPeerByName(PeerName)->PeerSocket.get());
-        QString Message = ui->MsgInput->text();
         Message = Encrypt(Message, SearchPeerByName(PeerName)->SessionKey);
         Message = "!M!" + QString::fromStdString(string_to_hex(NickName.toStdString())) + ':' + Message;
         PeerStream << Message;
@@ -215,25 +226,28 @@ void ClientWindow::on_SearchLine_returnPressed()
 void ClientWindow::on_NameInput_returnPressed()
 {
     NickName = ui->NameInput->text();
-    //connecting to server
-    ServerSocket.get()->connectToHost(ServerIP, ServerPort); 
-    if (ServerSocket->waitForConnected(100))
+    if(!NickName.isEmpty())
     {
-         QString Status("!PUB!");
-         if(Private == true)
-         {
-             Status = "!PR!";
-             ui->UpdateListButton->show();
-         }
-         QString RegStr = "!0!" + NickName + ',' + ThisListenSocket.get()->serverAddress().toString() +':' + QString::number(ThisListenSocket.get()->serverPort()) + ',' + Status; // +address
-         QDataStream ServStream(ServerSocket.get());
-         ServStream << RegStr;
-         connect(ServerSocket.get(), SIGNAL(readyRead()), this, SLOT(onRead()));
-    }
-    else
-    {
-        ui->DebugLabel->setText("Can't connect to server");
-        return;
+        //connecting to server
+        ServerSocket.get()->connectToHost(ServerIP, ServerPort);
+        if (ServerSocket->waitForConnected(100))
+        {
+           QString Status("!PUB!");
+           if(Private == true)
+           {
+               Status = "!PR!";
+               ui->UpdateListButton->show();
+            }
+            QString RegStr = "!0!" + NickName + ',' + ThisListenSocket.get()->serverAddress().toString() +':' + QString::number(ThisListenSocket.get()->serverPort()) + ',' + Status; // +address
+             QDataStream ServStream(ServerSocket.get());
+             ServStream << RegStr;
+             connect(ServerSocket.get(), SIGNAL(readyRead()), this, SLOT(onRead()));
+           }
+        else
+        {
+            ui->DebugLabel->setText("Can't connect to server");
+            return;
+        }
     }
 }
 
@@ -249,7 +263,7 @@ void ClientWindow::onRead()
         ParseAllUsersData(Response);
     }
     else if(Resolver(Response) == 1) //new connect
-    {      
+    {
         if(Response.split(':')[2] != NickName)
         {
             Response = Response.mid(3);
@@ -293,10 +307,20 @@ void ClientWindow::onRead()
         QString Name = QString(hex_to_string(Response.split(':')[0].toStdString()).c_str());
         Response = Response.split(':')[1];
         Response = Decrypt(Response, SearchPeerByName(Name)->SessionKey);
-        ui->MsgBrowser->append(Name + " : " + Response);
+        if(Name == Destination)
+        {
+            ui->MsgBrowser->append(Name + " : " + Response);
+        }
+        else
+        {
+            int Index = IndexPeerByName(Name);
+            QListWidgetItem* User = ui->FriendList->item(Index);
+            QColor MsgColor(0,255,0);
+            User->setTextColor(MsgColor);
+        }
         SearchPeerByName(Name)->MessagesHistory.push_back(Name + ": " + Response);
     }
-    else if(Resolver(Response) == 3)
+    else if(Resolver(Response) == 3)        //answer
     {
         Response = Response.mid(3);
         QString Name = Response.split(':')[0];
@@ -308,13 +332,13 @@ void ClientWindow::onRead()
         }
         GettingAgreement(Name, SecBB);
     }
-    else if(Resolver(Response) == 4)
+    else if(Resolver(Response) == 4)    //connect request
     {
         Response = Response.mid(4);
         ui->FriendList->addItem(Response.split(':')[2]);
         ConnectToPeer(Response.split(':')[0], Response.split(':')[1].toInt(), Response.split(':')[2]);
     }
-    else if (Resolver(Response) == 5)
+    else if (Resolver(Response) == 5)   //server connect
     {
         //hiding controls
         ui->NameInput->hide();
@@ -322,7 +346,7 @@ void ClientWindow::onRead()
         ui->LoginButton->hide();
         ui->NameLabel->setText("Logged as " + NickName);
         ui->DebugLabel->setText("Successfully connected to server");
-
+        ui->MsgBrowser->append ("\n\n ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \t  Welcome to CoChat!\n\n\n\n \t<==Choose user and go chat!\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
         on_UpdateListButton_clicked();
         ConnectedToServer = true;
     }
@@ -336,36 +360,38 @@ void ClientWindow::onRead()
         ui->DebugLabel->setText("Error! " + Response);
     }
 }
-void ClientWindow::on_SendMsg_clicked()
-{
-    if(!Destination.isEmpty())
-    {
-         QString Message ="Me: " + ui->MsgInput->text();
-         ui->MsgBrowser->append (Message);
-         SendMessageToPeer(Destination);
-         ui->MsgInput->clear();
-         SearchPeerByName(Destination)->MessagesHistory.push_back(Message);
-    }
-}
+
 void ClientWindow::on_FriendList_itemDoubleClicked(QListWidgetItem *item)
 {
     Destination = item->text();
+    int Index = IndexPeerByName(Destination);
+    QListWidgetItem* User = ui->FriendList->item(Index);
+    QColor MsgColor(0,0,0);
+    User->setTextColor(MsgColor);
     ui->DestName->setText(Destination);
     ui->MsgBrowser->clear();
 
-    for(size_t i = 0; i < SearchPeerByName(Destination)->MessagesHistory.size(); ++i)
+    for(int i = 0; i < SearchPeerByName(Destination)->MessagesHistory.size(); ++i)
     {
      ui->MsgBrowser->append(SearchPeerByName(Destination)->MessagesHistory[i]);
     }
-    if(Private == true && SearchPeerByName(Destination)->SessionKey.isEmpty())
+    if(SearchPeerByName(Destination)->SessionKey.isEmpty())
     {
-         ui->MsgBrowser->append("\n --- Connect req sended to " + Destination + "--- \n");
-         SendConnectRequest(Destination);
+          SendConnectRequest(Destination);
+          ui->DebugLabel->setText("Sended key exchange request");
     }
 }
 void ClientWindow::on_MsgInput_returnPressed()
 {
-    on_SendMsg_clicked();
+    if(!Destination.isEmpty())
+    {
+         QString Message = ui->MsgInput->text();
+         SendMessageToPeer(Destination, Message);
+         Message = "Me: " + Message;
+         ui->MsgBrowser->append (Message);
+         ui->MsgInput->clear();
+         SearchPeerByName(Destination)->MessagesHistory.push_back(Message);
+    }
 }
 void ClientWindow::on_UpdateListButton_clicked()
 {

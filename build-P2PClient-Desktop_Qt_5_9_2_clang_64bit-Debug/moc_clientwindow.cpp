@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_ClientWindow_t {
-    QByteArrayData data[17];
-    char stringdata0[313];
+    QByteArrayData data[16];
+    char stringdata0[294];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,23 +36,22 @@ QT_MOC_LITERAL(1, 13, 27), // "on_SearchLine_returnPressed"
 QT_MOC_LITERAL(2, 41, 0), // ""
 QT_MOC_LITERAL(3, 42, 6), // "onRead"
 QT_MOC_LITERAL(4, 49, 26), // "on_NameInput_returnPressed"
-QT_MOC_LITERAL(5, 76, 18), // "on_SendMsg_clicked"
-QT_MOC_LITERAL(6, 95, 31), // "on_FriendList_itemDoubleClicked"
-QT_MOC_LITERAL(7, 127, 16), // "QListWidgetItem*"
-QT_MOC_LITERAL(8, 144, 4), // "item"
-QT_MOC_LITERAL(9, 149, 25), // "on_MsgInput_returnPressed"
-QT_MOC_LITERAL(10, 175, 12), // "ConnDetector"
-QT_MOC_LITERAL(11, 188, 27), // "on_UpdateListButton_clicked"
-QT_MOC_LITERAL(12, 216, 19), // "on_checkBox_toggled"
-QT_MOC_LITERAL(13, 236, 7), // "checked"
-QT_MOC_LITERAL(14, 244, 21), // "on_pushButton_clicked"
-QT_MOC_LITERAL(15, 266, 23), // "on_SearchButton_clicked"
-QT_MOC_LITERAL(16, 290, 22) // "on_LoginButton_clicked"
+QT_MOC_LITERAL(5, 76, 31), // "on_FriendList_itemDoubleClicked"
+QT_MOC_LITERAL(6, 108, 16), // "QListWidgetItem*"
+QT_MOC_LITERAL(7, 125, 4), // "item"
+QT_MOC_LITERAL(8, 130, 25), // "on_MsgInput_returnPressed"
+QT_MOC_LITERAL(9, 156, 12), // "ConnDetector"
+QT_MOC_LITERAL(10, 169, 27), // "on_UpdateListButton_clicked"
+QT_MOC_LITERAL(11, 197, 19), // "on_checkBox_toggled"
+QT_MOC_LITERAL(12, 217, 7), // "checked"
+QT_MOC_LITERAL(13, 225, 21), // "on_pushButton_clicked"
+QT_MOC_LITERAL(14, 247, 23), // "on_SearchButton_clicked"
+QT_MOC_LITERAL(15, 271, 22) // "on_LoginButton_clicked"
 
     },
     "ClientWindow\0on_SearchLine_returnPressed\0"
     "\0onRead\0on_NameInput_returnPressed\0"
-    "on_SendMsg_clicked\0on_FriendList_itemDoubleClicked\0"
+    "on_FriendList_itemDoubleClicked\0"
     "QListWidgetItem*\0item\0on_MsgInput_returnPressed\0"
     "ConnDetector\0on_UpdateListButton_clicked\0"
     "on_checkBox_toggled\0checked\0"
@@ -67,7 +66,7 @@ static const uint qt_meta_data_ClientWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      12,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -75,29 +74,27 @@ static const uint qt_meta_data_ClientWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   74,    2, 0x0a /* Public */,
-       3,    0,   75,    2, 0x0a /* Public */,
-       4,    0,   76,    2, 0x0a /* Public */,
-       5,    0,   77,    2, 0x0a /* Public */,
-       6,    1,   78,    2, 0x0a /* Public */,
-       9,    0,   81,    2, 0x0a /* Public */,
-      10,    0,   82,    2, 0x0a /* Public */,
-      11,    0,   83,    2, 0x0a /* Public */,
-      12,    1,   84,    2, 0x0a /* Public */,
-      14,    0,   87,    2, 0x0a /* Public */,
-      15,    0,   88,    2, 0x08 /* Private */,
-      16,    0,   89,    2, 0x08 /* Private */,
+       1,    0,   69,    2, 0x0a /* Public */,
+       3,    0,   70,    2, 0x0a /* Public */,
+       4,    0,   71,    2, 0x0a /* Public */,
+       5,    1,   72,    2, 0x0a /* Public */,
+       8,    0,   75,    2, 0x0a /* Public */,
+       9,    0,   76,    2, 0x0a /* Public */,
+      10,    0,   77,    2, 0x0a /* Public */,
+      11,    1,   78,    2, 0x0a /* Public */,
+      13,    0,   81,    2, 0x0a /* Public */,
+      14,    0,   82,    2, 0x08 /* Private */,
+      15,    0,   83,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 7,    8,
-    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 6,    7,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Bool,   13,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Bool,   12,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -114,15 +111,14 @@ void ClientWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 0: _t->on_SearchLine_returnPressed(); break;
         case 1: _t->onRead(); break;
         case 2: _t->on_NameInput_returnPressed(); break;
-        case 3: _t->on_SendMsg_clicked(); break;
-        case 4: _t->on_FriendList_itemDoubleClicked((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 5: _t->on_MsgInput_returnPressed(); break;
-        case 6: _t->ConnDetector(); break;
-        case 7: _t->on_UpdateListButton_clicked(); break;
-        case 8: _t->on_checkBox_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 9: _t->on_pushButton_clicked(); break;
-        case 10: _t->on_SearchButton_clicked(); break;
-        case 11: _t->on_LoginButton_clicked(); break;
+        case 3: _t->on_FriendList_itemDoubleClicked((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 4: _t->on_MsgInput_returnPressed(); break;
+        case 5: _t->ConnDetector(); break;
+        case 6: _t->on_UpdateListButton_clicked(); break;
+        case 7: _t->on_checkBox_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 8: _t->on_pushButton_clicked(); break;
+        case 9: _t->on_SearchButton_clicked(); break;
+        case 10: _t->on_LoginButton_clicked(); break;
         default: ;
         }
     }
@@ -153,13 +149,13 @@ int ClientWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 12)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 11;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 12)
+        if (_id < 11)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 12;
+        _id -= 11;
     }
     return _id;
 }
