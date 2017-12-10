@@ -59,9 +59,9 @@ public:
     {
         if (ClientWindow->objectName().isEmpty())
             ClientWindow->setObjectName(QStringLiteral("ClientWindow"));
-        ClientWindow->resize(680, 480);
-        ClientWindow->setMinimumSize(QSize(680, 480));
-        ClientWindow->setMaximumSize(QSize(680, 480));
+        ClientWindow->resize(640, 480);
+        ClientWindow->setMinimumSize(QSize(640, 480));
+        ClientWindow->setMaximumSize(QSize(640, 480));
         ClientWindow->setAutoFillBackground(false);
         ClientWindow->setStyleSheet(QStringLiteral(""));
         ClientWindow->setToolButtonStyle(Qt::ToolButtonIconOnly);
@@ -143,7 +143,7 @@ public:
         ClientWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(ClientWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 680, 22));
+        menuBar->setGeometry(QRect(0, 0, 640, 22));
         ClientWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(ClientWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));

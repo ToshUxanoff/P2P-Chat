@@ -1,5 +1,4 @@
 #include "clientwindow.h"
-#include "Kuznyechik.hpp"
 #include "mycrypto.hpp"
 #include <QApplication>
 

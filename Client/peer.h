@@ -27,7 +27,7 @@ public:
     QString PeerName; //!< Имя пира
     std::shared_ptr<QTcpSocket> PeerSocket;//!<Указатель на сокет, инициализированный адресом пира
     QString  SessionKey;  //!< Сеансовый ключ для этого пира
-    QVector <QString> MessagesHistory; //!< История сообщений для пира
+    QVector <QString> MessagesHistory; //!< История сообщений с пиром
 };
 
 #endif // PEER_H

@@ -42,10 +42,11 @@ bool ServerWindow::IsUniqueUser(const QString &Username)
 {
     QSqlQuery query(DataBase);
     query.exec("SELECT Name FROM UsersList");
+    QString Name;
     while(query.next())
     {
-        QString Debug = query.value(0).toString();
-        if(Debug == Username)
+        Name = query.value(0).toString();
+        if(Name == Username)
         {
             return false;
         }
@@ -79,7 +80,17 @@ void ServerWindow::SendAllUsers(QTcpSocket *ClientSocket)
           AllUsersData += query.value(1).toString() + ':' + query.value(0).toString() + '|';
     }
     ClientStream << "!S!" + AllUsersData;
-
+}
+void ServerWindow::UpdateUsersList()
+{
+    ui->RegisteredUsers->clear();
+    QSqlQuery query(DataBase);
+    QString Name;
+    query.exec("SELECT Name FROM UsersList");
+    while(query.next())
+    {
+        ui->RegisteredUsers->append(query.value(0).toString());
+    }
 }
 int ServerWindow::Resolver(const QString& Data)
 {
@@ -87,23 +98,22 @@ int ServerWindow::Resolver(const QString& Data)
     {
         return 0; //registration
     }
-    else if (Data.startsWith("!1!"))
+    else if(Data.startsWith("!S!"))
     {
-
-        return 1; //login
-    }
-    else if(Data.startsWith("!2!"))
-    {
-
-        return 2; //search request
+        return 1; //search request
     }
     else if(Data.startsWith("!UPD!"))
+    {
+        return 2;
+    }
+    else if(Data.startsWith("!OFF!"))
     {
         return 3;
     }
     return -1; //wrong data format
 }
 void ServerWindow::on_Starting_clicked()
+
 {
 
     connect(tcpServer.get(), SIGNAL(newConnection()), this, SLOT(ConnectClient()));
@@ -128,7 +138,14 @@ void ServerWindow::ConnectClient()
         connect(ClientSocket,SIGNAL(readyRead()),this, SLOT(ListeningClient()));
     }
 }
-
+void ServerWindow::DeleteOfflineUser(const QString& Name)
+{
+    QSqlQuery query(DataBase);
+    query.prepare("DELETE FROM UsersList WHERE Name=:name");
+    query.bindValue(":name", Name);
+    query.exec();
+    UpdateUsersList();
+}
 void ServerWindow::ListeningClient()
 {
     QTcpSocket* ClientSocket = (QTcpSocket*)sender();
@@ -141,8 +158,8 @@ void ServerWindow::ListeningClient()
         Data = Data.mid(3);
         if(IsUniqueUser(Data.split(',')[0])) //new user
         {
-            AddNewUser(Data.split(',')[0], Data.split(',')[2],Data.split(',')[1]);
-            ui->Logs->append("New registration request from " + Data);
+            AddNewUser(Data.split(',')[0], Data.split(',')[2], Data.split(',')[1]);
+            ui->Logs->append("Registration request from " + Data);
             ui->RegisteredUsers->append(Data.split(',')[0]);
             Response ="!CNCTD!";
             ClientStream << Response;
@@ -153,13 +170,8 @@ void ServerWindow::ListeningClient()
             Response = "!SMESS! Error!Such user already exists!";
             ClientStream << Response;
         }
-
     }
-    else if(Resolver(Data) == 1)    //login
-    {
-        Data = Data.mid(3);
-    }
-    else if (Resolver(Data) == 2)
+    else if (Resolver(Data) == 1)
     {
         //here search request to db (search)
         Data = Data.mid(3);
@@ -167,9 +179,15 @@ void ServerWindow::ListeningClient()
         Response = SearchUser(Data);
         ClientStream << Response;
     }
-    else if(Resolver(Data)==3)
+    else if(Resolver(Data) == 2)
     {
         SendAllUsers(ClientSocket);
+    }
+    else if(Resolver(Data) == 3)
+    {
+        Data = Data.mid(5);
+        ui->Logs->append(Data + " is offline now");
+        DeleteOfflineUser(Data);
     }
     else
     {

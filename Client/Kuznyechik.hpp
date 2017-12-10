@@ -12,7 +12,7 @@ class Kuznyechik {
 public:
 	static const int block_lenght {BLOCK_LENGTH};
 	Kuznyechik(const ByteBlock & key);
-        Kuznyechik(const Kuznyechik & rhs);
+    Kuznyechik(const Kuznyechik & rhs);
 	~Kuznyechik();
 	void encrypt(const ByteBlock & src, ByteBlock & dst) const;
 	void decrypt(const ByteBlock & src, ByteBlock & dst) const;

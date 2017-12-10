@@ -1,6 +1,7 @@
 #include "clientwindow.h"
 #include "ui_clientwindow.h"
-
+#include <QTimer>
+#include <QEventLoop>
 //<=converters=>
 std::string hex_to_string(const std::string& in)
 {
@@ -213,7 +214,7 @@ void ClientWindow::on_SearchLine_returnPressed()
 
         if(Request != NickName && SearchPeerByName(Request) == nullptr)
         {
-            Request = "!2!" + Request; //search request
+            Request = "!S!" + Request; //search request
             QDataStream ServStream(ServerSocket.get());
             ServStream << Request;
         }
@@ -237,8 +238,8 @@ void ClientWindow::on_NameInput_returnPressed()
            {
                Status = "!PR!";
                ui->UpdateListButton->show();
-            }
-            QString RegStr = "!0!" + NickName + ',' + ThisListenSocket.get()->serverAddress().toString() +':' + QString::number(ThisListenSocket.get()->serverPort()) + ',' + Status; // +address
+           }
+             QString RegStr = "!0!" + NickName + ',' + ThisListenSocket.get()->serverAddress().toString() +':' + QString::number(ThisListenSocket.get()->serverPort()) + ',' + Status; // +address
              QDataStream ServStream(ServerSocket.get());
              ServStream << RegStr;
              connect(ServerSocket.get(), SIGNAL(readyRead()), this, SLOT(onRead()));
@@ -250,7 +251,6 @@ void ClientWindow::on_NameInput_returnPressed()
         }
     }
 }
-
 void ClientWindow::onRead()
 {
     QTcpSocket* ListenSocket((QTcpSocket*)sender());
@@ -320,7 +320,7 @@ void ClientWindow::onRead()
         }
         SearchPeerByName(Name)->MessagesHistory.push_back(Name + ": " + Response);
     }
-    else if(Resolver(Response) == 3)        //answer
+    else if(Resolver(Response) == 3)        //answer key exchange
     {
         Response = Response.mid(3);
         QString Name = Response.split(':')[0];
@@ -346,7 +346,7 @@ void ClientWindow::onRead()
         ui->LoginButton->hide();
         ui->NameLabel->setText("Logged as " + NickName);
         ui->DebugLabel->setText("Successfully connected to server");
-        ui->MsgBrowser->append ("\n\n ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \t  Welcome to CoChat!\n\n\n\n \t<==Choose user and go chat!\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+        ui->MsgBrowser->append ("\n\n ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \t  Welcome to CoChat!\n\n\n\n \t<==Select a chat to start messaging!\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
         on_UpdateListButton_clicked();
         ConnectedToServer = true;
     }
@@ -360,7 +360,6 @@ void ClientWindow::onRead()
         ui->DebugLabel->setText("Error! " + Response);
     }
 }
-
 void ClientWindow::on_FriendList_itemDoubleClicked(QListWidgetItem *item)
 {
     Destination = item->text();
@@ -483,7 +482,7 @@ void ClientWindow::on_pushButton_clicked()
 {
 
     QString selectedText_ = ui->MsgBrowser->textCursor().selectedText();
-    issuecreator* ic = new issuecreator(selectedText_);
+    issuecreator* ic = new issuecreator(selectedText_, this);
     ic->show();
 }
 
@@ -492,7 +491,15 @@ void ClientWindow::on_SearchButton_clicked()
     on_SearchLine_returnPressed();
 }
 
-
+void ClientWindow::closeEvent(QCloseEvent *e)
+{
+    QString Bye("!OFF!"+ NickName);
+    QDataStream ServStream(ServerSocket.get());
+    ServStream << Bye;
+    QEventLoop loop;
+    QTimer::singleShot(200, &loop, SLOT(quit())); loop.exec(); //wait for request sended
+    e->accept();
+}
 void ClientWindow::on_LoginButton_clicked()
 {
     on_NameInput_returnPressed();

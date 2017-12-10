@@ -7,6 +7,7 @@
 #include <QTcpServer>
 #include <QListWidgetItem>
 #include <QDateTime>
+#include <QCloseEvent>
 #include "Kuznyechik.hpp"
 #include <iomanip>
 #include <sstream>
@@ -82,7 +83,7 @@ public slots:
 private slots:
     void on_SearchButton_clicked();
     void on_LoginButton_clicked();
-
+    void closeEvent(QCloseEvent* e);
 private:
     //<=methods=>
     /*!
