@@ -142,5 +142,3 @@ void issuecreator::replyFinished(QNetworkReply *reply)
     std::cout << reply->readAll().toStdString();
 
 }
-
-

@@ -6,8 +6,9 @@
 #include <QHostAddress>
 #include <QTcpServer>
 #include <QListWidgetItem>
-#include <QDateTime>
 #include <QCloseEvent>
+#include <QTimer>
+#include <QEventLoop>
 #include "Kuznyechik.hpp"
 #include <iomanip>
 #include <sstream>

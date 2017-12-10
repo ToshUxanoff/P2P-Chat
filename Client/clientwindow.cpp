@@ -1,7 +1,6 @@
 #include "clientwindow.h"
 #include "ui_clientwindow.h"
-#include <QTimer>
-#include <QEventLoop>
+
 //<=converters=>
 std::string hex_to_string(const std::string& in)
 {
@@ -49,7 +48,6 @@ void BlockAddition(std::string &Message)
        Message += '00';
    }
 }
-
 //<=methods=>
 ClientWindow::ClientWindow(int Port, QString address, QWidget *parent)
     :QMainWindow(parent)
@@ -130,7 +128,6 @@ int ClientWindow::Resolver(const QString& Data)
     return -1;
     //add more flags
 }
-
 void ClientWindow::SendMessageToPeer(const QString& PeerName, QString Message)
 {
     if(!Destination.isEmpty() && !SearchPeerByName(PeerName)->SessionKey.isEmpty())
@@ -291,11 +288,17 @@ void ClientWindow::onRead()
             std::shared_ptr<QTcpSocket>NewSocket(new QTcpSocket());
             NewSocket.get()->connectToHost(IP,Port);
 
-            if(SearchPeerByName(Response.split(':')[2])== nullptr)
+            if(SearchPeerByName(Response.split(':')[2]) == nullptr)
             {
                 ui->FriendList->addItem(Response.split(':')[2]);
                 Peer NewPeer(PeerName, NewSocket);
                 Peers.push_back(NewPeer);
+            }
+            else
+            {
+                Peer* p = SearchPeerByName(PeerName);
+                p->PeerSocket.reset();
+                p->PeerSocket = NewSocket;
             }
             CryptoPP::SecByteBlock PublicKey = IncomingSessionKeyGen(PeerName, prime, generator, pubNumb);
             SendGeneratedPublicKey(PeerName, PublicKey);
@@ -320,7 +323,7 @@ void ClientWindow::onRead()
         }
         SearchPeerByName(Name)->MessagesHistory.push_back(Name + ": " + Response);
     }
-    else if(Resolver(Response) == 3)        //answer key exchange
+    else if(Resolver(Response) == 3)  //answer key exchange
     {
         Response = Response.mid(3);
         QString Name = Response.split(':')[0];
@@ -496,6 +499,11 @@ void ClientWindow::closeEvent(QCloseEvent *e)
     QString Bye("!OFF!"+ NickName);
     QDataStream ServStream(ServerSocket.get());
     ServStream << Bye;
+    for(int i = 0; i < Peers.size(); ++i)
+    {
+        QDataStream Stream(Peers[i].PeerSocket.get());
+        Stream << Bye;
+    }
     QEventLoop loop;
     QTimer::singleShot(200, &loop, SLOT(quit())); loop.exec(); //wait for request sended
     e->accept();
