@@ -499,11 +499,6 @@ void ClientWindow::closeEvent(QCloseEvent *e)
     QString Bye("!OFF!"+ NickName);
     QDataStream ServStream(ServerSocket.get());
     ServStream << Bye;
-    for(int i = 0; i < Peers.size(); ++i)
-    {
-        QDataStream Stream(Peers[i].PeerSocket.get());
-        Stream << Bye;
-    }
     QEventLoop loop;
     QTimer::singleShot(200, &loop, SLOT(quit())); loop.exec(); //wait for request sended
     e->accept();
