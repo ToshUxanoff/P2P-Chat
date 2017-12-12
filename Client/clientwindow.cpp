@@ -72,6 +72,7 @@ ClientWindow::~ClientWindow()
 {
     delete ui;
 }
+//searchers
 Peer* ClientWindow::SearchPeerByName(const QString& Name)
 {
     for(int i = 0; i < Peers.size(); ++i )
@@ -95,6 +96,7 @@ int ClientWindow::IndexPeerByName(const QString &Name)
     }
     return -1;
 }
+//methods
 int ClientWindow::Resolver(const QString& Data)
 {
     if(Data.startsWith("!S!"))   //server response (success search)
@@ -203,6 +205,80 @@ void ClientWindow::ParseAllUsersData(QString Response)
        }
     }
 }
+//for Diffie-Hellman key exchange
+void ClientWindow::GenKeyParams()
+{
+    CryptoPP::AutoSeededRandomPool rnd;
+    dh.AccessGroupParameters().GenerateRandomWithKeySize(rnd, 256);
+    Prime = dh.GetGroupParameters().GetModulus();
+    Generator = dh.GetGroupParameters().GetSubgroupGenerator();
+    PrivNumb = CryptoPP::SecByteBlock(dh.PrivateKeyLength());
+    PublicNumb = CryptoPP::SecByteBlock(dh.PublicKeyLength());
+    MySecretKey = CryptoPP::SecByteBlock(dh.AgreedValueLength());
+    dh.GenerateKeyPair(rnd, PrivNumb, PublicNumb);
+}
+CryptoPP::SecByteBlock ClientWindow::IncomingSessionKeyGen(const QString& Username, CryptoPP::Integer prime, CryptoPP::Integer generator, CryptoPP::SecByteBlock publicNumb)
+{
+    CryptoPP::AutoSeededRandomPool rngB;
+    CryptoPP::DH dhB(prime, generator);
+    CryptoPP::SecByteBlock privB(dhB.PrivateKeyLength());
+    CryptoPP::SecByteBlock pubB(dhB.PublicKeyLength());
+    CryptoPP::SecByteBlock secretKeyB(dhB.AgreedValueLength());
+
+    dhB.GenerateKeyPair(rngB, privB, pubB);
+
+    if (dhB.Agree(secretKeyB, privB, publicNumb))
+    {
+
+        SearchPeerByName(Username)->SetSessionKey(SecBBToString(secretKeyB));
+    }
+    return pubB;
+}
+void ClientWindow::GettingAgreement(const QString& Username, CryptoPP::SecByteBlock publicNumb)
+{
+    if (dh.Agree(MySecretKey, PrivNumb, publicNumb))
+    {
+        SearchPeerByName(Username)->SetSessionKey(SecBBToString(MySecretKey));
+    }
+}
+//Kuznyechik
+QString ClientWindow::Encrypt(QString &Message, QString Key)
+{
+    const ByteBlock key = hex_to_bytes(Key.toStdString());
+    std::string HexString (string_to_hex(Message.toStdString()));
+    if(HexString.length()%32 != 0) //==16 bytes
+        {
+            BlockAddition(HexString);
+        }
+    ByteBlock ByteMessage = hex_to_bytes(HexString);
+    Kuznyechik Encryptor(key);
+    std::vector<ByteBlock> Vect16BytesBlocks = split_blocks(ByteMessage, 16);
+    HexString.clear();
+    for(size_t i = 0; i < Vect16BytesBlocks.size(); ++i)
+        {
+            Encryptor.encrypt(Vect16BytesBlocks[i], Vect16BytesBlocks[i]);
+            HexString += hex_representation(Vect16BytesBlocks[i]);
+        }
+    Message = QString::fromStdString(HexString);
+    return Message;
+}
+QString ClientWindow::Decrypt(QString &Message, QString Key)
+{
+    const ByteBlock BBKEY = hex_to_bytes(Key.toStdString());
+    std::string BufString = (Message.toStdString());
+    ByteBlock ByteMessage = hex_to_bytes(BufString);
+    Kuznyechik decryptor(BBKEY);
+    std::vector<ByteBlock> Vect16BytesMessages = split_blocks(ByteMessage, 16); //16-bytes blocks
+    BufString.clear(); //using for write encrypted data in hex
+    for(size_t i = 0; i < Vect16BytesMessages.size(); ++i)
+    {
+        decryptor.decrypt(Vect16BytesMessages[i], Vect16BytesMessages[i]);
+        BufString += hex_representation(Vect16BytesMessages[i]);
+    }
+    Message = QString::fromStdString(hex_to_string(BufString));
+    return Message;
+}
+//slots and signals
 void ClientWindow::on_SearchLine_returnPressed()
 {
     if(ConnectedToServer)
@@ -296,9 +372,8 @@ void ClientWindow::onRead()
             }
             else
             {
-                Peer* p = SearchPeerByName(PeerName);
-                p->PeerSocket.reset();
-                p->PeerSocket = NewSocket;
+                SearchPeerByName(PeerName)->PeerSocket.reset();
+                SearchPeerByName(PeerName)->PeerSocket = NewSocket;
             }
             CryptoPP::SecByteBlock PublicKey = IncomingSessionKeyGen(PeerName, prime, generator, pubNumb);
             SendGeneratedPublicKey(PeerName, PublicKey);
@@ -317,9 +392,8 @@ void ClientWindow::onRead()
         else
         {
             int Index = IndexPeerByName(Name);
-            QListWidgetItem* User = ui->FriendList->item(Index);
             QColor MsgColor(0,255,0);
-            User->setTextColor(MsgColor);
+            ui->FriendList->item(Index)->setTextColor(MsgColor);
         }
         SearchPeerByName(Name)->MessagesHistory.push_back(Name + ": " + Response);
     }
@@ -367,9 +441,8 @@ void ClientWindow::on_FriendList_itemDoubleClicked(QListWidgetItem *item)
 {
     Destination = item->text();
     int Index = IndexPeerByName(Destination);
-    QListWidgetItem* User = ui->FriendList->item(Index);
     QColor MsgColor(0,0,0);
-    User->setTextColor(MsgColor);
+    ui->FriendList->item(Index)->setTextColor(MsgColor);
     ui->DestName->setText(Destination);
     ui->MsgBrowser->clear();
 
@@ -403,104 +476,30 @@ void ClientWindow::on_UpdateListButton_clicked()
     QDataStream ServStream(ServerSocket.get());
     ServStream << UpdReq;
 }
-//for Diffie-Hellman key exchange
-void ClientWindow::GenKeyParams()
-{
-    CryptoPP::AutoSeededRandomPool rnd;
-    dh.AccessGroupParameters().GenerateRandomWithKeySize(rnd, 256);
-    Prime = dh.GetGroupParameters().GetModulus();
-    Generator = dh.GetGroupParameters().GetSubgroupGenerator();
-    PrivNumb = CryptoPP::SecByteBlock(dh.PrivateKeyLength());
-    PublicNumb = CryptoPP::SecByteBlock(dh.PublicKeyLength());
-    MySecretKey = CryptoPP::SecByteBlock(dh.AgreedValueLength());
-    dh.GenerateKeyPair(rnd, PrivNumb, PublicNumb);
-}
-CryptoPP::SecByteBlock ClientWindow::IncomingSessionKeyGen(const QString& Username, CryptoPP::Integer prime, CryptoPP::Integer generator, CryptoPP::SecByteBlock publicNumb)
-{
-    CryptoPP::AutoSeededRandomPool rngB;
-    CryptoPP::DH dhB(prime, generator);
-    CryptoPP::SecByteBlock privB(dhB.PrivateKeyLength());
-    CryptoPP::SecByteBlock pubB(dhB.PublicKeyLength());
-    CryptoPP::SecByteBlock secretKeyB(dhB.AgreedValueLength());
-
-    dhB.GenerateKeyPair(rngB, privB, pubB);
-
-    if (dhB.Agree(secretKeyB, privB, publicNumb))
-    {
-
-        SearchPeerByName(Username)->SetSessionKey(SecBBToString(secretKeyB));
-    }
-    return pubB;
-}
-void ClientWindow::GettingAgreement(const QString& Username, CryptoPP::SecByteBlock publicNumb)
-{
-    if (dh.Agree(MySecretKey, PrivNumb, publicNumb))
-    {
-        SearchPeerByName(Username)->SetSessionKey(SecBBToString(MySecretKey));
-    }
-}
-
-QString ClientWindow::Encrypt(QString &Message, QString Key)
-{
-    const ByteBlock key = hex_to_bytes(Key.toStdString());
-    std::string HexString (string_to_hex(Message.toStdString()));
-    if(HexString.length()%32 != 0) //==16 bytes
-        {
-            BlockAddition(HexString);
-        }
-    ByteBlock ByteMessage = hex_to_bytes(HexString);
-    Kuznyechik Encryptor(key);
-    std::vector<ByteBlock> Vect16BytesBlocks = split_blocks(ByteMessage, 16);
-    HexString.clear();
-    for(size_t i = 0; i < Vect16BytesBlocks.size(); ++i)
-        {
-            Encryptor.encrypt(Vect16BytesBlocks[i], Vect16BytesBlocks[i]);
-            HexString += hex_representation(Vect16BytesBlocks[i]);
-        }
-    Message = QString::fromStdString(HexString);
-    return Message;
-}
-QString ClientWindow::Decrypt(QString &Message, QString Key)
-{
-    const ByteBlock BBKEY = hex_to_bytes(Key.toStdString());
-    std::string BufString = (Message.toStdString());
-    ByteBlock ByteMessage = hex_to_bytes(BufString);
-    Kuznyechik decryptor(BBKEY);
-    std::vector<ByteBlock> Vect16BytesMessages = split_blocks(ByteMessage, 16); //16-bytes blocks
-    BufString.clear(); //using for write encrypted data in hex
-    for(size_t i = 0; i < Vect16BytesMessages.size(); ++i)
-    {
-        decryptor.decrypt(Vect16BytesMessages[i], Vect16BytesMessages[i]);
-        BufString += hex_representation(Vect16BytesMessages[i]);
-    }
-    Message = QString::fromStdString(hex_to_string(BufString));
-    return Message;
-}
 void ClientWindow::on_checkBox_toggled(bool checked)
 {
     Private = checked;
 }
-
 void ClientWindow::on_pushButton_clicked()
 {
-
     QString selectedText_ = ui->MsgBrowser->textCursor().selectedText();
     issuecreator* ic = new issuecreator(selectedText_, this);
     ic->show();
 }
-
 void ClientWindow::on_SearchButton_clicked()
 {
     on_SearchLine_returnPressed();
 }
-
 void ClientWindow::closeEvent(QCloseEvent *e)
 {
-    QString Bye("!OFF!"+ NickName);
-    QDataStream ServStream(ServerSocket.get());
-    ServStream << Bye;
-    QEventLoop loop;
-    QTimer::singleShot(200, &loop, SLOT(quit())); loop.exec(); //wait for request sended
+    if(ConnectedToServer)
+    {
+        QString Bye("!OFF!"+ NickName);
+        QDataStream ServStream(ServerSocket.get());
+        ServStream << Bye;
+        QEventLoop loop;
+        QTimer::singleShot(200, &loop, SLOT(quit())); loop.exec(); //wait for request sended
+    }
     e->accept();
 }
 void ClientWindow::on_LoginButton_clicked()

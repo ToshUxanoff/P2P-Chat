@@ -51,17 +51,17 @@ public:
     QFrame *frame_2;
     QPushButton *pushButton;
     QPushButton *LoginButton;
-    QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
+    QMenuBar *menuBar;
 
     void setupUi(QMainWindow *ClientWindow)
     {
         if (ClientWindow->objectName().isEmpty())
             ClientWindow->setObjectName(QStringLiteral("ClientWindow"));
-        ClientWindow->resize(640, 480);
-        ClientWindow->setMinimumSize(QSize(640, 480));
-        ClientWindow->setMaximumSize(QSize(640, 480));
+        ClientWindow->resize(650, 470);
+        ClientWindow->setMinimumSize(QSize(650, 470));
+        ClientWindow->setMaximumSize(QSize(650, 480));
         ClientWindow->setAutoFillBackground(false);
         ClientWindow->setStyleSheet(QStringLiteral(""));
         ClientWindow->setToolButtonStyle(Qt::ToolButtonIconOnly);
@@ -84,17 +84,17 @@ public:
         MsgInput->setStyleSheet(QStringLiteral("border: 1px solid black;"));
         label_3 = new QLabel(centralWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(10, 90, 91, 16));
+        label_3->setGeometry(QRect(20, 90, 91, 16));
         FriendList = new QListWidget(centralWidget);
         FriendList->setObjectName(QStringLiteral("FriendList"));
-        FriendList->setGeometry(QRect(10, 110, 260, 251));
+        FriendList->setGeometry(QRect(10, 110, 261, 251));
         FriendList->setStyleSheet(QStringLiteral("border: 1px solid black;"));
         checkBox = new QCheckBox(centralWidget);
         checkBox->setObjectName(QStringLiteral("checkBox"));
         checkBox->setGeometry(QRect(10, 50, 121, 20));
         UpdateListButton = new QPushButton(centralWidget);
         UpdateListButton->setObjectName(QStringLiteral("UpdateListButton"));
-        UpdateListButton->setGeometry(QRect(199, 90, 71, 21));
+        UpdateListButton->setGeometry(QRect(200, 90, 71, 21));
         UpdateListButton->setMouseTracking(false);
         UpdateListButton->setStyleSheet(QStringLiteral("background-color:orange ;border: 1px solid black;"));
         UpdateListButton->setCheckable(false);
@@ -107,7 +107,7 @@ public:
         DestName->setGeometry(QRect(390, 10, 131, 16));
         frame = new QFrame(centralWidget);
         frame->setObjectName(QStringLiteral("frame"));
-        frame->setGeometry(QRect(10, 360, 260, 61));
+        frame->setGeometry(QRect(10, 360, 261, 61));
         frame->setStyleSheet(QStringLiteral(" border: 1px solid black ;"));
         frame->setFrameShape(QFrame::StyledPanel);
         frame->setFrameShadow(QFrame::Raised);
@@ -141,16 +141,16 @@ public:
         LoginButton->setGeometry(QRect(200, 30, 71, 21));
         LoginButton->setStyleSheet(QStringLiteral("background-color: orange ;border: 1px solid black;"));
         ClientWindow->setCentralWidget(centralWidget);
-        menuBar = new QMenuBar(ClientWindow);
-        menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 640, 22));
-        ClientWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(ClientWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
-        ClientWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
+        ClientWindow->addToolBar(Qt::LeftToolBarArea, mainToolBar);
         statusBar = new QStatusBar(ClientWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         ClientWindow->setStatusBar(statusBar);
+        menuBar = new QMenuBar(ClientWindow);
+        menuBar->setObjectName(QStringLiteral("menuBar"));
+        menuBar->setGeometry(QRect(0, 0, 650, 22));
+        ClientWindow->setMenuBar(menuBar);
 
         retranslateUi(ClientWindow);
 

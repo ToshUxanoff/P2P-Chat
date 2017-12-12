@@ -80,11 +80,19 @@ public slots:
     \brief Слот для открытия Issue Creator по нажатию соответствующей кнопки
     */
     void on_pushButton_clicked();
-
-private slots:
+    /*!
+    \brief Слот для отправки запроса о поиске пира на сервер
+    */
     void on_SearchButton_clicked();
+    /*!
+    \brief Слот, аналогичный on_NameInput_returnPressed()
+    */
     void on_LoginButton_clicked();
+    /*!
+    \brief Слот, перехватывающий закрытие окна приложения и отправляющий запрос на сервер о выходе из сети перед закрытием
+    */
     void closeEvent(QCloseEvent* e);
+
 private:
     //<=methods=>
     /*!
