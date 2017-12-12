@@ -130,8 +130,7 @@ void issuecreator::on_Send_clicked()
         QEventLoop loop;
         connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
         loop.exec();
-        QString Debug = reply->readAll();
-
+        delete reply;
         issuecreator::close();
 
 

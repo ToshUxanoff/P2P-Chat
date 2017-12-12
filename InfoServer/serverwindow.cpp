@@ -173,7 +173,6 @@ void ServerWindow::ListeningClient()
     }
     else if (Resolver(Data) == 1)
     {
-        //here search request to db (search)
         Data = Data.mid(3);
         ui->Logs->append("Search request :" + Data);
         Response = SearchUser(Data);
