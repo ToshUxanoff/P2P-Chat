@@ -1,8 +1,7 @@
 language: cpp
 compiler: gcc
 
-build_script:
+script:
 - cd Client
 - qmake
 - make
-
