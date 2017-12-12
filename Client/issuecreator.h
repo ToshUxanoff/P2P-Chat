@@ -66,7 +66,6 @@ private slots:
 /*!
  \brief Слот, отвечающий за отправку запроса на Github с целью создания Issue
 */
-    void replyFinished(QNetworkReply *reply);
     void on_Send_clicked();
 private:
 
