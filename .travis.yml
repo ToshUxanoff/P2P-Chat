@@ -4,4 +4,4 @@ compiler: gcc
 script:
 - cd Client
 - qmake
-- make
+- make .
