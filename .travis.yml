@@ -5,3 +5,6 @@ script:
 - cd Client
 - qmake
 - make .
+- cd ../InfoServer
+- qmake
+- make .
