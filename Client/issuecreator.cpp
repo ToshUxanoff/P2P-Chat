@@ -37,16 +37,12 @@ issuecreator::~issuecreator()
 bool issuecreator::IsInternetConnected()
 {
     QNetworkConfigurationManager checker;
-    if(checker.isOnline())
+    if(!checker.isOnline())
     {
-        return true;
-    }
-    else
-    {
-        ui->statusLabel->setText("Can't connect to the internet!");
         return false;
-    }
-
+        ui->statusLabel->setText("Can't connect to the internet!");
+    }   
+    return true;
 }
 QString issuecreator::ParseToken(QString Data)
 {
@@ -57,7 +53,6 @@ QString issuecreator::ParseToken(QString Data)
 }
 QString issuecreator::GetGithubToken(const QString &Login, const QString &Pass)
 {
-
     QJsonObject recordObject;
     QJsonArray ScopesArray;
     ScopesArray.push_back("repo");
@@ -76,11 +71,12 @@ QString issuecreator::GetGithubToken(const QString &Login, const QString &Pass)
     connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
     loop.exec();
     QString Answer = reply->readAll();
+    delete reply;
     return ParseToken(Answer);
 }
 void issuecreator::WriteTokenToFile(const std::string& token)
 {
-    QFile configFile("config09.txt");
+    QFile configFile("config.ccf");
 
     if(configFile.open(QIODevice::WriteOnly) && isTokenWrited == false)
     {
@@ -91,7 +87,7 @@ void issuecreator::WriteTokenToFile(const std::string& token)
 }
 QString issuecreator::ReadTokenFromFile()
 {
-    QFile configFile("config09.txt");
+    QFile configFile("config.ccf");
     QString Token;
     if(configFile.open(QIODevice::ReadOnly))
     {
@@ -104,6 +100,22 @@ QString issuecreator::ReadTokenFromFile()
     }
     return Token;
 }
+QNetworkRequest issuecreator::DoIssueRequest()
+{
+    QString UrlString("https://api.github.com/repos/"+ui->UsernameEdit->text() + '/'+ ui->RepoNameEdit->text() + "/issues");
+    QNetworkRequest request=QNetworkRequest(QUrl(UrlString));
+    request.setRawHeader("Authorization", "token " + Token.toUtf8());
+    request.setRawHeader("Content-Type" , "application/x-www-form-urlencoded");
+    return request;
+}
+QString issuecreator::DoIssueJSON()
+{
+    QJsonObject recordObject;
+    recordObject.insert("title", QJsonValue::fromVariant(ui->TitleEdit->text()));
+    recordObject.insert("body", QJsonValue::fromVariant(ui->DescriptionEdit->toPlainText()));
+    QJsonDocument doc(recordObject);
+    return doc.toJson();
+}
 void issuecreator::on_Send_clicked()
 {
     if(Token.isEmpty())
@@ -113,19 +125,9 @@ void issuecreator::on_Send_clicked()
     }
     if(IsInternetConnected())
     {
-
-        QJsonObject recordObject;
-        recordObject.insert("title", QJsonValue::fromVariant(ui->TitleEdit->text()));
-        recordObject.insert("body", QJsonValue::fromVariant(ui->DescriptionEdit->toPlainText()));
-        QJsonDocument doc(recordObject);
-        QNetworkReply* reply;
-        QString UrlString("https://api.github.com/repos/"+ui->UsernameEdit->text() + '/'+ ui->RepoNameEdit->text() + "/issues");
-        QNetworkRequest request=QNetworkRequest(QUrl(UrlString));
-        request.setRawHeader("Authorization", "token " + Token.toUtf8());
-        request.setRawHeader("Content-Type" , "application/x-www-form-urlencoded");
-        QString JSON = doc.toJson();
         QNetworkAccessManager manager;
-        reply = manager.post(request, JSON.toUtf8());
+        QNetworkReply* reply;
+        reply = manager.post(DoIssueRequest(), DoIssueJSON().toUtf8());
         QEventLoop loop;
         connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
         loop.exec();

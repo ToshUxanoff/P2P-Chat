@@ -59,7 +59,8 @@ public:
      \param[in] Pass Пароль от аккаунта Github.
     */
     QString GetGithubToken(const QString& Login, const QString& Pass);
-
+    QNetworkRequest DoIssueRequest();
+    QString DoIssueJSON();
       ~issuecreator();
 
 private slots:

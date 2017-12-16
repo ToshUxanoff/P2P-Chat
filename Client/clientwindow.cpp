@@ -330,12 +330,15 @@ void ClientWindow::onRead()
     QDataStream LStream(ListenSocket);
     QString Response;
     LStream >> Response;
-    if(Resolver(Response) == 0) //data from server
+    switch(Resolver(Response))
     {
-        Response = Response.mid(3);
-        ParseAllUsersData(Response);
-    }
-    else if(Resolver(Response) == 1) //new connect
+        case(0)://data from server
+        {
+            Response = Response.mid(3);
+            ParseAllUsersData(Response);
+            break;
+        }
+        case(1): //new connect
     {
         if(Response.split(':')[2] != NickName)
         {
@@ -377,9 +380,10 @@ void ClientWindow::onRead()
             }
             CryptoPP::SecByteBlock PublicKey = IncomingSessionKeyGen(PeerName, prime, generator, pubNumb);
             SendGeneratedPublicKey(PeerName, PublicKey);
+            break;
         }
     }
-    else if(Resolver(Response) == 2) //message
+        case(2): //message
     {
         Response = Response.mid(3);
         QString Name = QString(hex_to_string(Response.split(':')[0].toStdString()).c_str());
@@ -396,8 +400,9 @@ void ClientWindow::onRead()
             ui->FriendList->item(Index)->setTextColor(MsgColor);
         }
         SearchPeerByName(Name)->MessagesHistory.push_back(Name + ": " + Response);
+        break;
     }
-    else if(Resolver(Response) == 3)  //answer key exchange
+        case(3):  //answer key exchange
     {
         Response = Response.mid(3);
         QString Name = Response.split(':')[0];
@@ -408,14 +413,27 @@ void ClientWindow::onRead()
             SecBB[i] = buffStr[i];
         }
         GettingAgreement(Name, SecBB);
+        break;
     }
-    else if(Resolver(Response) == 4)    //connect request
-    {
-        Response = Response.mid(4);
-        ui->FriendList->addItem(Response.split(':')[2]);
-        ConnectToPeer(Response.split(':')[0], Response.split(':')[1].toInt(), Response.split(':')[2]);
-    }
-    else if (Resolver(Response) == 5)   //server connect
+        case(4):    //connect request
+        {
+            Response = Response.mid(4);
+            QString IP = Response.split(':')[0];
+            int Port = Response.split(':')[1].toInt();
+            QString Name = Response.split(':')[2];
+
+            if(SearchPeerByName(Response.split(':')[2]) == nullptr)
+            {
+                ui->FriendList->addItem(Name);
+            }
+            else
+            {
+               Peers.erase(SearchPeerByName(Name));
+            }
+            ConnectToPeer(IP, Port, Name);
+            break;
+        }
+        case(5):   //server connect
     {
         //hiding controls
         ui->NameInput->hide();
@@ -426,15 +444,19 @@ void ClientWindow::onRead()
         ui->MsgBrowser->append ("\n\n ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n \t  Welcome to CoChat!\n\n\n\n \t<==Select a chat to start messaging!\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
         on_UpdateListButton_clicked();
         ConnectedToServer = true;
+        break;
     }
-    else if(Resolver(Response) == 9) //server messages
+        case(9): //server messages
     {
         Response = Response.mid(7);
         ui->DebugLabel->setText("Server : " + Response);
+        break;
     }
-    else if(Resolver(Response) == -1) //errors
+        case(-1): //errors
     {
         ui->DebugLabel->setText("Error! " + Response);
+        break;
+    }
     }
 }
 void ClientWindow::on_FriendList_itemDoubleClicked(QListWidgetItem *item)
