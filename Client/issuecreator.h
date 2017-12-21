@@ -59,7 +59,15 @@ public:
      \param[in] Pass Пароль от аккаунта Github.
     */
     QString GetGithubToken(const QString& Login, const QString& Pass);
+    /*!
+     \brief Задает параметры http-запроса для создания Github Issue.
+     \return Объект QNetworkRequest.
+    */
     QNetworkRequest DoIssueRequest();
+    /*!
+     \brief Создает JSON с парамятрами для создания Github Issue.
+     \return Строка - JSON.
+    */
     QString DoIssueJSON();
       ~issuecreator();
 

@@ -123,15 +123,13 @@ void issuecreator::on_Send_clicked()
         Token = GetGithubToken(ui->UsernameEdit->text(), ui->PassEdit->text());
         WriteTokenToFile(Token.toStdString());
     }
-    if(IsInternetConnected())
-    {
-        QNetworkAccessManager manager;
-        QNetworkReply* reply;
-        reply = manager.post(DoIssueRequest(), DoIssueJSON().toUtf8());
-        QEventLoop loop;
-        connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
-        loop.exec();
-        delete reply;
-        issuecreator::close();
-    }
+    QNetworkAccessManager manager;
+    QNetworkReply* reply;
+    reply = manager.post(DoIssueRequest(), DoIssueJSON().toUtf8());
+    QEventLoop loop;
+    connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+    loop.exec();
+    delete reply;
+    issuecreator::destroy();
+    issuecreator::close();
 }

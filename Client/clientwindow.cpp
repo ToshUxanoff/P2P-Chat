@@ -48,6 +48,13 @@ void BlockAddition(std::string &Message)
        Message += '00';
    }
 }
+QNetworkProxy GetSystemProxy()
+{
+    QNetworkProxyQuery npq(QUrl("http://www.google.com"));
+    QList<QNetworkProxy> listOfProxies = QNetworkProxyFactory::systemProxyForQuery(npq);
+    QNetworkProxy Proxy(QNetworkProxy::HttpProxy, listOfProxies[0].hostName(), listOfProxies[0].port());
+    return Proxy;
+}
 //<=methods=>
 ClientWindow::ClientWindow(int Port, QString address, QWidget *parent)
     :QMainWindow(parent)
@@ -119,7 +126,7 @@ int ClientWindow::Resolver(const QString& Data)
     {
         return 4;
     }
-    else if (Data == "!CNCTD!")
+    else if (Data == "!CNCTD!") //succesful connect to server
     {
         return 5;
     }
@@ -304,7 +311,11 @@ void ClientWindow::on_NameInput_returnPressed()
     {
         //connecting to server
         ServerSocket.get()->connectToHost(ServerIP, ServerPort);
-        if (ServerSocket->waitForConnected(100))
+        if(!GetSystemProxy().hostName().isEmpty())
+        {
+            ServerSocket.get()->setProxy(GetSystemProxy());
+        }
+        if (ServerSocket->waitForConnected(10000))
         {
            QString Status("!PUB!");
            if(Private == true)

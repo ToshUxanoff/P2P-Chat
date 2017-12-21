@@ -9,6 +9,8 @@
 #include <QCloseEvent>
 #include <QTimer>
 #include <QEventLoop>
+#include <QNetworkProxyQuery>
+#include <QNetworkProxyFactory>
 #include "Kuznyechik.hpp"
 #include <iomanip>
 #include <sstream>
@@ -199,6 +201,12 @@ private:
      \return Возвращает указатель на объект пира
     */
     Peer* SearchPeerByName(const QString &Name);
+    /*!
+     \brief Функция возврата индекса пира в структуре по имени.
+
+     \param[in] Name Имя искомого пира
+     \return Возвращает индекс пира
+    */
     int IndexPeerByName(const QString &Name);
     //<=fields=>
         //crypto

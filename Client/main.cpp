@@ -18,9 +18,9 @@ using namespace CryptoPP;
 
 int main(int argc, char* argv[])
 {
-    QString Address = ReadServerParams();
-    int ServerPort = Address.split(':')[1].toInt();
-    QString ServerIP ( Address.split(':')[0]);
+    //QString Address = ReadServerParams();
+    int ServerPort = 9090; //= Address.split(':')[1].toInt();
+    QString ServerIP ("91.79.23.232");
     QApplication a(argc, argv);
     ClientWindow w(ServerPort, ServerIP);
     w.show();
