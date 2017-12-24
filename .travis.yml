@@ -1,7 +1,5 @@
 language: cpp
 compiler: gcc
-os:
-- osx
 
 script:
 - cd Client
